@@ -20,6 +20,9 @@ namespace WA_StoreControl.Services
         {
             var query = from d in db.Categorias select d;
 
+            if (!string.IsNullOrEmpty(viewModel.Descripcion))
+                query = query.Where(x => x.Descripcion.Contains(viewModel.Descripcion));
+
             query = PaginateData(query.OrderBy(x => x.Id), viewModel);
 
             return query.AsNoTracking();

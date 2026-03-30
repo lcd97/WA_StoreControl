@@ -571,7 +571,6 @@ ko.bindingHandlers.jqValidateParseForm = {
     init: function (element, valueAccessor) {
         AppGlobal.ParseDynamicContent(element);
     }
-
 };
 
 

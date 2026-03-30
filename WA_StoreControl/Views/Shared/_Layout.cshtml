@@ -220,5 +220,7 @@
     @Scripts.Render("~/bundles/Externos")
     @Scripts.Render("~/bundles/Componentes")
     @RenderSection("scripts", required: false)
+
+    <input type="hidden" id="root-url-input" value="@Url.Content("~")" />
 </body>
 </html>

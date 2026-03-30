@@ -44,13 +44,14 @@ namespace WA_StoreControl
             // ===================== JS =====================
 
             // PROYECTO
-            bundles.Add(new ScriptBundle("~/bundles/Proyecto").Include(
+            bundles.Add(new Bundle("~/bundles/Proyecto").Include(
                 "~/Scripts/jquery-3.7.1.js",
-                "~/Scripts/knockout/knockout-3.5.1.js",
-                "~/Scripts/knockout-mapping/knockout.mapping.js",
-                //"~/Scripts/ComponentesKO/Shared/Extensions/knockout.custom.js",
                 "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js",
+                "~/Scripts/Externos/jquery/jquery.validate.custom.js",
+                "~/Scripts/knockout/knockout-3.5.1.js",
+                "~/Scripts/knockout-mapping/knockout.mapping.js",
+                "~/Scripts/ComponentesKO/Shared/Extensions/knockout.custom.js",
                 "~/Scripts/Plantilla/bootstrap.bundle.min.js",
                 "~/Scripts/Plantilla/custom.js"
             ));
@@ -86,10 +87,10 @@ namespace WA_StoreControl
             ));
 
             // CATEGORIA
-            bundles.Add(new ScriptBundle("~/bundles/Categoria").Include(
-                "~/Scripts/Catalogo/Categorias/CategoriaVM.js",
-                "~/Scripts/Catalogo/Categorias/SearchCategoriaVM.js",
-                "~/Scripts/Catalogo/Categorias/IndexCategoriaVM.js"
+            bundles.Add(new Bundle("~/bundles/Categoria").Include(
+                "~/Scripts/Catalogos/Categorias/CategoriaVM.js",
+                "~/Scripts/Catalogos/Categorias/SearchCategoriaVM.js",
+                "~/Scripts/Catalogos/Categorias/IndexCategoriaVM.js"
             ));
         }
     }

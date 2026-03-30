@@ -34,6 +34,7 @@ namespace WA_StoreControl.Controllers
             return View(acViewModel);
         }
 
+        [HttpGet]
         public JsonResult GetFilteredOrPaged(SearchCategoriasVM viewModel)
         {
             var records = acService.GetFilteredOrPaged(viewModel);

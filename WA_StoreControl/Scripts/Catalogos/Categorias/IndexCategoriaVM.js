@@ -8,10 +8,18 @@
         self.Categoria = ko.observable(new CategoriaVM());//OBTIENE UNA CATEGORIA DE LA TABLA
         self.PeticionEnCurso = ko.observable(null);//CANCELAR MULTIPLES PETICIONES
 
-        self.LoadingRegistros = ko.observable(true)
+        self.LoadingRegistros = ko.observable(false);
 
         self.Action = ko.observable("");//CAPTURAR LA ACTION
         self.bodyTemplate = ko.observable({}); //Data De Modal
+        self.SearchViewModel = ko.observable(new SearchCategoriaVM({ ...data.SearchCategoriasVM, RecordsPerPage: 10 } || {})); // Propiedades de configuracion para la paginacion
+
+        self.PaginationViewModel = ko.observable(new PaginationViewModel({ //Instancia del ViewModel de paginacion...
+            TotalPages: self.SearchViewModel().TotalPages, //EL total de paginas se envia como referencia para controlarlo desde este nivel...
+            CurrentPage: self.SearchViewModel().Page, //Igualmente la pagina actual se pasa como referencia...
+            TotalDisplayedPages: 5, //Numero de links de paginas mostrados a la vez...
+            OnCurrentPageChange: GetFilteredOrPaged //Callback al paginar...
+        }));
 
         //Viemodels De Modal
         self.ModalViewModel = ko.observable(new ModalViewModel({ //ViewModel para el Componente modal...
@@ -22,8 +30,14 @@
         //#endregion
 
         //#region FUNCIONES PUBLICAS
-        self.GetCategorias = () => {
-            GetCategorias();
+        self.GetFilteredOrPaged = () => {
+            GetFilteredOrPaged();
+        };
+
+        self.CleanFilter = () => {
+            self.SearchViewModel().Descripcion("");
+
+            self.GetFilteredOrPaged();
         };
 
         self.ShowModal = function (data, action) {
@@ -39,20 +53,19 @@
             self.ModalViewModel().ModalHeaderViewModel().ModalTitle(self.bodyTemplate().ModalHeaderTitle()).BackgroundColorClass(self.bodyTemplate().ModalBackgroundColorClass());
             self.ModalViewModel().ModalBodyViewModel().ModalBodyTemplate({
                 name: "CRUD-Categoria-Template",
-                data: self.bodyTemplate()
-                //afterRender: AppGlobal.ParseDynamicContent
+                data: self.bodyTemplate(),
+                afterRender: AppGlobal.ParseDynamicContent
             });
             self.ModalViewModel().BootstrapInstance().show();
         };
 
         self.SaveData = function (formCRUD, data) { // Funcion Para El CRUD
-            data = ko.toJS(data) || {};
+            let Categoria = ko.toJS(data) || {};
             let url = "Categorias/" + self.bodyTemplate().Action(); //url de accion a realizar
-            //let token = $('input[name="__RequestVerificationToken"]').val(); //Token 
+            let token = $('input[name="__RequestVerificationToken"]').val(); //Token 
             $.validator.unobtrusive.parse($(formCRUD)); // Reaplica las validaciones
 
             if ($(formCRUD).valid()) { //Validar datos del formulario
-
                 var beforeSendCallBack = (jqXHR) => {
                     if (self.PeticionEnCurso()) //verifica si hay otra peticion para abortar
                         self.PeticionEnCurso().abort();
@@ -63,24 +76,17 @@
                 }
 
                 var successCallBack = (response) => {
-                    if (response.IsSuccess) {
+                    if (response.Success) {
+                        self.GetFilteredOrPaged();
                         self.ModalViewModel().BootstrapInstance().hide();
-                        self.GetCategorias();
-                    }
-
-                    console.log(response);
-                    Messages.TimerMessages({
-                        icon: response.IsSuccess ? "success" : "error",
-                        text: response.Message
-                    });
+                        AppGlobal.Messages.ShowNotifyCorrect(response.Message);
+                    } else
+                        AppGlobal.Messages.ShowNotifyError(response.Message);
                 }
 
                 var errorCallBack = () => (jqXHR, statusText) => {
                     if (statusText !== "abort") {
-                        Messages.TimerMessages({
-                            icon: response.success ? "success" : "error",
-                            text: response.message
-                        });
+                        AppGlobal.Messages.ShowNotifyError();
                     }
                 };
 
@@ -92,7 +98,7 @@
 
                 Ajax.CRUD({
                     url: url,
-                    data: JSON.stringify(data),
+                    data: { Categoria },
                     method: "POST",
                     beforeSend: beforeSendCallBack,
                     complete: completeCallBack,
@@ -102,11 +108,11 @@
         //#endregion
 
         //#region FUNCIONES PRIVADAS
-        function GetCategorias() {
-            let url = "Categorias/GetCategorias/";
+        function GetFilteredOrPaged() {
+            let url = "Categorias/GetFilteredOrPaged/";
 
             var successCallBack = (response) => {
-                if (response.IsSuccess)
+                if (response.Success)
                     self.Categorias(response.Records ? response.Records.map(x => new CategoriaVM(x)) : []);
             }
 
@@ -129,11 +135,12 @@
 
             var completeCallBack = () => {
                 self.LoadingRegistros(false);
-                self.PeticionEnCurso(null)
+                self.PeticionEnCurso(null);
             }
 
-            Ajax.Get({
-                url: url,
+            Ajax.GetFilteredOrPaged({
+                url: "Categorias/GetFilteredOrPaged",
+                data: ko.toJS(self.SearchViewModel),
                 method: "GET",
                 beforeSend: beforeSendCallBack,
                 complete: completeCallBack,
@@ -148,10 +155,7 @@ $(() => {
     $("#JsonData").remove();
 
     let root = new IndexCategoriaVM(dataRoot);
-    alert("CATEGORIA JS CARGADO");
-
-    console.log("kshuadk");
 
     ko.applyBindings(root);
-    root.GetCategorias();
+    root.GetFilteredOrPaged();
 });
