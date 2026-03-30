@@ -16,7 +16,7 @@ namespace WA_StoreControl.Models
 
         //MODULO INVENTARIO
         public virtual DbSet<Categoria> Categorias { get; set; }
-        public virtual DbSet<SubCategoria> SubCategoria { get; set; }
+        public virtual DbSet<SubCategoria> SubCategorias { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
         public virtual DbSet<Entrada> Entradas { get; set; }
         public virtual DbSet<DetalleEntrada> DetalleEntrada { get; set; }

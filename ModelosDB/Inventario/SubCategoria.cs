@@ -28,6 +28,7 @@ namespace ModelosDB.Inventario
         [Display(Name = "Estado")]
         public bool EsActivo { get; set; }
 
+        [Display(Name = "Categoría")]
         public int CategoriaId { get; set; }
 
         //CLASES PADRES

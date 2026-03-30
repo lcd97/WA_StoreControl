@@ -25,7 +25,7 @@ namespace WA_StoreControl.AutoMapper
                 .ForMember(d => d.Descripcion, d => d.MapFrom(s => s.NombreComercial == null ? string.Concat(s.Nombres, " ", s.Apellidos) : s.NombreComercial));
 
             CreateMap<SubCategoria, SubCategoriaDTO>()
-                .ForMember(d => d.DescripCategoria, d => d.MapFrom(s => s.Categoria.Descripcion));
+                .ForMember(d => d.DescripcionCategoria, d => d.MapFrom(s => s.Categoria.Descripcion));
 
             CreateMap<Producto, ProductoDTO>()
                 .ForMember(d => d.DescripCategoria, d => d.MapFrom(s => string.Concat(s.SubCategoria.Categoria.Descripcion, " | ", s.SubCategoria.Descripcion)))

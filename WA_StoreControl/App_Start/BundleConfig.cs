@@ -86,12 +86,20 @@ namespace WA_StoreControl
                 "~/Scripts/ComponentesKO/Shared/KnockoutComponents/TerceroFinder.js"
             ));
 
-            // CATEGORIA
+            #region CATALOGOS
             bundles.Add(new Bundle("~/bundles/Categoria").Include(
                 "~/Scripts/Catalogos/Categorias/CategoriaVM.js",
                 "~/Scripts/Catalogos/Categorias/SearchCategoriaVM.js",
                 "~/Scripts/Catalogos/Categorias/IndexCategoriaVM.js"
             ));
+
+            bundles.Add(new Bundle("~/bundles/SubCategoria").Include(
+                "~/Scripts/Catalogos/SubCategorias/SubCategoriaVM.js",
+                "~/Scripts/Catalogos/Categorias/CategoriaVM.js",
+                "~/Scripts/Catalogos/SubCategorias/SearchSubCategoriaVM.js",
+                "~/Scripts/Catalogos/SubCategorias/IndexSubCategoriaVM.js"
+            ));
+            #endregion
         }
     }
 }

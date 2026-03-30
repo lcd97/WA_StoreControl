@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using WA_StoreControl.Utilidades;
 
-namespace WA_StoreControl.ViewModel
+namespace WA_StoreControl.ViewModels
 {
     public class IndexCategoriasVM
     {
@@ -16,7 +16,7 @@ namespace WA_StoreControl.ViewModel
             this.SearchCategoriasVM = new SearchCategoriasVM();
         }
 
-        public Categoria Categoria { get; set; } //MODELO
+        public Categoria Categoria { get; set; }
         public SearchCategoriasVM SearchCategoriasVM { get; set; }
     }
 

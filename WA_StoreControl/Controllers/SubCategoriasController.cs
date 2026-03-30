@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using ModelosDB.Inventario;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WA_StoreControl.DTO;
 using WA_StoreControl.Models;
@@ -14,46 +12,50 @@ using WA_StoreControl.ViewModels;
 
 namespace WA_StoreControl.Controllers
 {
-    public class CategoriasController : Controller
+    public class SubCategoriasController : Controller
     {
         private DBStore db;
-        private CategoriasService acService;
+        private SubCategoriasService subCategoriaService;
+        private CategoriasService categoriaService;
 
-        public CategoriasController()
+        public SubCategoriasController()
         {
-            db = new DBStore();
-            acService = new CategoriasService(db);
+            this.db = new DBStore();
+            this.subCategoriaService = new SubCategoriasService(db);
+            this.categoriaService = new CategoriasService(db);
         }
 
-        // GET: Categorias
+        // GET: SubCategorias
         public ActionResult Index()
         {
-            var acViewModel = new IndexCategoriasVM();
-            ViewBag.JsonData = JsonConvert.SerializeObject(acViewModel);
+            var subCategoriaVM = new IndexSubCategoriasVM();
+            subCategoriaVM.Categorias = Mapper.Map<ICollection<CategoriaDTO>>(categoriaService.GetAll().ToList());
 
-            return View(acViewModel);
+            ViewBag.JsonData = JsonConvert.SerializeObject(subCategoriaVM);
+
+            return View(subCategoriaVM);
         }
 
         [HttpGet]
-        public JsonResult GetFilteredOrPaged(SearchCategoriasVM viewModel)
+        public JsonResult GetFilteredOrPaged(SearchSubCategoriasVM viewModel)
         {
-            var records = acService.GetFilteredOrPaged(viewModel);
-            var recordsMapped = Mapper.Map<ICollection<CategoriaDTO>>(records.ToList());
+            var records = subCategoriaService.GetFilteredOrPaged(viewModel);
+            var recordsMapped = Mapper.Map<ICollection<SubCategoriaDTO>>(records.ToList());
 
-            var RequestPagedResult = new RequestPagedResult<CategoriaDTO>(viewModel.TotalRecords, viewModel.TotalPages, viewModel.Page, recordsMapped);
+            var RequestPagedResult = new RequestPagedResult<SubCategoriaDTO>(viewModel.TotalRecords, viewModel.TotalPages, viewModel.Page, recordsMapped);
 
             return Json(RequestPagedResult, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create(Categoria Categoria)
+        public ActionResult Create(SubCategoria SubCategoria)
         {
-            var errorMessage = !ModelState.IsValid ? string.Join(" | ", ModelValidate.GetModelErrorMessages(ModelState)) : acService.ValidateBeforeCreate(Categoria);
+            var errorMessage = !ModelState.IsValid ? string.Join(" | ", ModelValidate.GetModelErrorMessages(ModelState)) : subCategoriaService.ValidateBeforeCreate(SubCategoria);
 
             if (string.IsNullOrEmpty(errorMessage))
             {
-                if (acService.Create(Categoria))
+                if (subCategoriaService.Create(SubCategoria))
                     return Json(new RequestResult(SystemMessage.CreateSuccessful), JsonRequestBehavior.AllowGet);
                 else
                     return Json(new RequestResult(SystemMessage.ServerError, false), JsonRequestBehavior.AllowGet);
@@ -64,14 +66,14 @@ namespace WA_StoreControl.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public JsonResult Edit(Categoria Categoria)
+        public JsonResult Edit(SubCategoria SubCategoria)
         {
-            var errorMessage = !ModelState.IsValid ? string.Join(" | ", ModelValidate.GetModelErrorMessages(ModelState)) : acService.ValidateBeforeUpdate(Categoria);
+            var errorMessage = !ModelState.IsValid ? string.Join(" | ", ModelValidate.GetModelErrorMessages(ModelState)) : subCategoriaService.ValidateBeforeUpdate(SubCategoria);
             if (string.IsNullOrEmpty(errorMessage))
             {
                 if (string.IsNullOrEmpty(errorMessage))
                 {
-                    acService.Update(Categoria);
+                    subCategoriaService.Update(SubCategoria);
                     return Json(new RequestResult(SystemMessage.UpdateSuccessful), JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -83,13 +85,13 @@ namespace WA_StoreControl.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public JsonResult Delete([Bind(Include = nameof(Categoria.Id))] Categoria Categoria)
+        public JsonResult Delete([Bind(Include = nameof(SubCategoria.Id))] SubCategoria SubCategoria)
         {
-            var errorMessage = acService.ValidateBeforeDelete(Categoria.Id);
+            var errorMessage = subCategoriaService.ValidateBeforeDelete(SubCategoria.Id);
 
             if (string.IsNullOrEmpty(errorMessage))
             {
-                if (acService.Delete(Categoria.Id))
+                if (subCategoriaService.Delete(SubCategoria.Id))
                     return Json(new RequestResult(SystemMessage.DeleteSuccessfull), JsonRequestBehavior.AllowGet);
                 else
                     return Json(new RequestResult(SystemMessage.ServerError, false), JsonRequestBehavior.AllowGet);

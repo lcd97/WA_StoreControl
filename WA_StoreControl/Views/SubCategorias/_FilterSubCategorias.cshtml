@@ -1,0 +1,44 @@
+﻿@model WA_StoreControl.ViewModels.SearchSubCategoriasVM
+
+<template id="Filter-SubCategoria-Template">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                <span class="fas fa-filter"></span>
+                <small>Filtrar SubCategorías</small>
+            </h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            @using (Html.BeginForm("", "", FormMethod.Post, new { autocomplete = "off", data_bind = "submit: $root.GetFilteredOrPaged, with: SearchViewModel", @id = "form" }))
+            {
+                <div class="row mb-1">
+                    <div class="col-sm-12 col-md-10 col-lg-10">
+                        @Html.LabelFor(model => model.CategoriaId, new { @class = "fw-bold" })
+                        @Html.DropDownListFor(model => model.CategoriaId,
+                                 Enumerable.Empty<SelectListItem>(),
+                                 htmlAttributes: new
+                                 {
+                                     @class = "form-select form-select-sm",
+                                     @id = "CategoriaFilterId",
+                                     data_bind = @"options: $root.Categorias,
+                                                    optionsText: 'Descripcion',
+                                                    optionsValue: 'Id',
+                                                    optionsCaption: '-- Seleccione una opción --',
+                                                    jqSelect2:{
+                                                       language: 'es',
+                                                       width: '100%'
+                                                    },
+                                                    value: CategoriaId"
+                                 })
+                    </div>
+
+                    <div class="col d-grid gap-2" data-bind="disableInputs: $root.LoadingRegistros()">
+                        <button type="submit" class="btn btn-primary btn-primary btn-sm"> <i class="fa fa-search"></i> Buscar</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-bind="click: $root.CleanFilter"><i class="fas fa-broom"></i> Limpiar</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</template>
