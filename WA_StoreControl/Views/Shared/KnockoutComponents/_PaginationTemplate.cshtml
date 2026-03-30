@@ -1,0 +1,42 @@
+﻿<template id="pagination-template">
+    <nav class="" aria-label="" data-bind="if: TotalPages() > 1">
+        <ul class="pagination justify-content-center mb-0">
+            <!--Primear Pagina-->
+            <li class="page-item" title="Primera Página" data-bind="click: GoToFirstPage, css: { 'disabled': CurrentPage() === 1 }">
+                <a href="#" class="page-link">
+                    <span class="fas fa-angle-double-left"></span>
+                </a>
+            </li>
+
+            <!--Pagina Anterior-->
+            <li class="page-item" title="Página Anterior" data-bind="click: GoToPreviousPage, css: { 'disabled': CurrentPage() === 1 }">
+                <a href="#" class="page-link">
+                    <span class="fas fa-angle-left"></span>
+                </a>
+            </li>
+
+            <!--ko foreach: PageLinks -->
+            <li class="page-item" aria-current="page"
+                data-bind="css: { 'active': $data == $parent.CurrentPage() },
+                         click: function(data){ $parent.CurrentPage(data); }">
+                <a href="#" class="page-link">
+                    <span data-bind="text: $data"></span>
+                </a>
+            </li>
+            <!--/ko-->
+            <!--Pagina Siguiente-->
+            <li class="page-item" title="Página Siguiente" data-bind="click: GoToNextPage, css: { 'disabled': CurrentPage() === TotalPages() }">
+                <a class="page-link" href="#">
+                    <span class="fas fa-angle-right"></span>
+                </a>
+            </li>
+
+            <!--Ultima Pagina-->
+            <li class="page-item" title="Última Página" data-bind="click: GoToLastPage, css: { 'disabled': CurrentPage() === TotalPages() }">
+                <a class="page-link" href="#">
+                    <span class="fas fa-angle-double-right"></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</template>

@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.22.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props" Condition="Exists('..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.22.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D26D744B-6CC2-407C-9A51-3927CE667F3E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WA_StoreControl</RootNamespace>
+    <AssemblyName>WA_StoreControl</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44382</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerLaunchUrl>http://{ServiceIPAddress}</DockerLaunchUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Security.Cryptography.Algorithms" />
+    <Reference Include="System.Security.Cryptography.Encoding" />
+    <Reference Include="System.Security.Cryptography.Primitives" />
+    <Reference Include="System.Security.Cryptography.X509Certificates" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.3.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.4\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.4\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.4\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.2.2\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.2.2\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.2.2\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.2.2\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.2.2\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="AutoMapper\MappingProfile.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DTO\CategoriaDTO.cs" />
+    <Compile Include="DTO\EntidadDTO.cs" />
+    <Compile Include="DTO\ProductoDTO.cs" />
+    <Compile Include="DTO\SubCategoriaDTO.cs" />
+    <Compile Include="DTO\TipoIdentificacionDTO.cs" />
+    <Compile Include="DTO\CompaniaTelefonicaDTO.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DBStore.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CategoriasService.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="Utilidades\CRUDBaseService.cs" />
+    <Compile Include="Utilidades\ModelValidate.cs" />
+    <Compile Include="Utilidades\RequestResult.cs" />
+    <Compile Include="Utilidades\SearchViewModel.cs" />
+    <Compile Include="Utilidades\SystemMessage.cs" />
+    <Compile Include="Viewmodels\IndexCategoriasVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-grid.rtl.css" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Content\bootstrap-utilities.css" />
+    <Content Include="Content\bootstrap-utilities.min.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.rtl.css" />
+    <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Externos\bootstrap-sweetalert\sweetalert2.css" />
+    <Content Include="Content\Externos\bootstrap-sweetalert\sweetalert2.min.css" />
+    <Content Include="Content\Externos\fontawesome\css\all.css" />
+    <Content Include="Content\Externos\fontawesome\css\all.min.css" />
+    <Content Include="Content\Externos\fontawesome\css\brands.css" />
+    <Content Include="Content\Externos\fontawesome\css\brands.min.css" />
+    <Content Include="Content\Externos\fontawesome\css\fontawesome.css" />
+    <Content Include="Content\Externos\fontawesome\css\fontawesome.min.css" />
+    <Content Include="Content\Externos\fontawesome\css\regular.css" />
+    <Content Include="Content\Externos\fontawesome\css\regular.min.css" />
+    <Content Include="Content\Externos\fontawesome\css\solid.css" />
+    <Content Include="Content\Externos\fontawesome\css\solid.min.css" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\Externos\select2\select2-bootstrap4.css" />
+    <Content Include="Content\Externos\select2\select2.css" />
+    <Content Include="Content\Externos\select2\select2.min.css" />
+    <Content Include="Content\Externos\smartwizard\smart_wizard_all.min.css" />
+    <Content Include="Content\Externos\toastr\toastr.min.css" />
+    <Content Include="Content\Plantilla\font-awesome.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\Externos\fontawesome\webfonts\fa-solid-900.woff2" />
+    <None Include="Dockerfile" />
+    <None Include=".dockerignore">
+      <DependentUpon>Dockerfile</DependentUpon>
+    </None>
+    <Content Include="Content\Plantilla\bootstrap.css" />
+    <Content Include="Content\Plantilla\custom.css" />
+    <Content Include="Images\favicon.ico" />
+    <Content Include="Images\img.jpg" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.esm.js" />
+    <Content Include="Scripts\bootstrap.esm.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Scripts\Catalogos\Categorias\SearchCategoriaVM.js" />
+    <Content Include="Scripts\Catalogos\Categorias\CategoriaVM.js" />
+    <Content Include="Scripts\Catalogos\Categorias\IndexCategoriaVM.js" />
+    <Content Include="Scripts\Externos\bootstrap-sweetalert\sweetalert2.js" />
+    <Content Include="Scripts\Externos\bootstrap-sweetalert\sweetalert2.min.js" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap-notify.js" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap-notify.min.js" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap.esm.js" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap.esm.min.js" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap.js" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\Externos\datepicker\package.json" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap.esm.js.map" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap.js.map" />
+    <Content Include="Scripts\Externos\bootstrap\js\bootstrap.min.js.map" />
+    <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\AjaxCallService.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\AppGlobal.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\BotonImpresionReportes.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\KnockoutComponents\AccesoDenegado_comp.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\KnockoutComponents\BuscadorAutocompletado_comp.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\KnockoutComponents\EtiquetaRol_comp.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\KnockoutComponents\FechaTiempoRegresiva_comp.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\KnockoutComponents\FiltroDocumentos_comp.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\KnockoutComponents\GridVM.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\KnockoutComponents\IndicadorEstadoSolicitud_comp.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\KnockoutComponents\LimiteCaracteres_comp.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\KnockoutComponents\SuperGrid_comp.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\CRUDViewModel.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\EnlacesKoCreados.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\KnockoutComponents\LoadingSpinner.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\KnockoutComponents\Modal.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\KnockoutComponents\TerceroFinder.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\Extensions\knockout.custom.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\Knockout\PaginatedDataTableViewModel.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\Knockout\PaginationViewModel.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\Knockout\SearchViewModel.js" />
+    <Content Include="Scripts\ComponentesKO\Shared\ValidacionesClienteCreadas.js" />
+    <Content Include="Scripts\Externos\datepicker-español\datepicker-es.js" />
+    <Content Include="Scripts\Externos\datepicker\AUTHORS.txt" />
+    <Content Include="Scripts\Externos\datepicker\external\jquery\jquery.js" />
+    <Content Include="Scripts\Externos\datepicker\images\ui-icons_444444_256x240.png" />
+    <Content Include="Scripts\Externos\datepicker\images\ui-icons_555555_256x240.png" />
+    <Content Include="Scripts\Externos\datepicker\images\ui-icons_777620_256x240.png" />
+    <Content Include="Scripts\Externos\datepicker\images\ui-icons_777777_256x240.png" />
+    <Content Include="Scripts\Externos\datepicker\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Scripts\Externos\datepicker\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Scripts\Externos\datepicker\index.html" />
+    <Content Include="Scripts\Externos\datepicker\jquery-ui.css" />
+    <Content Include="Scripts\Externos\datepicker\jquery-ui.js" />
+    <Content Include="Scripts\Externos\datepicker\jquery-ui.min.css" />
+    <Content Include="Scripts\Externos\datepicker\jquery-ui.min.js" />
+    <Content Include="Scripts\Externos\datepicker\jquery-ui.structure.css" />
+    <Content Include="Scripts\Externos\datepicker\jquery-ui.structure.min.css" />
+    <Content Include="Scripts\Externos\datepicker\jquery-ui.theme.css" />
+    <Content Include="Scripts\Externos\datepicker\jquery-ui.theme.min.css" />
+    <Content Include="Scripts\Externos\datepicker\LICENSE.txt" />
+    <Content Include="Scripts\Externos\jquery-mask\jquery.mask.js" />
+    <Content Include="Scripts\Externos\jquery-mask\jquery.mask.min.js" />
+    <Content Include="Scripts\Externos\jquery\jquery-3.6.0.js" />
+    <Content Include="Scripts\Externos\jquery\jquery-3.6.0.min.js" />
+    <Content Include="Scripts\Externos\jquery\jquery.blockUI.js" />
+    <Content Include="Scripts\Externos\jquery\jquery.validate.custom.js" />
+    <Content Include="Scripts\Externos\select2\i18n\af.js" />
+    <Content Include="Scripts\Externos\select2\i18n\ar.js" />
+    <Content Include="Scripts\Externos\select2\i18n\az.js" />
+    <Content Include="Scripts\Externos\select2\i18n\bg.js" />
+    <Content Include="Scripts\Externos\select2\i18n\bn.js" />
+    <Content Include="Scripts\Externos\select2\i18n\bs.js" />
+    <Content Include="Scripts\Externos\select2\i18n\ca.js" />
+    <Content Include="Scripts\Externos\select2\i18n\cs.js" />
+    <Content Include="Scripts\Externos\select2\i18n\da.js" />
+    <Content Include="Scripts\Externos\select2\i18n\de.js" />
+    <Content Include="Scripts\Externos\select2\i18n\dsb.js" />
+    <Content Include="Scripts\Externos\select2\i18n\el.js" />
+    <Content Include="Scripts\Externos\select2\i18n\en.js" />
+    <Content Include="Scripts\Externos\select2\i18n\eo.js" />
+    <Content Include="Scripts\Externos\select2\i18n\es.js" />
+    <Content Include="Scripts\Externos\select2\i18n\et.js" />
+    <Content Include="Scripts\Externos\select2\i18n\eu.js" />
+    <Content Include="Scripts\Externos\select2\i18n\fa.js" />
+    <Content Include="Scripts\Externos\select2\i18n\fi.js" />
+    <Content Include="Scripts\Externos\select2\i18n\fr.js" />
+    <Content Include="Scripts\Externos\select2\i18n\gl.js" />
+    <Content Include="Scripts\Externos\select2\i18n\he.js" />
+    <Content Include="Scripts\Externos\select2\i18n\hi.js" />
+    <Content Include="Scripts\Externos\select2\i18n\hr.js" />
+    <Content Include="Scripts\Externos\select2\i18n\hsb.js" />
+    <Content Include="Scripts\Externos\select2\i18n\hu.js" />
+    <Content Include="Scripts\Externos\select2\i18n\hy.js" />
+    <Content Include="Scripts\Externos\select2\i18n\id.js" />
+    <Content Include="Scripts\Externos\select2\i18n\is.js" />
+    <Content Include="Scripts\Externos\select2\i18n\it.js" />
+    <Content Include="Scripts\Externos\select2\i18n\ja.js" />
+    <Content Include="Scripts\Externos\select2\i18n\ka.js" />
+    <Content Include="Scripts\Externos\select2\i18n\km.js" />
+    <Content Include="Scripts\Externos\select2\i18n\ko.js" />
+    <Content Include="Scripts\Externos\select2\i18n\lt.js" />
+    <Content Include="Scripts\Externos\select2\i18n\lv.js" />
+    <Content Include="Scripts\Externos\select2\i18n\mk.js" />
+    <Content Include="Scripts\Externos\select2\i18n\ms.js" />
+    <Content Include="Scripts\Externos\select2\i18n\nb.js" />
+    <Content Include="Scripts\Externos\select2\i18n\ne.js" />
+    <Content Include="Scripts\Externos\select2\i18n\nl.js" />
+    <Content Include="Scripts\Externos\select2\i18n\pa.js" />
+    <Content Include="Scripts\Externos\select2\i18n\pl.js" />
+    <Content Include="Scripts\Externos\select2\i18n\ps.js" />
+    <Content Include="Scripts\Externos\select2\i18n\pt-BR.js" />
+    <Content Include="Scripts\Externos\select2\i18n\pt.js" />
+    <Content Include="Scripts\Externos\select2\i18n\ro.js" />
+    <Content Include="Scripts\Externos\select2\i18n\ru.js" />
+    <Content Include="Scripts\Externos\select2\i18n\sk.js" />
+    <Content Include="Scripts\Externos\select2\i18n\sl.js" />
+    <Content Include="Scripts\Externos\select2\i18n\sq.js" />
+    <Content Include="Scripts\Externos\select2\i18n\sr-Cyrl.js" />
+    <Content Include="Scripts\Externos\select2\i18n\sr.js" />
+    <Content Include="Scripts\Externos\select2\i18n\sv.js" />
+    <Content Include="Scripts\Externos\select2\i18n\te.js" />
+    <Content Include="Scripts\Externos\select2\i18n\th.js" />
+    <Content Include="Scripts\Externos\select2\i18n\tk.js" />
+    <Content Include="Scripts\Externos\select2\i18n\tr.js" />
+    <Content Include="Scripts\Externos\select2\i18n\uk.js" />
+    <Content Include="Scripts\Externos\select2\i18n\vi.js" />
+    <Content Include="Scripts\Externos\select2\i18n\zh-CN.js" />
+    <Content Include="Scripts\Externos\select2\i18n\zh-TW.js" />
+    <Content Include="Scripts\Externos\select2\select2.full.js" />
+    <Content Include="Scripts\Externos\select2\select2.full.min.js" />
+    <Content Include="Scripts\Externos\smartwizard\jquery.smartWizard.min.js" />
+    <Content Include="Scripts\Externos\toastr\toastr.js" />
+    <Content Include="Scripts\Externos\toastr\toastr.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.js" />
+    <Content Include="Scripts\jquery-3.7.1.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-mapping\knockout.mapping.js" />
+    <Content Include="Scripts\knockout-mapping\knockout.mapping.min.js" />
+    <Content Include="Scripts\knockout\knockout-3.5.1.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Plantilla\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\Plantilla\custom.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_NoData.cshtml" />
+    <Content Include="Views\Shared\_Spinner.cshtml" />
+    <Content Include="Views\Categorias\Index.cshtml" />
+    <Content Include="Views\Categorias\_CRUDac.cshtml" />
+    <Content Include="Views\Categorias\_TableAC.cshtml" />
+    <Content Include="Views\Shared\KnockoutComponents\_LoadingSpinner.cshtml" />
+    <Content Include="Views\Shared\KnockoutComponents\_Modal.cshtml" />
+    <Content Include="Views\Shared\KnockoutComponents\_PaginationTemplate.cshtml" />
+    <Content Include="Views\Shared\KnockoutComponents\_TablaListadoTerceros.cshtml" />
+    <Content Include="Views\Shared\KnockoutComponents\_TerceroFinder.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelosDB\ModelosDB.csproj">
+      <Project>{763dd1f3-b6e7-4cd6-8078-b683acd2d1d6}</Project>
+      <Name>ModelosDB</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>60060</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44382/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.22.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.22.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.22.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.22.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.22.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.22.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets')" />
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

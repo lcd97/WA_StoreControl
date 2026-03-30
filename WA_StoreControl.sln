@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WA_StoreControl", "WA_StoreControl\WA_StoreControl.csproj", "{D26D744B-6CC2-407C-9A51-3927CE667F3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelosDB", "ModelosDB\ModelosDB.csproj", "{763DD1F3-B6E7-4CD6-8078-B683ACD2D1D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D26D744B-6CC2-407C-9A51-3927CE667F3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D26D744B-6CC2-407C-9A51-3927CE667F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D26D744B-6CC2-407C-9A51-3927CE667F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D26D744B-6CC2-407C-9A51-3927CE667F3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{763DD1F3-B6E7-4CD6-8078-B683ACD2D1D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{763DD1F3-B6E7-4CD6-8078-B683ACD2D1D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{763DD1F3-B6E7-4CD6-8078-B683ACD2D1D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{763DD1F3-B6E7-4CD6-8078-B683ACD2D1D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7DD9D0C9-239D-49CD-A729-DDE917742FEC}
+	EndGlobalSection
+EndGlobal

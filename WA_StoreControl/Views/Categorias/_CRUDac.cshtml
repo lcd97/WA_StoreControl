@@ -1,0 +1,60 @@
+﻿@model ModelosDB.Inventario.Categoria
+
+<template id="CRUD-Categoria-Template">
+    @using (Html.BeginForm("", "", FormMethod.Post, new { autocomplete = "off", data_bind = "submit: () => { $root.SaveData(formCRUD, $data.DataViewModel) }", @id = "formCRUD" }))
+    {
+        @Html.AntiForgeryToken();
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <fieldset data-bind="disableInputs: !DisableUserInput()">
+            <div class="form-horizontal form-label-left">
+                <!--ko with: DataViewModel-->
+                @Html.HiddenFor(model => model.Id, new { data_bind = "value: Id" })
+
+                <div class="container">
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.Codigo)
+                            @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Codigo", maxlength = "3" } })
+                            @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6 d-flex justify-content-center align-items-center">
+                            <div class="form-check form-switch">
+                                @Html.CheckBoxFor(model => model.EsActivo, new { @class = "form-check-input", data_bind = "checked: EsActivo" })
+                                @Html.LabelFor(model => model.EsActivo)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.EsActivo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Descripcion", maxlength = "100" } })
+                                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ko-->
+
+            </div>
+        </fieldset>
+        <div class="modal-footer">
+            <!--ko if: (Action() !== 'Details')-->
+            <button type="submit" class="btn btn-success" data-bind="css: SaveButtonBackgroundClass, enable: !(ProcessingAction())">
+                <!--ko ifnot: ProcessingAction-->
+                <span class="fas fa-save" data-bind="css: SaveButtonIconClass"></span>
+                <span data-bind="text: SaveButtonText">Guardar</span>
+                <!--/ko-->
+                <!--ko if: ProcessingAction-->
+                <span class="fa fa-spinner fa-spin"></span> Procesando...
+                <!--/ko-->
+            </button>
+            <!--/ko-->
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+        </div>
+    }
+</template>

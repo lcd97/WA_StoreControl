@@ -1,0 +1,65 @@
+﻿@model WA_StoreControl.ViewModel.IndexCategoriasVM
+
+@{
+    ViewBag.Title = "Categorías";
+    @Html.Hidden("JsonData")
+}
+
+<div class="row">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>@ViewBag.Title</h3>
+        </div>
+
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5  form-group pull-right top_search">
+                <div class="input-group justify-content-md-end">
+                    <span class="input-group-btn">
+                        <btn role="button" class="btn btn-primary" title="Crear Nuevo"
+                             data-bind="click: () => ShowModal(null, 'Create')">
+                            Crear Nuevo
+                        </btn>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><small>Lista de @ViewBag.Title</small></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div data-bind="template: { name: 'table-Categoria-template' }"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Componente: Modal-->
+<modal params="ViewModel: ModalViewModel"></modal>
+
+<!--Template: Loading Spinner-->
+@{ Html.RenderPartial("~/Views/Shared/KnockoutComponents/_LoadingSpinner.cshtml");}
+
+<!--Template: Modal-->
+@{ Html.RenderPartial("~/Views/Shared/KnockoutComponents/_Modal.cshtml");}
+
+<!--Template: Paginación-->
+@{ Html.RenderPartial("~/Views/Shared/KnockoutComponents/_PaginationTemplate.cshtml");}
+
+<!--Template: Lista Tabla Categorias-->
+@{ Html.RenderPartial("~/Views/Categorias/_TableAC.cshtml", Model.Categoria); }
+
+<!--Template: Modelo Categorias-->
+@{ Html.RenderPartial("~/Views/Categorias/_CRUDac.cshtml", Model.Categoria); }
+
+@section scripts {
+    @Scripts.Render("~/bundles/Categoria")
+}

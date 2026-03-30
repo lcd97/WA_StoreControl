@@ -1,0 +1,157 @@
+﻿
+<template id="tercero-finder-template">
+    <div class="modal fade" tabindex="-1" aria-hidden="true" data-bind="bsModalTerceroFinder: ModalComponentOptions, attr:{ id: TerceroFinderId}">
+        <div class="modal-dialog" data-bind="class: ModalSizeClass">
+            <div class="modal-content shadow">
+                <div class="modal-header" data-bind="class: ModalHeaderClass">
+                    <i class="fa fa-search" data-bind="class: ModalHeaderIconClass"></i>
+                    <h5 class="modal-title mx-2" data-bind="text: ModalTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--#region Tabs de búsqueda tabs-->
+                    <ul class="nav nav-tabs" role="tablist" data-bind="attr:{ id:SearchTabsId }">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" type="button" role="tab" data-bs-toggle="tab" aria-selected="true" data-bind="attr:{ id:SearchTabQuickId, 'data-bs-target':'#' + SearchQuickTabContentId(),  'aria-controls': '#' + SearchQuickTabContentId() }, click:()=>{ SetSearchType(0); }, class:SearchViewModel().SearchType() == 0 ? 'active' : '' ">
+                                <span class="fas fa-bolt"></span>
+                                Búsqueda Rápida
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-bs-toggle="tab" type="button" role="tab" aria-selected="false" data-bind="attr:{ id:SearchTabAdvancedId, 'data-bs-target':'#' + SearchAdvancedTabContentId(),  'aria-controls': '#' + SearchAdvancedTabContentId() }, click:()=>{ SetSearchType(1); }, class:SearchViewModel().SearchType() == 1 ? 'active' : ''">
+                                <span class="fas fa-sliders-h"></span>
+                                Búsqueda Avanzada
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!--#endregion-->
+                    <!--#region Tabs de búsqueda content-tabs-->
+                    <div class="tab-content" data-bind="with:SearchViewModel, attr:{ id:SearchTabsContentId }">
+                        <!-- #region Búsqueda Rápida -->
+                        <div class="tab-pane fade" role="tabpanel" aria-labelledby="home-tab" tabindex="0" data-bind="attr:{ id:$parent.SearchQuickTabContentId }, class:SearchType() == 0 ? 'active show' : ''">
+                            <div class="card bg-white border-top-0">
+                                <div class="card-body py-2 px-3">
+                                    @using (Html.BeginForm(actionName: "", controllerName: "", method: FormMethod.Get,
+                                                           htmlAttributes:
+                                                           new
+                                                           {
+                                                               id = "frmFinderQuickSearch",
+                                                               autocomplete = "off",
+                                                               data_bind = "disableInputs:$parent.LoadingRegistros(), submit: $parent.GetFilteredOrPaged"
+                                                           }))
+                                    {
+                                        <!-- Campo de búsqueda SearchString -->
+                                        <div class="form-row" data-bind="disableInputs:$parent.LoadingRegistros()">
+                                            <div class="col">
+                                                <div class="input-group">
+                                                    @Html.TextBox("SearchString", null,
+                                                                     htmlAttributes:
+                                                                     new
+                                                                     {
+                                                                         id = "AutorFinderQuickSearchString",
+                                                                         data_bind = "textInput: SearchString",
+                                                                         @class = "form-control",
+                                                                         placeholder = "Ingrese una identificación de cédula o INSS"
+                                                                     })
+                                                    <button class="btn btn-success" type="submit">
+                                                        <span class="fas fa-search"></span>
+                                                        Buscar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <!--#endregion-->
+                        <!--#region Búsqueda Avanzada-->
+                        <div class="tab-pane fade" role="tabpanel" aria-labelledby="profile-tab" tabindex="0" data-bind="attr:{ id:$parent.SearchAdvancedTabContentId  }, class:SearchType() == 1 ? 'active show' : ''">
+                            <div class="card bg-white border-top-0">
+                                <div class="card-body py-2 px-3">
+                                    @using (Html.BeginForm(actionName: "", controllerName: "", method: FormMethod.Get,
+                                                            htmlAttributes:
+                                                            new
+                                                            {
+                                                                id = "frmFinderAdvancedSearch",
+                                                                autocomplete = "off",
+                                                                data_bind = "disableInputs:$parent.LoadingRegistros(), submit: $parent.GetFilteredOrPaged"
+                                                            }))
+                                    {
+                                        <!--Nombres, Apellidos-->
+                                        <div class="row">
+
+                                            <div class="col">
+                                                @Html.Label("Nombres", new { @class = "" })
+                                                @Html.TextBox("Nombres", null,
+                                                                         htmlAttributes:
+                                                                         new
+                                                                         {
+                                                                             data_bind = "textInput: Nombres",
+                                                                             @class = "form-control-sm form-control"
+                                                                         })
+                                            </div>
+
+                                            <div class="col-sm-12 col-lg-6 col-md-6">
+                                                @Html.Label("Apellidos", new { @class = "" })
+                                                @Html.TextBox("Apellidos",null,
+                                                                           htmlAttributes: new
+                                                                           {
+                                                                               @class = "form-control-sm form-control text-justify",
+                                                                               rows = 1,
+                                                                               data_bind = "value: Apellidos"
+                                                                           })
+                                            </div>
+
+                                        </div>
+                                        <!--Tipo de Identidad, Codigo de Identidad-->
+                                        <div class="row mt-2">
+                                            <div class="col-sm-12 col-lg-12 col-md-12">
+                                                @Html.Label("Identidad", new { @class = "" })
+                                                @Html.TextBox("Identidad",null,
+                                                                         htmlAttributes:
+                                                                         new
+                                                                         {
+                                                                             data_bind = "textInput: Identidad",
+                                                                             @class = "form-control-sm form-control",
+                                                                             @placeholder = "INSS, Cédula, RUC"
+                                                                         })
+                                            </div>
+                                        </div>
+
+                                        <!---Nombre Razon Social, Acciones-->
+                                        <div class="row align-items-end mt-3">
+                                            <!---Boton buscar y limpiar-->
+                                            <div class="col d-grid">
+                                                <button class="d-block btn btn-secondary btn-sm font-weight-bold" type="button" data-bind="click: $parent.ClearSearchFilters">
+                                                    Limpiar
+                                                    <span class="fas fa-eraser"></span>
+                                                </button>
+                                            </div>
+                                            <div class="col d-grid">
+                                                <button class="d-block btn btn-success btn-sm font-weight-bold" type="submit">
+                                                    Buscar
+                                                    <span class="fas fa-search"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <!--#endregion-->
+                    </div>
+                    <!--#endregion-->
+                    <!--#region Listado de los registros encontrados-->
+                    <div class="mt-2" data-bind="template:{ name:'template-listado-terceros' }"></div>
+                    <!--#endregion-->
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- #region Plantilla: Listado de registros -->
+@{ Html.RenderPartial("~/Views/Shared/KnockoutComponents/_TablaListadoTerceros.cshtml", new ModelosSIGI.Finanzas.Tercero()); }
+<!-- #endregion -->

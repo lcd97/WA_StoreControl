@@ -1,0 +1,27 @@
+﻿<template id="modal-header-template">
+    <div class="modal-header" data-bind="class: ModalHeaderClass">
+        <h5 class="modal-title" data-bind="text: ModalTitle">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+</template>
+
+
+<template id="modal-body-template">
+    <div class="modal-body">
+        <!--ko if: ModalBodyTemplate-->
+        <div data-bind="template: ModalBodyTemplate"></div>
+        <!--/ko-->
+    </div>
+</template>
+
+
+<template id="modal-template">
+    <div class="modal fade" aria-hidden="true" data-bind="bsModal: ComponentOptions, attr: { Id: ModalId, name: ModalId }">
+        <div class="modal-dialog" data-bind="class: ModalSizeClass">
+            <div class="modal-content">
+                <modal-header params="ViewModel: ModalHeaderViewModel"></modal-header>
+                <modal-body params="ViewModel: ModalBodyViewModel"></modal-body>
+            </div>
+        </div>
+    </div>
+</template>
