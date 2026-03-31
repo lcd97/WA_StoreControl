@@ -15,6 +15,7 @@ namespace WA_StoreControl.DTO
 
         public int SubCategoriaId { get; set; }
 
-        public string DescripCategoria { get; set; }
+        public string DescripcionCategoria { get; set; }
+        public string DescripcionSubCategoria { get; set; }
     }
 }

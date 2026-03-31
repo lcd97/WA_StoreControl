@@ -111,6 +111,14 @@ namespace WA_StoreControl
                 "~/Scripts/Catalogos/CompaniasTelefonica/SearchCompaniaTelefonicaVM.js",
                 "~/Scripts/Catalogos/CompaniasTelefonica/IndexCompaniaTelefonicaVM.js"
             ));
+
+            bundles.Add(new Bundle("~/bundles/Producto").Include(
+                "~/Scripts/Catalogos/Productos/ProductoVM.js",
+                "~/Scripts/Catalogos/SubCategorias/SubCategoriaVM.js",
+                "~/Scripts/Catalogos/Categorias/CategoriaVM.js",
+                "~/Scripts/Catalogos/Productos/SearchProductoVM.js",
+                "~/Scripts/Catalogos/Productos/IndexProductoVM.js"
+            ));
             #endregion
         }
     }

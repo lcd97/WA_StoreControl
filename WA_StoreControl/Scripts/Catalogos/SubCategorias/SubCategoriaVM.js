@@ -10,5 +10,9 @@
 
         self.CategoriaId = ko.observable(data.CategoriaId || 0);
         self.DescripcionCategoria = ko.observable(data.DescripcionCategoria || "");
+
+        self.CategoriaYSubCategoria = ko.computed(() => {
+            return `${self.DescripcionCategoria()} - ${self.Descripcion()}`;
+        });
     }
 }

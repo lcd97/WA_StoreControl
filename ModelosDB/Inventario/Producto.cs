@@ -33,6 +33,7 @@ namespace ModelosDB.Inventario
         public bool EsActivo { get; set; }
 
         //LLAVES FORANEAS
+        [Display(Name = "SubCategoría")]
         public int SubCategoriaId { get; set; }
 
         //CLASES PADRES

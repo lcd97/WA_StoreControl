@@ -28,8 +28,8 @@ namespace WA_StoreControl.AutoMapper
                 .ForMember(d => d.DescripcionCategoria, d => d.MapFrom(s => s.Categoria.Descripcion));
 
             CreateMap<Producto, ProductoDTO>()
-                .ForMember(d => d.DescripCategoria, d => d.MapFrom(s => string.Concat(s.SubCategoria.Categoria.Descripcion, " | ", s.SubCategoria.Descripcion)))
-                .ForMember(d => d.Marca, d => d.MapFrom(s => string.IsNullOrEmpty(s.Marca) ? "Sin Marca" : s.Marca));
+                .ForMember(d => d.DescripcionCategoria, d => d.MapFrom(s => s.SubCategoria.Categoria.Descripcion))
+                .ForMember(d => d.DescripcionSubCategoria, d => d.MapFrom(s => s.SubCategoria.Descripcion));
         }
     }
 }
