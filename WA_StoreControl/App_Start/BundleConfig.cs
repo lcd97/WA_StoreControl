@@ -99,6 +99,12 @@ namespace WA_StoreControl
                 "~/Scripts/Catalogos/SubCategorias/SearchSubCategoriaVM.js",
                 "~/Scripts/Catalogos/SubCategorias/IndexSubCategoriaVM.js"
             ));
+
+            bundles.Add(new Bundle("~/bundles/TipoIdentificacion").Include(
+                "~/Scripts/Catalogos/TiposIdentificacion/TipoIdentificacionVM.js",
+                "~/Scripts/Catalogos/TiposIdentificacion/SearchTipoIdentificacionVM.js",
+                "~/Scripts/Catalogos/TiposIdentificacion/IndexTipoIdentificacionVM.js"
+            ));
             #endregion
         }
     }

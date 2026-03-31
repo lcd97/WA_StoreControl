@@ -183,6 +183,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SubCategoriasController.cs" />
+    <Compile Include="Controllers\TiposIdentificacionController.cs" />
     <Compile Include="DTO\CategoriaDTO.cs" />
     <Compile Include="DTO\EntidadDTO.cs" />
     <Compile Include="DTO\ProductoDTO.cs" />
@@ -199,14 +200,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CategoriasService.cs" />
     <Compile Include="Services\SubCategoriasService.cs" />
+    <Compile Include="Services\TiposIdentificacionService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utilidades\CRUDBaseService.cs" />
     <Compile Include="Utilidades\ModelValidate.cs" />
     <Compile Include="Utilidades\RequestResult.cs" />
     <Compile Include="Utilidades\SearchViewModel.cs" />
     <Compile Include="Utilidades\SystemMessage.cs" />
-    <Compile Include="Viewmodels\IndexCategoriasVM.cs" />
-    <Compile Include="Viewmodels\IndexSubCategoriasVM.cs" />
+    <Compile Include="ViewModels\IndexCategoriasVM.cs" />
+    <Compile Include="ViewModels\IndexSubCategoriasVM.cs" />
+    <Compile Include="ViewModels\IndexTiposIdentificacionVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -309,6 +312,9 @@
     <Content Include="Scripts\Catalogos\SubCategorias\SubCategoriaVM.js" />
     <Content Include="Scripts\Catalogos\SubCategorias\IndexSubCategoriaVM.js" />
     <Content Include="Scripts\Catalogos\SubCategorias\SearchSubCategoriaVM.js" />
+    <Content Include="Scripts\Catalogos\TiposIdentificacion\TipoIdentificacionVM.js" />
+    <Content Include="Scripts\Catalogos\TiposIdentificacion\IndexTipoIdentificacionVM.js" />
+    <Content Include="Scripts\Catalogos\TiposIdentificacion\SearchTipoIdentificacionVM.js" />
     <Content Include="Scripts\Externos\bootstrap-sweetalert\sweetalert2.js" />
     <Content Include="Scripts\Externos\bootstrap-sweetalert\sweetalert2.min.js" />
     <Content Include="Scripts\Externos\bootstrap\js\bootstrap-notify.js" />
@@ -448,7 +454,6 @@
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.custom.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -508,6 +513,10 @@
     <Content Include="Views\SubCategorias\_FilterSubCategorias.cshtml" />
     <Content Include="Views\SubCategorias\_TableSubCategorias.cshtml" />
     <Content Include="Views\SubCategorias\_CRUDSubCategorias.cshtml" />
+    <Content Include="Views\TiposIdentificacion\Index.cshtml" />
+    <Content Include="Views\TiposIdentificacion\_FilterTiposIdentificacion.cshtml" />
+    <Content Include="Views\TiposIdentificacion\_TableTiposIdentificacion.cshtml" />
+    <Content Include="Views\TiposIdentificacion\_CRUDTiposIdentificacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

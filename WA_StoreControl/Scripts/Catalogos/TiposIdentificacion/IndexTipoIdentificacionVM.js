@@ -1,18 +1,18 @@
-﻿class IndexCategoriaVM {
+﻿class IndexTipoIdentificacionVM {
     constructor(data) {
         data = data || {};
         const self = this;
 
         //#region PROPIEDADES PRINCIPALES
-        self.Categorias = ko.observableArray(data.Categorias ? data.Categorias.map(x => new CategoriaVM(x)) : []);
-        self.Categoria = ko.observable(new CategoriaVM());
+        self.TiposIdentificacion = ko.observableArray(data.TiposIdentificacion ? data.TiposIdentificacion.map(x => new TipoIdentificacionVM(x)) : []);
+        self.TipoIdentificacion = ko.observable(new TipoIdentificacionVM());
         self.PeticionEnCurso = ko.observable(null);
 
         self.LoadingRegistros = ko.observable(false);
 
         self.Action = ko.observable("");
         self.bodyTemplate = ko.observable({});
-        self.SearchViewModel = ko.observable(new SearchCategoriaVM({ ...data.SearchCategoriasVM, RecordsPerPage: 10 } || {}));
+        self.SearchViewModel = ko.observable(new SearchTipoIdentificacionVM({ ...data.SearchTiposIdentificacionVM, RecordsPerPage: 10 } || {})); // Propiedades de configuracion para la paginacion
 
         self.PaginationViewModel = ko.observable(new PaginationViewModel({
             TotalPages: self.SearchViewModel().TotalPages,
@@ -21,6 +21,7 @@
             OnCurrentPageChange: GetFilteredOrPaged
         }));
 
+        //Viemodels De Modal
         self.ModalViewModel = ko.observable(new ModalViewModel({
             ComponentOptions: { backdrop: "static" },
             ModalHeaderViewModel: new ModalHeaderViewModel(),
@@ -40,17 +41,18 @@
         };
 
         self.ShowModal = function (data, action) {
-            self.Categoria(new CategoriaVM(ko.toJS(data || {})));
+
+            self.TipoIdentificacion(new TipoIdentificacionVM(ko.toJS(data || {})));
 
             self.bodyTemplate(new CRUDViewModel({
                 Action: action,
-                DataViewModel: self.Categoria,
-                ModelName: "Categoría"
+                DataViewModel: self.TipoIdentificacion,
+                ModelName: "Tipo Identificación"
             }));
 
             self.ModalViewModel().ModalHeaderViewModel().ModalTitle(self.bodyTemplate().ModalHeaderTitle()).BackgroundColorClass(self.bodyTemplate().ModalBackgroundColorClass());
             self.ModalViewModel().ModalBodyViewModel().ModalBodyTemplate({
-                name: "CRUD-Categoria-Template",
+                name: "CRUD-TipoIdentificacion-Template",
                 data: self.bodyTemplate(),
                 afterRender: AppGlobal.ParseDynamicContent
             });
@@ -58,9 +60,9 @@
         };
 
         self.SaveData = function (formCRUD, data) {
-            let Categoria = ko.toJS(data) || {};
-            let url = "Categorias/" + self.bodyTemplate().Action();
-            let token = $('input[name="__RequestVerificationToken"]').val(); 
+            let TipoIdentificacion = ko.toJS(data) || {};
+            let url = "TiposIdentificacion/" + self.bodyTemplate().Action();
+            let token = $('input[name="__RequestVerificationToken"]').val();
             $.validator.unobtrusive.parse($(formCRUD));
 
             if ($(formCRUD).valid()) {
@@ -96,7 +98,7 @@
 
                 Ajax.CRUD({
                     url: url,
-                    data: { Categoria },
+                    data: { TipoIdentificacion },
                     method: "POST",
                     beforeSend: beforeSendCallBack,
                     complete: completeCallBack,
@@ -107,11 +109,11 @@
 
         //#region FUNCIONES PRIVADAS
         function GetFilteredOrPaged() {
-            let url = "Categorias/GetFilteredOrPaged/";
+            let url = "TiposIdentificacion/GetFilteredOrPaged/";
 
             var successCallBack = (response) => {
                 if (response.Success)
-                    self.Categorias(response.Records ? response.Records.map(x => new CategoriaVM(x)) : []);
+                    self.TiposIdentificacion(response.Records ? response.Records.map(x => new TipoIdentificacionVM(x)) : []);
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {
@@ -124,7 +126,7 @@
             }
 
             var beforeSendCallBack = () => (jqXHR) => {
-                if (self.PeticionEnCurso()) 
+                if (self.PeticionEnCurso())
                     self.PeticionEnCurso().abort();
 
                 self.PeticionEnCurso(jqXHR);
@@ -137,7 +139,7 @@
             }
 
             Ajax.GetFilteredOrPaged({
-                url: "Categorias/GetFilteredOrPaged",
+                url: "TiposIdentificacion/GetFilteredOrPaged",
                 data: ko.toJS(self.SearchViewModel),
                 method: "GET",
                 beforeSend: beforeSendCallBack,
@@ -152,7 +154,7 @@ $(() => {
     var dataRoot = JSON.parse($("#JsonData").val());
     $("#JsonData").remove();
 
-    let root = new IndexCategoriaVM(dataRoot);
+    let root = new IndexTipoIdentificacionVM(dataRoot);
 
     ko.applyBindings(root);
     root.GetFilteredOrPaged();

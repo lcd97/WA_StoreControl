@@ -33,10 +33,10 @@
             <tr>
                 <td class="text-center align-middle fw-bold" data-bind="text: ((($parent.SearchViewModel().Page() - 1) * $parent.SearchViewModel().RecordsPerPage()) + $index() + 1)"></td>
 
-                <td data-bind="text:Codigo"></td>
-                <td data-bind="text:Descripcion"></td>
-                <td data-bind="text:DescripcionCategoria"></td>
-                <td>
+                <td class="align-middle" data-bind="text:Codigo"></td>
+                <td class="align-middle" data-bind="text:Descripcion"></td>
+                <td class="align-middle" data-bind="text:DescripcionCategoria"></td>
+                <td class="align-middle">
                     <span data-bind="css: EsActivo() ? 'badge text-bg-success' : 'badge text-bg-warning',
                     text: EsActivo() ? 'Activo' : 'Inactivo'"></span>
                 </td>
