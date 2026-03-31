@@ -105,6 +105,12 @@ namespace WA_StoreControl
                 "~/Scripts/Catalogos/TiposIdentificacion/SearchTipoIdentificacionVM.js",
                 "~/Scripts/Catalogos/TiposIdentificacion/IndexTipoIdentificacionVM.js"
             ));
+
+            bundles.Add(new Bundle("~/bundles/CompaniaTelefonica").Include(
+                "~/Scripts/Catalogos/CompaniasTelefonica/CompaniaTelefonicaVM.js",
+                "~/Scripts/Catalogos/CompaniasTelefonica/SearchCompaniaTelefonicaVM.js",
+                "~/Scripts/Catalogos/CompaniasTelefonica/IndexCompaniaTelefonicaVM.js"
+            ));
             #endregion
         }
     }

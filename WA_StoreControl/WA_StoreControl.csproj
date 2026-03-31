@@ -180,6 +180,7 @@
     <Compile Include="AutoMapper\MappingProfile.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\CompaniasTelefonicaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SubCategoriasController.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CategoriasService.cs" />
+    <Compile Include="Services\CompaniasTelefonicaService.cs" />
     <Compile Include="Services\SubCategoriasService.cs" />
     <Compile Include="Services\TiposIdentificacionService.cs" />
     <Compile Include="Startup.cs" />
@@ -207,6 +209,7 @@
     <Compile Include="Utilidades\RequestResult.cs" />
     <Compile Include="Utilidades\SearchViewModel.cs" />
     <Compile Include="Utilidades\SystemMessage.cs" />
+    <Compile Include="ViewModels\IndexCompaniasTelefonicaVM.cs" />
     <Compile Include="ViewModels\IndexCategoriasVM.cs" />
     <Compile Include="ViewModels\IndexSubCategoriasVM.cs" />
     <Compile Include="ViewModels\IndexTiposIdentificacionVM.cs" />
@@ -309,6 +312,9 @@
     <Content Include="Scripts\Catalogos\Categorias\SearchCategoriaVM.js" />
     <Content Include="Scripts\Catalogos\Categorias\CategoriaVM.js" />
     <Content Include="Scripts\Catalogos\Categorias\IndexCategoriaVM.js" />
+    <Content Include="Scripts\Catalogos\CompaniasTelefonica\IndexCompaniaTelefonicaVM.js" />
+    <Content Include="Scripts\Catalogos\CompaniasTelefonica\SearchCompaniaTelefonicaVM.js" />
+    <Content Include="Scripts\Catalogos\CompaniasTelefonica\CompaniaTelefonicaVM.js" />
     <Content Include="Scripts\Catalogos\SubCategorias\SubCategoriaVM.js" />
     <Content Include="Scripts\Catalogos\SubCategorias\IndexSubCategoriaVM.js" />
     <Content Include="Scripts\Catalogos\SubCategorias\SearchSubCategoriaVM.js" />
@@ -517,6 +523,10 @@
     <Content Include="Views\TiposIdentificacion\_FilterTiposIdentificacion.cshtml" />
     <Content Include="Views\TiposIdentificacion\_TableTiposIdentificacion.cshtml" />
     <Content Include="Views\TiposIdentificacion\_CRUDTiposIdentificacion.cshtml" />
+    <Content Include="Views\CompaniasTelefonica\Index.cshtml" />
+    <Content Include="Views\CompaniasTelefonica\_FilterCompaniasTelefonica.cshtml" />
+    <Content Include="Views\CompaniasTelefonica\_TableCompaniasTelefonica.cshtml" />
+    <Content Include="Views\CompaniasTelefonica\_CRUDCompaniasTelefonica.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

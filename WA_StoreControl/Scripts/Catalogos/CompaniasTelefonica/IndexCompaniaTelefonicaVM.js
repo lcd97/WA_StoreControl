@@ -1,21 +1,18 @@
-﻿class IndexSubCategoriaVM {
+﻿class IndexCompaniaTelefonicaVM {
     constructor(data) {
         data = data || {};
         const self = this;
 
         //#region PROPIEDADES PRINCIPALES
-        self.SubCategorias = ko.observableArray(data.SubCategorias ? data.SubCategorias.map(x => new SubCategoriaVM(x)) : []);
-        self.SubCategoria = ko.observable(new SubCategoriaVM());
-
-        self.Categorias = ko.observableArray(data.Categorias ? data.Categorias.map(x => new CategoriaVM(x)) : []);
-
+        self.CompaniasTelefonica = ko.observableArray(data.CompaniasTelefonica ? data.CompaniasTelefonica.map(x => new CompaniaTelefonicaVM(x)) : []);
+        self.CompaniaTelefonica = ko.observable(new CompaniaTelefonicaVM());
         self.PeticionEnCurso = ko.observable(null);
 
         self.LoadingRegistros = ko.observable(false);
 
         self.Action = ko.observable("");
         self.bodyTemplate = ko.observable({});
-        self.SearchViewModel = ko.observable(new SearchSubCategoriaVM({ ...data.SearchSubCategoriasVM, RecordsPerPage: 10 } || {}));
+        self.SearchViewModel = ko.observable(new SearchCompaniaTelefonicaVM({ ...data.SearchCompaniasTelefonicaVM, RecordsPerPage: 10 } || {}));
 
         self.PaginationViewModel = ko.observable(new PaginationViewModel({
             TotalPages: self.SearchViewModel().TotalPages,
@@ -37,24 +34,24 @@
         };
 
         self.CleanFilter = () => {
-            self.SearchViewModel().CategoriaId(0);
+            self.SearchViewModel().Descripcion("");
 
             self.GetFilteredOrPaged();
         };
 
         self.ShowModal = function (data, action) {
 
-            self.SubCategoria(new SubCategoriaVM(ko.toJS(data || {})));
+            self.CompaniaTelefonica(new CompaniaTelefonicaVM(ko.toJS(data || {})));
 
             self.bodyTemplate(new CRUDViewModel({
                 Action: action,
-                DataViewModel: self.SubCategoria,
-                ModelName: "SubCategoría"
+                DataViewModel: self.CompaniaTelefonica,
+                ModelName: "Compañías Telefónica"
             }));
 
             self.ModalViewModel().ModalHeaderViewModel().ModalTitle(self.bodyTemplate().ModalHeaderTitle()).BackgroundColorClass(self.bodyTemplate().ModalBackgroundColorClass());
             self.ModalViewModel().ModalBodyViewModel().ModalBodyTemplate({
-                name: "CRUD-SubCategoria-Template",
+                name: "CRUD-CompaniaTelefonica-Template",
                 data: self.bodyTemplate(),
                 afterRender: AppGlobal.ParseDynamicContent
             });
@@ -62,10 +59,9 @@
         };
 
         self.SaveData = function (formCRUD, data) {
-            let SubCategoria = ko.toJS(data) || {};
-            let url = "SubCategorias/" + self.bodyTemplate().Action();
+            let CompaniaTelefonica = ko.toJS(data) || {};
+            let url = "CompaniasTelefonica/" + self.bodyTemplate().Action();
             let token = $('input[name="__RequestVerificationToken"]').val();
-
             $.validator.unobtrusive.parse($(formCRUD));
 
             if ($(formCRUD).valid()) {
@@ -101,7 +97,7 @@
 
                 Ajax.CRUD({
                     url: url,
-                    data: { SubCategoria },
+                    data: { CompaniaTelefonica },
                     method: "POST",
                     beforeSend: beforeSendCallBack,
                     complete: completeCallBack,
@@ -112,11 +108,11 @@
 
         //#region FUNCIONES PRIVADAS
         function GetFilteredOrPaged() {
-            let url = "SubCategorias/GetFilteredOrPaged/";
+            let url = "CompaniasTelefonica/GetFilteredOrPaged/";
 
             var successCallBack = (response) => {
                 if (response.Success)
-                    self.SubCategorias(response.Records ? response.Records.map(x => new SubCategoriaVM(x)) : []);
+                    self.CompaniasTelefonica(response.Records ? response.Records.map(x => new CompaniaTelefonicaVM(x)) : []);
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {
@@ -138,7 +134,7 @@
             }
 
             Ajax.GetFilteredOrPaged({
-                url: "SubCategorias/GetFilteredOrPaged",
+                url: "CompaniasTelefonica/GetFilteredOrPaged",
                 data: ko.toJS(self.SearchViewModel),
                 method: "GET",
                 beforeSend: beforeSendCallBack,
@@ -153,7 +149,7 @@ $(() => {
     var dataRoot = JSON.parse($("#JsonData").val());
     $("#JsonData").remove();
 
-    let root = new IndexSubCategoriaVM(dataRoot);
+    let root = new IndexCompaniaTelefonicaVM(dataRoot);
 
     ko.applyBindings(root);
     root.GetFilteredOrPaged();

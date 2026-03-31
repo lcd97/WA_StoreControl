@@ -12,7 +12,7 @@
 
         self.Action = ko.observable("");
         self.bodyTemplate = ko.observable({});
-        self.SearchViewModel = ko.observable(new SearchTipoIdentificacionVM({ ...data.SearchTiposIdentificacionVM, RecordsPerPage: 10 } || {})); // Propiedades de configuracion para la paginacion
+        self.SearchViewModel = ko.observable(new SearchTipoIdentificacionVM({ ...data.SearchTiposIdentificacionVM, RecordsPerPage: 10 } || {}));
 
         self.PaginationViewModel = ko.observable(new PaginationViewModel({
             TotalPages: self.SearchViewModel().TotalPages,
@@ -21,7 +21,6 @@
             OnCurrentPageChange: GetFilteredOrPaged
         }));
 
-        //Viemodels De Modal
         self.ModalViewModel = ko.observable(new ModalViewModel({
             ComponentOptions: { backdrop: "static" },
             ModalHeaderViewModel: new ModalHeaderViewModel(),
@@ -117,12 +116,8 @@
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {
-                if (statusText !== "abort") {
-                    Messages.TimerMessages({
-                        icon: "error",
-                        title: response.Message
-                    });
-                }
+                if (statusText !== "abort")
+                    AppGlobal.Messages.ShowNotifyError();
             }
 
             var beforeSendCallBack = () => (jqXHR) => {

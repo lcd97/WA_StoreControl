@@ -60,7 +60,7 @@
         self.SaveData = function (formCRUD, data) {
             let Categoria = ko.toJS(data) || {};
             let url = "Categorias/" + self.bodyTemplate().Action();
-            let token = $('input[name="__RequestVerificationToken"]').val(); 
+            let token = $('input[name="__RequestVerificationToken"]').val();
             $.validator.unobtrusive.parse($(formCRUD));
 
             if ($(formCRUD).valid()) {
@@ -115,16 +115,12 @@
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {
-                if (statusText !== "abort") {
-                    Messages.TimerMessages({
-                        icon: "error",
-                        title: response.Message
-                    });
-                }
+                if (statusText !== "abort")
+                    AppGlobal.Messages.ShowNotifyError();
             }
 
             var beforeSendCallBack = () => (jqXHR) => {
-                if (self.PeticionEnCurso()) 
+                if (self.PeticionEnCurso())
                     self.PeticionEnCurso().abort();
 
                 self.PeticionEnCurso(jqXHR);
