@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="General\DetalleTelefono.cs" />
-    <Compile Include="General\Entidad.cs" />
+    <Compile Include="General\Persona.cs" />
     <Compile Include="General\Identidad.cs" />
     <Compile Include="General\TipoIdentificacion.cs" />
     <Compile Include="General\CompaniaTelefonica.cs" />

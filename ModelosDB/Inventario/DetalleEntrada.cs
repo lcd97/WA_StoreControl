@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelosDB.Inventario
 {
-    [Table("DetallesEntrada", Schema = "INV")]
+    [Table("DetallesEntrada", Schema = "inv")]
     public partial class DetalleEntrada
     {
         [Key]
@@ -28,7 +28,7 @@ namespace ModelosDB.Inventario
         public int ProductoId { get; set; }
 
         //CLASE PADRE
-        public virtual Entidad Proveedor { get; set; }
+        public virtual Persona Proveedor { get; set; }
         public virtual Entrada Entrada { get; set; }
         public virtual Producto Producto { get; set; }
     }

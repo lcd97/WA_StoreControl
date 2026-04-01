@@ -6,10 +6,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelosDB.General
 {
-    [Table("Entidades", Schema = "GEN")]
-    public partial class Entidad
+    [Table("Personas", Schema = "gen")]
+    public partial class Persona
     {
-        public Entidad()
+        public Persona()
         {
             this.DetallesEntrada = new HashSet<DetalleEntrada>();
             this.Identidades = new HashSet<Identidad>();
@@ -41,6 +41,9 @@ namespace ModelosDB.General
 
         [Display(Name = "Estado")]
         public bool EsActivo { get; set; }
+
+        [Display(Name = "Persona Natural")]
+        public bool EsPersonaNatural { get; set; }
 
         //CLASES HIJAS
         public virtual ICollection<DetalleEntrada> DetallesEntrada { get; set; }

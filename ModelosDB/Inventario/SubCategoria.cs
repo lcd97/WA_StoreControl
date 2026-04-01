@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelosDB.Inventario
 {
-    [Table("SubCategorias", Schema = "INV")]
+    [Table("SubCategorias", Schema = "inv")]
     public partial class SubCategoria
     {
         public SubCategoria()

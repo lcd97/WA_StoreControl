@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ModelosDB.General
 {
-    [Table("TiposIdentificacion", Schema = "GEN")]
+    [Table("TiposIdentificacion", Schema = "gen")]
     public partial class TipoIdentificacion
     {
         public TipoIdentificacion()

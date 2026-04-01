@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelosDB.Inventario
 {
-    [Table("Entradas", Schema = "INV")]
+    [Table("Entradas", Schema = "inv")]
     public partial class Entrada
     {
         public Entrada()

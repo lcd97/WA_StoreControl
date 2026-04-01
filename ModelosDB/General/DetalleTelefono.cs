@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ModelosDB.General
 {
-    [Table("DetallesTelefono", Schema = "GEN")]
+    [Table("DetallesTelefono", Schema = "gen")]
     public class DetalleTelefono
     {
         [Key]
@@ -24,7 +24,7 @@ namespace ModelosDB.General
 
         public int EntidadId { get; set; }
 
-        public virtual Entidad Entidad { get; set; }
+        public virtual Persona Persona { get; set; }
         public virtual CompaniaTelefonica CompaniaTelefonica { get; set; }
     }
 }

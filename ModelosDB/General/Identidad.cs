@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ModelosDB.General
 {
-    [Table("Identidades", Schema = "GEN")]
+    [Table("Identidades", Schema = "gen")]
     public class Identidad
     {
         [Key]
@@ -24,7 +24,7 @@ namespace ModelosDB.General
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public int EntidadId { get; set; }
 
-        public virtual Entidad Entidad { get; set; }
+        public virtual Persona Persona { get; set; }
         public virtual TipoIdentificacion TipoIdentificacion { get; set; }
     }
 }
