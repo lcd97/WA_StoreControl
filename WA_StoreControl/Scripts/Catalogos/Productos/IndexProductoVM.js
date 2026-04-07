@@ -51,7 +51,7 @@
             self.bodyTemplate(new CRUDViewModel({
                 Action: action,
                 DataViewModel: self.Producto,
-                ModelName: "Tipo Identificación"
+                ModelName: "Producto"
             }));
 
             self.ModalViewModel().ModalHeaderViewModel().ModalTitle(self.bodyTemplate().ModalHeaderTitle()).BackgroundColorClass(self.bodyTemplate().ModalBackgroundColorClass());
