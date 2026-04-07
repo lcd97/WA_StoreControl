@@ -22,7 +22,7 @@ namespace ModelosDB.General
         public int TipoIdentificacionId { get; set; }
 
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public int EntidadId { get; set; }
+        public int PersonaId { get; set; }
 
         public virtual Persona Persona { get; set; }
         public virtual TipoIdentificacion TipoIdentificacion { get; set; }

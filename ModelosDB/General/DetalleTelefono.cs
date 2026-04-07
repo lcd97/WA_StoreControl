@@ -20,9 +20,9 @@ namespace ModelosDB.General
 
         [Display(Name = "Compañía")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int TipoTelefonoId { get; set; }
+        public int CompaniaTelefonicaId { get; set; }
 
-        public int EntidadId { get; set; }
+        public int PersonaId { get; set; }
 
         public virtual Persona Persona { get; set; }
         public virtual CompaniaTelefonica CompaniaTelefonica { get; set; }
