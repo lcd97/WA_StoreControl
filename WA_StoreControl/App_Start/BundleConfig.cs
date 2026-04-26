@@ -119,6 +119,17 @@ namespace WA_StoreControl
                 "~/Scripts/Catalogos/Productos/SearchProductoVM.js",
                 "~/Scripts/Catalogos/Productos/IndexProductoVM.js"
             ));
+
+            bundles.Add(new Bundle("~/bundles/Persona").Include(
+              "~/Scripts/Catalogos/Personas/PersonaVM.js",
+              "~/Scripts/Catalogos/Identidades/IdentidadVM.js",
+              "~/Scripts/Catalogos/DetallesTelefono/DetalleTelefonoVM.js",
+              "~/Scripts/Catalogos/TiposIdentificacion/TipoIdentificacionVM.js",
+              "~/Scripts/Catalogos/CompaniasTelefonica/CompaniaTelefonicaVM.js",
+              "~/Scripts/Catalogos/Categorias/CategoriaVM.js",
+              "~/Scripts/Catalogos/Personas/SearchPersonaVM.js",
+              "~/Scripts/Catalogos/Personas/IndexPersonaVM.js"
+          ));
             #endregion
         }
     }

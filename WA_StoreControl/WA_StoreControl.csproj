@@ -183,11 +183,15 @@
     <Compile Include="Controllers\CompaniasTelefonicaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="DTO\DetalleTelefonoDTO.cs" />
+    <Compile Include="DTO\IdentidadDTO.cs" />
+    <Compile Include="Utilidades\PersonaHelper.cs" />
     <Compile Include="Controllers\SubCategoriasController.cs" />
     <Compile Include="Controllers\TiposIdentificacionController.cs" />
     <Compile Include="DTO\CategoriaDTO.cs" />
-    <Compile Include="DTO\EntidadDTO.cs" />
+    <Compile Include="DTO\PersonaDTO.cs" />
     <Compile Include="DTO\ProductoDTO.cs" />
     <Compile Include="DTO\SubCategoriaDTO.cs" />
     <Compile Include="DTO\TipoIdentificacionDTO.cs" />
@@ -202,6 +206,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CategoriasService.cs" />
     <Compile Include="Services\CompaniasTelefonicaService.cs" />
+    <Compile Include="Services\PersonasService.cs" />
     <Compile Include="Services\ProductosService.cs" />
     <Compile Include="Services\SubCategoriasService.cs" />
     <Compile Include="Services\TiposIdentificacionService.cs" />
@@ -213,6 +218,7 @@
     <Compile Include="Utilidades\SystemMessage.cs" />
     <Compile Include="ViewModels\IndexCompaniasTelefonicaVM.cs" />
     <Compile Include="ViewModels\IndexCategoriasVM.cs" />
+    <Compile Include="ViewModels\IndexPersonasVM.cs" />
     <Compile Include="ViewModels\IndexProductosVM.cs" />
     <Compile Include="ViewModels\IndexSubCategoriasVM.cs" />
     <Compile Include="ViewModels\IndexTiposIdentificacionVM.cs" />
@@ -318,6 +324,11 @@
     <Content Include="Scripts\Catalogos\CompaniasTelefonica\IndexCompaniaTelefonicaVM.js" />
     <Content Include="Scripts\Catalogos\CompaniasTelefonica\SearchCompaniaTelefonicaVM.js" />
     <Content Include="Scripts\Catalogos\CompaniasTelefonica\CompaniaTelefonicaVM.js" />
+    <Content Include="Scripts\Catalogos\DetallesTelefono\DetalleTelefonoVM.js" />
+    <Content Include="Scripts\Catalogos\Identidades\IdentidadVM.js" />
+    <Content Include="Scripts\Catalogos\Personas\IndexPersonaVM.js" />
+    <Content Include="Scripts\Catalogos\Personas\SearchPersonaVM.js" />
+    <Content Include="Scripts\Catalogos\Personas\PersonaVM.js" />
     <Content Include="Scripts\Catalogos\Productos\IndexProductoVM.js" />
     <Content Include="Scripts\Catalogos\Productos\SearchProductoVM.js" />
     <Content Include="Scripts\Catalogos\Productos\ProductoVM.js" />
@@ -537,6 +548,10 @@
     <Content Include="Views\Productos\_FilterProductos.cshtml" />
     <Content Include="Views\Productos\_TableProductos.cshtml" />
     <Content Include="Views\Productos\_CRUDProductos.cshtml" />
+    <Content Include="Views\Personas\Index.cshtml" />
+    <Content Include="Views\Personas\_FilterPersonas.cshtml" />
+    <Content Include="Views\Personas\_TablePersonas.cshtml" />
+    <Content Include="Views\Personas\_CRUDPersonas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

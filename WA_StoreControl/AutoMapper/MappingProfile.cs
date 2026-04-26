@@ -16,13 +16,10 @@ namespace WA_StoreControl.AutoMapper
             CreateMap<Categoria, CategoriaDTO>();
             CreateMap<TipoIdentificacion, TipoIdentificacionDTO>();
 
-            CreateMap<EntidadDTO, Entidad>()
-                .ForMember(d => d.FechaNacimiento, d => d.MapFrom(s => s.FechaNacimiento.ToString()));
-
-            CreateMap<Entidad, EntidadDTO>()
-                .ForMember(d => d.FechaNacimiento, d => d.MapFrom(s => s.FechaNacimiento))
-                //.ForMember(d => d.TipoIdentificacion, d => d.MapFrom(s => s.Identidades..Descripcion))
-                .ForMember(d => d.Descripcion, d => d.MapFrom(s => s.NombreComercial == null ? string.Concat(s.Nombres, " ", s.Apellidos) : s.NombreComercial));
+            CreateMap<Persona, PersonaDTO>()
+                .ForMember(d => d.FechaNacimiento, d => d.MapFrom(s => s.FechaNacimiento.ToString("dd/MM/yyyy")))
+                .ForMember(d => d.DetallesTelefono, d => d.MapFrom(s => s.DetallesTelefono))
+                .ForMember(d => d.Identidades, d => d.MapFrom(s => s.Identidades));
 
             CreateMap<SubCategoria, SubCategoriaDTO>()
                 .ForMember(d => d.DescripcionCategoria, d => d.MapFrom(s => s.Categoria.Descripcion));
@@ -30,6 +27,14 @@ namespace WA_StoreControl.AutoMapper
             CreateMap<Producto, ProductoDTO>()
                 .ForMember(d => d.DescripcionCategoria, d => d.MapFrom(s => s.SubCategoria.Categoria.Descripcion))
                 .ForMember(d => d.DescripcionSubCategoria, d => d.MapFrom(s => s.SubCategoria.Descripcion));
+
+            CreateMap<CompaniaTelefonica, CompaniaTelefonicaDTO>();
+            CreateMap<Identidad, IdentidadDTO>()
+                .ForMember(d => d.DescripcionTipoIdentificacion, d => d.MapFrom(s => s.TipoIdentificacion.Descripcion));
+
+            CreateMap<DetalleTelefono, DetalleTelefonoDTO>()
+                .ForMember(d => d.DescripcionCompania, d => d.MapFrom(s => s.CompaniaTelefonica.Descripcion));
+
         }
     }
 }

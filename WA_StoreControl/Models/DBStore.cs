@@ -25,7 +25,7 @@ namespace WA_StoreControl.Models
         public virtual DbSet<Persona> Personas { get; set; }
         public virtual DbSet<TipoIdentificacion> TiposIdentificacion { get; set; }
         public virtual DbSet<CompaniaTelefonica> CompaniasTelefonica { get; set; }
-        public virtual DbSet<DetalleTelefono> TiposDireccion { get; set; }
+        public virtual DbSet<DetalleTelefono> DetallesTelefono { get; set; }
         public virtual DbSet<Identidad> Identidades { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
