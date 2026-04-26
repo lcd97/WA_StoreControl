@@ -33,43 +33,16 @@ namespace WA_StoreControl.Services
                 query = query.Where(x => identidades.Contains(x.Id));
             }
 
-            query = PaginateData(query.OrderBy(x => x.Id), viewModel);
+            query = PaginateData(query.OrderBy(x => x.Nombres), viewModel);
 
             return query.AsNoTracking();
         }
 
         public string ValidateBeforeCreate(Persona Persona)
         {
-            if (Persona.EsPersonaNatural && (string.IsNullOrEmpty(Persona.Nombres.Trim()) || string.IsNullOrEmpty(Persona.Apellidos.Trim())))
-                return string.Format($"{SystemMessage.ValidateOperationError} : Para personas naturales, los campos de nombres y apellidos son obligatorios. Modifique y vuelva a intentar");
-
-            if (Persona.EsPersonaNatural && Persona.FechaNacimiento == null)
-                return string.Format($"{SystemMessage.ValidateOperationError} : Para personas naturales, el campo de fecha de nacimiento es obligatorio. Modifique y vuelva a intentar");
-
-            if (Persona.EsPersonaNatural && Persona.FechaNacimiento > DateTime.Now)
-                return string.Format($"{SystemMessage.ValidateOperationError} : Para personas naturales, el campo de fecha de nacimiento no puede ser una fecha futura. Modifique y vuelva a intentar");
-
-            if (!Persona.EsPersonaNatural && string.IsNullOrEmpty(Persona.NombreComercial))
-                return string.Format($"{SystemMessage.ValidateOperationError} : Para personas jurídicas, el campo de nombre comercial es obligatorio. Modifique y vuelva a intentar");
-
-            var nombre = PersonaHelper.BuscarCoincidencias(string.Concat(Persona.Nombres, " ", Persona.Apellidos));
-
-            if (db.Personas.Any(x => string.Concat(x.Nombres, " ", x.Apellidos) == nombre || x.NombreComercial == nombre))
-                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un registro con los nombres ingresados. Modifique y vuelva a intentar");
-
-            return string.Empty;
-        }
-
-        public string ValidateBeforeUpdate(Persona Persona)
-        {
-            var objeto = db.Personas.Find(Persona.Id);
-            var nombre = PersonaHelper.BuscarCoincidencias(string.Concat(Persona.Nombres, " ", Persona.Apellidos));
-
-            db.Entry(objeto).State = EntityState.Detached;
-
-            if (objeto != null)
+            try
             {
-                if (Persona.EsPersonaNatural && (string.IsNullOrEmpty(Persona.Nombres.Trim()) || string.IsNullOrEmpty(Persona.Apellidos.Trim())))
+                if (Persona.EsPersonaNatural && (string.IsNullOrEmpty(Persona.Nombres)) || string.IsNullOrEmpty(Persona.Apellidos))
                     return string.Format($"{SystemMessage.ValidateOperationError} : Para personas naturales, los campos de nombres y apellidos son obligatorios. Modifique y vuelva a intentar");
 
                 if (Persona.EsPersonaNatural && Persona.FechaNacimiento == null)
@@ -81,31 +54,79 @@ namespace WA_StoreControl.Services
                 if (!Persona.EsPersonaNatural && string.IsNullOrEmpty(Persona.NombreComercial))
                     return string.Format($"{SystemMessage.ValidateOperationError} : Para personas jurídicas, el campo de nombre comercial es obligatorio. Modifique y vuelva a intentar");
 
-                if (db.Personas.Any(x => (string.Concat(x.Nombres, " ", x.Apellidos) == nombre.Trim().ToUpper() || x.NombreComercial == nombre) && x.Id != Persona.Id))
+                var nombre = PersonaHelper.BuscarCoincidencias(string.Concat(Persona.Nombres, " ", Persona.Apellidos));
+
+                if (db.Personas.Any(x => string.Concat(x.Nombres, " ", x.Apellidos) == nombre || x.NombreComercial == nombre))
                     return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un registro con los nombres ingresados. Modifique y vuelva a intentar");
 
                 return string.Empty;
             }
+            catch (Exception ex)
+            {
+                return string.Format($"{SystemMessage.ServerError} : Ha ocurrido un error. Contactese con el administrador || {ex.Message}");
+            }
+        }
 
-            return string.Format("¡El registro a modificar no existe!");
+        public string ValidateBeforeUpdate(Persona Persona)
+        {
+            try
+            {
+                var objeto = db.Personas.Find(Persona.Id);
+                var nombre = PersonaHelper.BuscarCoincidencias(string.Concat(Persona.Nombres, " ", Persona.Apellidos));
+
+                db.Entry(objeto).State = EntityState.Detached;
+
+                if (objeto != null)
+                {
+                    if (Persona.EsPersonaNatural && (string.IsNullOrEmpty(Persona.Nombres.Trim()) || string.IsNullOrEmpty(Persona.Apellidos.Trim())))
+                        return string.Format($"{SystemMessage.ValidateOperationError} : Para personas naturales, los campos de nombres y apellidos son obligatorios. Modifique y vuelva a intentar");
+
+                    if (Persona.EsPersonaNatural && Persona.FechaNacimiento == null)
+                        return string.Format($"{SystemMessage.ValidateOperationError} : Para personas naturales, el campo de fecha de nacimiento es obligatorio. Modifique y vuelva a intentar");
+
+                    if (Persona.EsPersonaNatural && Persona.FechaNacimiento > DateTime.Now)
+                        return string.Format($"{SystemMessage.ValidateOperationError} : Para personas naturales, el campo de fecha de nacimiento no puede ser una fecha futura. Modifique y vuelva a intentar");
+
+                    if (!Persona.EsPersonaNatural && string.IsNullOrEmpty(Persona.NombreComercial))
+                        return string.Format($"{SystemMessage.ValidateOperationError} : Para personas jurídicas, el campo de nombre comercial es obligatorio. Modifique y vuelva a intentar");
+
+                    if (db.Personas.Any(x => (string.Concat(x.Nombres, " ", x.Apellidos) == nombre.Trim().ToUpper() || x.NombreComercial == nombre) && x.Id != Persona.Id))
+                        return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un registro con los nombres ingresados. Modifique y vuelva a intentar");
+
+                    return string.Empty;
+                }
+
+                return string.Format("¡El registro a modificar no existe!");
+            }
+            catch (Exception ex)
+            {
+                return string.Format($"{SystemMessage.ServerError} : Ha ocurrido un error. Contactese con el administrador || {ex.Message}");
+            }
         }
 
         public string ValidateBeforeDelete(int id)
         {
-            var objeto = db.Personas.Find(id);
+            try
+            {
+                var objeto = db.Personas.Find(id);
 
-            if (objeto == null)
-                return string.Format($"{SystemMessage.ValidateOperationError} : El registro ya no existe, actualice la lista.");
+                if (objeto == null)
+                    return string.Format($"{SystemMessage.ValidateOperationError} : El registro ya no existe, actualice la lista.");
 
-            if (db.Personas.Find(id).Id == 1)
-                return string.Format($"{SystemMessage.ValidateOperationError} : El registro no se puede eliminar debido a que es el cliente por defecto");
+                if (db.Personas.Find(id).Id == 1)
+                    return string.Format($"{SystemMessage.ValidateOperationError} : El registro no se puede eliminar debido a que es el cliente por defecto");
 
-            if (objeto.DetallesEntrada.Count > 0)
-                return string.Format($"{SystemMessage.ValidateOperationError} : El registro no se puede eliminar, debido ha que esta siendo usado por otros registros");
+                if (objeto.DetallesEntrada.Count > 0)
+                    return string.Format($"{SystemMessage.ValidateOperationError} : El registro no se puede eliminar, debido ha que esta siendo usado por otros registros");
 
-            db.Entry(objeto).State = EntityState.Detached;
+                db.Entry(objeto).State = EntityState.Detached;
 
-            return string.Empty;
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                return string.Format($"{SystemMessage.ServerError} : Ha ocurrido un error. Contactese con el administrador || {ex.Message}");
+            }
         }
 
         public bool Create(Persona Persona, out string ErrorMessage)
@@ -115,6 +136,14 @@ namespace WA_StoreControl.Services
 
             try
             {
+                if (Persona.EsPersonaNatural)
+                    Persona.NombreComercial = string.Concat(Persona.Nombres, " ", Persona.Apellidos);
+                else
+                {
+                    Persona.Nombres = Persona.NombreComercial;
+                    Persona.Apellidos = Persona.NombreComercial;
+                }
+
                 db.Personas.Add(Persona);
                 Almacenado = db.SaveChanges() > 0;
             }
@@ -132,6 +161,14 @@ namespace WA_StoreControl.Services
 
             try
             {
+                if (Persona.EsPersonaNatural)
+                    Persona.NombreComercial = string.Concat(Persona.Nombres, " ", Persona.Apellidos);
+                else
+                {
+                    Persona.Nombres = Persona.NombreComercial;
+                    Persona.Apellidos = Persona.NombreComercial;
+                }
+
                 var personaDB = db.Personas
                     .Include(x => x.Identidades)
                     .Include(x => x.DetallesTelefono)

@@ -40,7 +40,7 @@
         self.StepNumber = ko.observable();
 
         self.SmartwizardOptions = AppGlobal.SmartWizardOptions({
-            StepSaveButton: 2,
+            StepSaveButton: 0,
             StepSaveButtonCallBack: 'SaveData'
         });
         //#endregion
@@ -58,6 +58,13 @@
                     "Ingrese una tipo de identificación y código antes de agregar",
                     "Reintentar");
                 return;
+            }
+
+            if (TipoIdentificacionId == 1) {
+                if (!esIdentidadValida()) {
+                    AppGlobal.validateMessage("warning", "El código de identidad cédula no tiene un formato correcto", "Reintentar");
+                    return;
+                }
             }
 
             let existeLocal = self.Persona().Identidades()
@@ -174,6 +181,9 @@
         self.ShowModal = function (data, action) {
             self.Persona(new PersonaVM(ko.toJS(data || {})));
 
+            self.Identidades(new IdentidadVM());
+            self.Telefonos(new DetalleTelefonoVM());
+
             self.bodyTemplate(new CRUDViewModel({
                 Action: action,
                 DataViewModel: self.Persona,
@@ -205,6 +215,7 @@
                 SaveData();
 
         };
+
         //#endregion
 
         //#region FUNCIONES PRIVADAS
@@ -311,6 +322,24 @@
                 beforeSend: beforeSendCallBack,
                 complete: completeCallBack,
             }).done(successCallBack).fail(errorCallBack);
+        }
+
+        function esIdentidadValida() {
+            const tipo = self.Identidades().TipoIdentificacionId();
+            const valor = (self.Identidades().Identificacion() || "").trim();
+
+            switch (tipo) {
+
+                case 1:
+                    if (!/^\d{13}[A-Z]$/.test(valor)) {
+                        return false;
+                    }
+                    break;
+                default:
+                    return true;
+            }
+
+            return true;
         }
         //#endregion
     }

@@ -5,10 +5,10 @@
 
         self.Id = ko.observable(data.Id || 0);
         self.Identificacion = ko.observable(data.Identificacion || "").extend({ onlyUpperCase: true });
-        self.Nombres = ko.observable(data.Nombres || "");
-        self.Apellidos = ko.observable(data.Apellidos || "");
+        self.Nombres = ko.observable(data.Nombres || "").extend({ onlyUpperCase: true });
+        self.Apellidos = ko.observable(data.Apellidos || "").extend({ onlyUpperCase: true });
         self.FechaNacimiento = ko.observable(data.FechaNacimiento || new Date().toLocaleDateString('es-ES'));
-        self.NombreComercial = ko.observable(data.NombreComercial || "");
+        self.NombreComercial = ko.observable(data.NombreComercial || "").extend({ onlyUpperCase: true });
         self.Direccion = ko.observable(data.Direccion || "");
         self.Telefono = ko.observable(data.Telefono || "");
         self.EsPersonaNatural = ko.observable(typeof (data.EsPersonaNatural) == "boolean" ? data.EsPersonaNatural : true);
@@ -18,7 +18,7 @@
         self.Identidades = ko.observableArray(data.Identidades ? data.Identidades.map(x => new IdentidadVM(x)) : []);
 
         self.NombreCompleto = ko.computed(() => {
-            return `${self.Nombres()} ${self.Apellidos()}`;
+            return `${self.EsPersonaNatural() ? (self.Nombres() + ' ' + self.Apellidos()) : self.NombreComercial()}`;
         });
 
         self.CodigoIdentificacion = ko.computed(() => {

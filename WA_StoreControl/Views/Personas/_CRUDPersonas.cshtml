@@ -157,7 +157,7 @@
 
             <div class="col">
                 @Html.Label("Código de Identidad", htmlAttributes: new { @class = "control-label" })
-                @Html.TextBox("Identificacion", null, new { @class = "form-control", data_bind = "value: Identificacion", maxlength = 14 })
+                @Html.TextBox("Identificacion", null, new { @class = "form-control text-uppercase", data_bind = "value: Identificacion, jqMask: { Mask: 'AAAAAAAAAAAAAA' }", maxlength = 14 })
             </div>
 
             <div class="col-md-2 text-center align-content-end">

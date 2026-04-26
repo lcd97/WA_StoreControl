@@ -335,14 +335,14 @@ var AppGlobal = {
                     // StepSaveButton: Indicar hasta que momento se mostrara el boton de guardar en el smartwizart
                     // StepSaveButtonCallBack: Funcion que ejecutara el boton Guardar existente en el $root
                     `
-                <!--ko if: $root.StepNumber() === ${data.StepSaveButton} && Action() !== 'Details' -->
+                <!--ko if: $root.StepNumber() >= ${data.StepSaveButton} && Action() !== 'Details' -->
                     <button id="btnConfirm" type="button" class="" data-bind="css: SaveButtonBackgroundClass, click: $root.${data.StepSaveButtonCallBack}">
                         <span data-bind="css: SaveButtonIconClass"></span>
                         <span data-bind="text: SaveButtonText"></span>
                     </button>
                 <!--/ko-->
                 
-                <!--ko if: $root.StepNumber() === ${data.StepSaveButton} && Action() === 'Details' -->
+                <!--ko if: $root.StepNumber() >= ${data.StepSaveButton} && Action() === 'Details' -->
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" tabindex="-1">
                             <span class="fas fa-window-close"></span>
                             Cerrar
