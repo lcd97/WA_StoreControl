@@ -3,7 +3,7 @@ using ModelosDB.Inventario;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace WA_StoreControl.Models
+namespace ModelosDB
 {
     public class DBStore : DbContext
     {

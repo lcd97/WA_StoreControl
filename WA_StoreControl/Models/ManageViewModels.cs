@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace WA_StoreControl.Models
+namespace ModelosDB
 {
     public class IndexViewModel
     {

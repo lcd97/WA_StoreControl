@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using WA_StoreControl.DTO;
-using WA_StoreControl.Models;
+using ModelosDB;
 using WA_StoreControl.Services;
 using WA_StoreControl.Utilidades;
 using WA_StoreControl.ViewModels;
