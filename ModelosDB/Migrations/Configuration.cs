@@ -62,7 +62,7 @@
                },
                new Categoria
                {
-                   Codigo = "002",
+                   Codigo = "003",
                    Descripcion = "Electrónicos",
                    EsActivo = true
                });
