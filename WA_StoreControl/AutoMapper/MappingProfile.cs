@@ -26,6 +26,7 @@ namespace WA_StoreControl.AutoMapper
 
             CreateMap<Producto, ProductoDTO>()
                 .ForMember(d => d.DescripcionCategoria, d => d.MapFrom(s => s.SubCategoria.Categoria.Descripcion))
+                .ForMember(d => d.DescripcionMarca, d => d.MapFrom(s => s.Marca.Descripcion))
                 .ForMember(d => d.DescripcionSubCategoria, d => d.MapFrom(s => s.SubCategoria.Descripcion));
 
             CreateMap<CompaniaTelefonica, CompaniaTelefonicaDTO>();
@@ -34,6 +35,8 @@ namespace WA_StoreControl.AutoMapper
 
             CreateMap<DetalleTelefono, DetalleTelefonoDTO>()
                 .ForMember(d => d.DescripcionCompania, d => d.MapFrom(s => s.CompaniaTelefonica.Descripcion));
+
+            CreateMap<Marca, MarcaDTO>();
 
         }
     }

@@ -179,6 +179,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="AutoMapper\MappingProfile.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\CompaniasTelefonicaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -187,6 +188,8 @@
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="DTO\DetalleTelefonoDTO.cs" />
     <Compile Include="DTO\IdentidadDTO.cs" />
+    <Compile Include="DTO\MarcaDTO.cs" />
+    <Compile Include="Services\MarcasService.cs" />
     <Compile Include="Utilidades\PersonaHelper.cs" />
     <Compile Include="Controllers\SubCategoriasController.cs" />
     <Compile Include="Controllers\TiposIdentificacionController.cs" />
@@ -218,6 +221,7 @@
     <Compile Include="Utilidades\SystemMessage.cs" />
     <Compile Include="ViewModels\IndexCompaniasTelefonicaVM.cs" />
     <Compile Include="ViewModels\IndexCategoriasVM.cs" />
+    <Compile Include="ViewModels\IndexMarcasVM.cs" />
     <Compile Include="ViewModels\IndexPersonasVM.cs" />
     <Compile Include="ViewModels\IndexProductosVM.cs" />
     <Compile Include="ViewModels\IndexSubCategoriasVM.cs" />
@@ -318,6 +322,9 @@
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Scripts\Catalogos\Marcas\MarcaVM.js" />
+    <Content Include="Scripts\Catalogos\Marcas\IndexMarcaVM.js" />
+    <Content Include="Scripts\Catalogos\Marcas\SearchMarcaVM.js" />
     <Content Include="Scripts\Catalogos\Categorias\SearchCategoriaVM.js" />
     <Content Include="Scripts\Catalogos\Categorias\CategoriaVM.js" />
     <Content Include="Scripts\Catalogos\Categorias\IndexCategoriaVM.js" />
@@ -552,6 +559,10 @@
     <Content Include="Views\Personas\_FilterPersonas.cshtml" />
     <Content Include="Views\Personas\_TablePersonas.cshtml" />
     <Content Include="Views\Personas\_CRUDPersonas.cshtml" />
+    <Content Include="Views\Marcas\_CRUDMarcas.cshtml" />
+    <Content Include="Views\Marcas\_FilterMarcas.cshtml" />
+    <Content Include="Views\Marcas\_TableMarcas.cshtml" />
+    <Content Include="Views\Marcas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

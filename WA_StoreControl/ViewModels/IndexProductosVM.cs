@@ -16,13 +16,14 @@ namespace WA_StoreControl.ViewModels
             this.Producto = new Producto();
             this.SearchProductosVM = new SearchProductosVM();
             this.SubCategorias = new List<SubCategoriaDTO>();
-            this.Categorias = new List<CategoriaDTO>();
+            this.Marcas = new List<MarcaDTO>();
         }
 
         public Producto Producto { get; set; }
         public SearchProductosVM SearchProductosVM { get; set; }
         public ICollection<SubCategoriaDTO> SubCategorias { get; set; }
         public ICollection<CategoriaDTO> Categorias { get; set; }
+        public ICollection<MarcaDTO> Marcas { get; set; }
     }
 
     public class SearchProductosVM : SearchViewModel
