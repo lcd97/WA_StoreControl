@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelosDB.Inventario
 {
-    [Table("Productos", Schema = "inv")]
-    public partial class Producto
+    [Table("Marcas", Schema = "inv")]
+    public partial class Marca
     {
-        public Producto()
+        public Marca()
         {
-            this.DetallesEntrada = new HashSet<DetalleEntrada>();
+            this.Productos = new HashSet<Producto>();
         }
 
         [Key]
@@ -28,18 +28,6 @@ namespace ModelosDB.Inventario
         [Display(Name = "Estado")]
         public bool EsActivo { get; set; }
 
-        //LLAVES FORANEAS
-        [Display(Name = "SubCategoría")]
-        public int SubCategoriaId { get; set; }
-
-        [Display(Name = "Marca")]
-        public int MarcaId { get; set; }
-
-        //CLASES PADRES
-        public virtual SubCategoria SubCategoria { get; set; }
-        public virtual Marca Marca { get; set; }
-
-        //CLASES HIJAS
-        public virtual ICollection<DetalleEntrada> DetallesEntrada { get; set; }
+        public virtual ICollection<Producto> Productos { get; set; }
     }
 }

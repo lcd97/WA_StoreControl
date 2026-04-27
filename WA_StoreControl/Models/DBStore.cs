@@ -20,6 +20,7 @@ namespace WA_StoreControl.Models
         public virtual DbSet<Producto> Productos { get; set; }
         public virtual DbSet<Entrada> Entradas { get; set; }
         public virtual DbSet<DetalleEntrada> DetalleEntrada { get; set; }
+        public virtual DbSet<Marca> Marcas { get; set; }
 
         //GENERAL
         public virtual DbSet<Persona> Personas { get; set; }

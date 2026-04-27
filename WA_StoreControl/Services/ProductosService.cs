@@ -21,7 +21,7 @@ namespace WA_StoreControl.Services
             var query = from d in db.Productos select d;
 
             if (!string.IsNullOrEmpty(viewModel.Descripcion))
-                query = query.Where(x => x.Descripcion.Contains(viewModel.Descripcion) || x.Marca.Contains(viewModel.Descripcion));
+                query = query.Where(x => x.Descripcion.Contains(viewModel.Descripcion) || x.Marca.Descripcion.Contains(viewModel.Descripcion));
 
             if (viewModel.SubCategoriaId > 0)
                 query = query.Where(x => x.SubCategoriaId == viewModel.SubCategoriaId);
@@ -39,7 +39,7 @@ namespace WA_StoreControl.Services
             if (db.Productos.Any(x => x.Codigo.Trim().ToLower() == Producto.Codigo.Trim().ToLower()))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (db.Productos.Any(x => x.Descripcion.Trim().ToLower() == Producto.Descripcion.Trim().ToLower() && x.Marca.ToLower().Trim() == Producto.Marca.Trim().ToLower()))
+            if (db.Productos.Any(x => x.Descripcion.Trim().ToLower() == Producto.Descripcion.Trim().ToLower() && x.MarcaId == Producto.MarcaId))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
             return string.Empty;
@@ -56,7 +56,7 @@ namespace WA_StoreControl.Services
                 if (objeto.Codigo.Trim().ToLower() == Producto.Codigo.Trim().ToLower())
                     return string.Empty;
 
-                if (objeto.Descripcion.Trim().ToLower() == Producto.Descripcion.Trim().ToLower() && objeto.Marca.Trim().ToLower() == Producto.Marca.Trim().ToLower())
+                if (objeto.Descripcion.Trim().ToLower() == Producto.Descripcion.Trim().ToLower() && objeto.MarcaId == Producto.MarcaId)
                     return string.Empty;
 
                 return ValidateBeforeCreate(Producto);
