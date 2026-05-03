@@ -7,7 +7,6 @@ using System.Web;
 using ModelosDB;
 using WA_StoreControl.Utilidades;
 using WA_StoreControl.ViewModels;
-using WA_StoreControl.Models;
 
 namespace WA_StoreControl.Services
 {
@@ -24,7 +23,7 @@ namespace WA_StoreControl.Services
             if (!string.IsNullOrEmpty(viewModel.Descripcion))
                 query = query.Where(x => x.Descripcion.Contains(viewModel.Descripcion));
 
-            query = PaginateData(query.OrderBy(x => x.Descripcion), viewModel);
+            query = PaginateData(query.OrderBy(x => x.Codigo), viewModel);
 
             return query.AsNoTracking();
         }
