@@ -24,7 +24,7 @@ namespace WA_StoreControl.Services
             if (!string.IsNullOrEmpty(viewModel.Descripcion))
                 query = query.Where(x => x.Descripcion.Contains(viewModel.Descripcion));
 
-            query = PaginateData(query.OrderBy(x => x.Id), viewModel);
+            query = PaginateData(query.OrderBy(x => x.Descripcion), viewModel);
 
             return query.AsNoTracking();
         }

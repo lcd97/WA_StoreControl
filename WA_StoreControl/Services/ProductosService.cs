@@ -29,7 +29,7 @@ namespace WA_StoreControl.Services
             if (viewModel.CategoriaId > 0)
                 query = query.Where(x => x.SubCategoria.CategoriaId == viewModel.CategoriaId);
 
-            query = PaginateData(query.OrderBy(x => x.Id), viewModel);
+            query = PaginateData(query.OrderBy(x => x.Descripcion).ThenBy(x => x.Marca.Descripcion), viewModel);
 
             return query.AsNoTracking();
         }

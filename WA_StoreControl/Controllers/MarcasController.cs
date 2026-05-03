@@ -11,6 +11,7 @@ using ModelosDB;
 using WA_StoreControl.Services;
 using WA_StoreControl.Utilidades;
 using WA_StoreControl.ViewModels;
+using WA_StoreControl.Models;
 
 namespace WA_StoreControl.Controllers
 {

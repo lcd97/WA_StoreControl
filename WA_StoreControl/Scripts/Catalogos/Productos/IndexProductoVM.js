@@ -9,7 +9,7 @@
         self.PeticionEnCurso = ko.observable(null);
 
         self.Categorias = ko.observableArray(data.Categorias ? data.Categorias.map(x => new CategoriaVM(x)) : []);
-        self.SubCategorias = ko.observableArray(data.SubCategorias ? data.SubCategorias.map(x => new SubCategoriaVM(x)) : []);
+        self.SubCategorias = ko.observableArray([]);
         self.Marcas = ko.observableArray(data.Marcas ? data.Marcas.map(x => new MarcaVM(x)) : []);
 
         self.LoadingRegistros = ko.observable(false);
@@ -33,6 +33,13 @@
         //#endregion
 
         //#region FUNCIONES PUBLICAS
+        self.SearchViewModel().CategoriaId.subscribe(function (value) {
+            if (value > 0)
+                CargarSubCategoria(value);
+            else
+                self.SubCategorias([]);
+        });
+
         self.GetFilteredOrPaged = () => {
             GetFilteredOrPaged();
         };
@@ -142,6 +149,39 @@
             Ajax.GetFilteredOrPaged({
                 url: "Productos/GetFilteredOrPaged",
                 data: ko.toJS(self.SearchViewModel),
+                method: "GET",
+                beforeSend: beforeSendCallBack,
+                complete: completeCallBack,
+            }).done(successCallBack).fail(errorCallBack);
+        }
+
+        function CargarSubCategoria(CategoriaId) {
+            var successCallBack = (response) => {
+                if (response.Success)
+                    self.SubCategorias(response.Record ? response.Record.map(x => new SubCategoriaVM(x)) : []);
+            }
+
+            var errorCallBack = (response) => (jqXHR, statusText) => {
+                if (statusText !== "abort")
+                    AppGlobal.Messages.ShowNotifyError();
+            }
+
+            var beforeSendCallBack = () => (jqXHR) => {
+                if (self.PeticionEnCurso())
+                    self.PeticionEnCurso().abort();
+
+                self.PeticionEnCurso(jqXHR);
+                self.LoadingRegistros(true);
+            }
+
+            var completeCallBack = () => {
+                self.LoadingRegistros(false);
+                self.PeticionEnCurso(null);
+            }
+
+            Ajax.GetFilteredOrPaged({
+                url: "Productos/CargarSubCategoria",
+                data: { CategoriaId },
                 method: "GET",
                 beforeSend: beforeSendCallBack,
                 complete: completeCallBack,

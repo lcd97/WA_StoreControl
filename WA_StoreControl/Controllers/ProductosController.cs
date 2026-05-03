@@ -35,7 +35,6 @@ namespace WA_StoreControl.Controllers
         public ActionResult Index()
         {
             var indexProductos = new IndexProductosVM();
-            indexProductos.SubCategorias = Mapper.Map<ICollection<SubCategoriaDTO>>(subCategoriasService.GetAll().ToList());
             indexProductos.Categorias = Mapper.Map<ICollection<CategoriaDTO>>(categoriasService.GetAll().ToList());
             indexProductos.Marcas = Mapper.Map<ICollection<MarcaDTO>>(marcasService.GetAll().ToList());
 
@@ -106,6 +105,12 @@ namespace WA_StoreControl.Controllers
             }
             else
                 return Json(new RequestResult(errorMessage, false), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CargarSubCategoria(int CategoriaId)
+        {
+            var subCategorias = Mapper.Map<ICollection<SubCategoriaDTO>>(subCategoriasService.GetAll(x => x.CategoriaId == CategoriaId).ToList());
+            return Json(new RequestResult(subCategorias), JsonRequestBehavior.AllowGet);
         }
     }
 }
