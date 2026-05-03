@@ -114,6 +114,7 @@ namespace WA_StoreControl
 
             bundles.Add(new Bundle("~/bundles/Producto").Include(
                 "~/Scripts/Catalogos/Productos/ProductoVM.js",
+               "~/Scripts/Catalogos/Marcas/MarcaVM.js",
                 "~/Scripts/Catalogos/SubCategorias/SubCategoriaVM.js",
                 "~/Scripts/Catalogos/Categorias/CategoriaVM.js",
                 "~/Scripts/Catalogos/Productos/SearchProductoVM.js",
@@ -130,6 +131,12 @@ namespace WA_StoreControl
               "~/Scripts/Catalogos/Personas/SearchPersonaVM.js",
               "~/Scripts/Catalogos/Personas/IndexPersonaVM.js"
           ));
+
+            bundles.Add(new Bundle("~/bundles/Marca").Include(
+               "~/Scripts/Catalogos/Marcas/MarcaVM.js",
+               "~/Scripts/Catalogos/Marcas/SearchMarcaVM.js",
+               "~/Scripts/Catalogos/Marcas/IndexMarcaVM.js"
+           ));
             #endregion
         }
     }

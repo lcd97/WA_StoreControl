@@ -20,6 +20,7 @@ namespace WA_StoreControl.Controllers
         private CategoriasService categoriasService;
         private SubCategoriasService subCategoriasService;
         private ProductosService productosService;
+        private MarcasService marcasService;
 
         public ProductosController()
         {
@@ -27,14 +28,15 @@ namespace WA_StoreControl.Controllers
             this.categoriasService = new CategoriasService(db);
             this.subCategoriasService = new SubCategoriasService(db);
             this.productosService = new ProductosService(db);
+            this.marcasService = new MarcasService(db);
         }
 
         // GET: Productos
         public ActionResult Index()
         {
             var indexProductos = new IndexProductosVM();
-            indexProductos.SubCategorias = Mapper.Map<ICollection<SubCategoriaDTO>>(subCategoriasService.GetAll().ToList());
             indexProductos.Categorias = Mapper.Map<ICollection<CategoriaDTO>>(categoriasService.GetAll().ToList());
+            indexProductos.Marcas = Mapper.Map<ICollection<MarcaDTO>>(marcasService.GetAll().ToList());
 
             ViewBag.JsonData = JsonConvert.SerializeObject(indexProductos);
 
@@ -103,6 +105,12 @@ namespace WA_StoreControl.Controllers
             }
             else
                 return Json(new RequestResult(errorMessage, false), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CargarSubCategoria(int CategoriaId)
+        {
+            var subCategorias = Mapper.Map<ICollection<SubCategoriaDTO>>(subCategoriasService.GetAll(x => x.CategoriaId == CategoriaId).ToList());
+            return Json(new RequestResult(subCategorias), JsonRequestBehavior.AllowGet);
         }
     }
 }

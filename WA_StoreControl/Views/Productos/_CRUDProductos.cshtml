@@ -13,13 +13,13 @@
                     @Html.HiddenFor(model => model.Id, new { data_bind = "value: Id" })
 
                     <div class="row mb-2">
-                        <div class="col-md-6">
+                        <div class="col-6">
                             @Html.LabelFor(model => model.Codigo)
                             @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Codigo", maxlength = "3" } })
                             @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
                         </div>
 
-                        <div class="col-md-6 d-flex justify-content-center align-items-center">
+                        <div class="col-6 d-flex justify-content-center align-items-center">
                             <div class="form-check form-switch">
                                 @Html.CheckBoxFor(model => model.EsActivo, new { @class = "form-check-input", data_bind = "checked: EsActivo" })
                                 @Html.LabelFor(model => model.EsActivo)
@@ -49,19 +49,34 @@
                                      })
                             @Html.ValidationMessageFor(model => model.SubCategoriaId, "", new { @class = "text-danger" })
                         </div>
+
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.MarcaId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.MarcaId,
+                                     Enumerable.Empty<SelectListItem>(),
+                                     htmlAttributes: new
+                                     {
+                                         @class = "form-select form-select-sm",
+                                         data_bind = @"options: $root.Marcas,
+                                                        optionsText: 'Descripcion',
+                                                        optionsValue: 'Id',
+                                                        jqSelect2:{
+                                                           language: 'es',
+                                                           width: '100%',
+                                                           dropdownParent: $($element).closest('.modal')
+                                                        },
+                                                        value: MarcaId"
+                                     })
+                            @Html.ValidationMessageFor(model => model.MarcaId, "", new { @class = "text-danger" })
+                        </div>
                     </div>
+
 
                     <div class="row mb-2">
                         <div class="col-md-12">
                             @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })
                             @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Descripcion", maxlength = "100" } })
                             @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="col-md-12">
-                            @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Marca", maxlength = "100" } })
-                            @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <!--/ko-->

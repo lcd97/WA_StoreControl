@@ -7,50 +7,51 @@ using System.Web;
 using ModelosDB;
 using WA_StoreControl.Utilidades;
 using WA_StoreControl.ViewModels;
+using WA_StoreControl.Models;
 
 namespace WA_StoreControl.Services
 {
-    public class SubCategoriasService : CRUDBaseService<SubCategoria>
+    public class MarcasService : CRUDBaseService<Marca>
     {
         private DBStore db;
 
-        public SubCategoriasService(DBStore db) : base(db ?? new DBStore()) => this.db = db ?? new DBStore();
+        public MarcasService(DBStore db) : base(db ?? new DBStore()) => this.db = db ?? new DBStore();
 
-        public IQueryable<SubCategoria> GetFilteredOrPaged(SearchSubCategoriasVM viewModel)
+        public IQueryable<Marca> GetFilteredOrPaged(SearchMarcasVM viewModel)
         {
-            var query = from d in db.SubCategorias select d;
+            var query = from d in db.Marcas select d;
 
-            if (viewModel.CategoriaId > 0)
-                query = query.Where(x => x.CategoriaId == viewModel.CategoriaId);
+            if (!string.IsNullOrEmpty(viewModel.Descripcion))
+                query = query.Where(x => x.Descripcion.Contains(viewModel.Descripcion));
 
-            query = PaginateData(query.OrderBy(x => x.Categoria.Descripcion).ThenBy(x => x.Descripcion), viewModel);
+            query = PaginateData(query.OrderBy(x => x.Descripcion), viewModel);
 
             return query.AsNoTracking();
         }
 
-        public string ValidateBeforeCreate(SubCategoria SubCategoria)
+        public string ValidateBeforeCreate(Marca Marca)
         {
-            if (db.SubCategorias.Any(x => x.Codigo.Trim().ToLower() == SubCategoria.Codigo.Trim().ToLower()))
+            if (db.Marcas.Any(x => x.Codigo.Trim().ToLower() == Marca.Codigo.Trim().ToLower()))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (db.SubCategorias.Any(x => x.Descripcion.Trim().ToLower() == SubCategoria.Descripcion.Trim().ToLower()))
+            if (db.Marcas.Any(x => x.Descripcion.Trim().ToLower() == Marca.Descripcion.Trim().ToLower()))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
             return string.Empty;
         }
 
-        public string ValidateBeforeUpdate(SubCategoria SubCategoria)
+        public string ValidateBeforeUpdate(Marca Marca)
         {
-            var objeto = db.SubCategorias.Find(SubCategoria.Id);
+            var objeto = db.Marcas.Find(Marca.Id);
 
             db.Entry(objeto).State = EntityState.Detached;
 
             if (objeto != null)
             {
-                if (objeto.Codigo.Trim().ToLower() == SubCategoria.Codigo.Trim().ToLower())
+                if (objeto.Codigo.Trim().ToLower() == Marca.Codigo.Trim().ToLower())
                     return string.Empty;
 
-                return ValidateBeforeCreate(SubCategoria);
+                return ValidateBeforeCreate(Marca);
             }
 
             return string.Format("¡El registro a modificar no existe!");
@@ -58,7 +59,7 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeDelete(int id)
         {
-            var objeto = db.SubCategorias.Find(id);
+            var objeto = db.Marcas.Find(id);
 
             if (objeto == null)
                 return string.Format($"{SystemMessage.ValidateOperationError} : El registro ya no existe, actualice la lista.");
@@ -71,6 +72,5 @@ namespace WA_StoreControl.Services
 
             return string.Empty;
         }
-
     }
 }
