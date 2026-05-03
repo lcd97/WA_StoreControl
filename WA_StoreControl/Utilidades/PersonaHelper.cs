@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using WA_StoreControl.Models;
+using ModelosDB;
 using WA_StoreControl.Services;
 
 namespace WA_StoreControl.Controllers

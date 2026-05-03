@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DBStore.cs" />
     <Compile Include="General\DetalleTelefono.cs" />
     <Compile Include="General\Persona.cs" />
     <Compile Include="General\Identidad.cs" />
@@ -63,6 +64,11 @@
     <Compile Include="Inventario\Marca.cs" />
     <Compile Include="Inventario\Producto.cs" />
     <Compile Include="Inventario\SubCategoria.cs" />
+    <Compile Include="Migrations\202604270055543_InitialCreate.cs" />
+    <Compile Include="Migrations\202604270055543_InitialCreate.Designer.cs">
+      <DependentUpon>202604270055543_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +77,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202604270055543_InitialCreate.resx">
+      <DependentUpon>202604270055543_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

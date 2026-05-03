@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
-using WA_StoreControl.Models;
+using ModelosDB;
 
 namespace WA_StoreControl.Utilidades
 {

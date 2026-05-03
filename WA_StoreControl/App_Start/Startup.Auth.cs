@@ -5,7 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using WA_StoreControl.Models;
+using ModelosDB;
 
 namespace WA_StoreControl
 {

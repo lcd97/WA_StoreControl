@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WA_StoreControl.Models
+namespace ModelosDB
 {
     public class ExternalLoginConfirmationViewModel
     {

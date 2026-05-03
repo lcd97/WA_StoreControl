@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using WA_StoreControl.Models;
+using ModelosDB;
 using WA_StoreControl.Utilidades;
 using WA_StoreControl.ViewModels;
 
@@ -29,7 +29,7 @@ namespace WA_StoreControl.Services
             if (viewModel.CategoriaId > 0)
                 query = query.Where(x => x.SubCategoria.CategoriaId == viewModel.CategoriaId);
 
-            query = PaginateData(query.OrderBy(x => x.Descripcion).ThenBy(x => x.Marca.Descripcion), viewModel);
+            query = PaginateData(query.OrderBy(x => x.Codigo).ThenBy(x => x.Descripcion), viewModel);
 
             return query.AsNoTracking();
         }

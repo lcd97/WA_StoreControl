@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using WA_StoreControl.Models;
+using ModelosDB;
 
 namespace WA_StoreControl.Controllers
 {
