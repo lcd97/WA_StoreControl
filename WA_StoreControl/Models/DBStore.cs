@@ -16,16 +16,17 @@ namespace WA_StoreControl.Models
 
         //MODULO INVENTARIO
         public virtual DbSet<Categoria> Categorias { get; set; }
-        public virtual DbSet<SubCategoria> SubCategoria { get; set; }
+        public virtual DbSet<SubCategoria> SubCategorias { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
         public virtual DbSet<Entrada> Entradas { get; set; }
         public virtual DbSet<DetalleEntrada> DetalleEntrada { get; set; }
+        public virtual DbSet<Marca> Marcas { get; set; }
 
         //GENERAL
-        public virtual DbSet<Entidad> Entidades { get; set; }
+        public virtual DbSet<Persona> Personas { get; set; }
         public virtual DbSet<TipoIdentificacion> TiposIdentificacion { get; set; }
         public virtual DbSet<CompaniaTelefonica> CompaniasTelefonica { get; set; }
-        public virtual DbSet<DetalleTelefono> TiposDireccion { get; set; }
+        public virtual DbSet<DetalleTelefono> DetallesTelefono { get; set; }
         public virtual DbSet<Identidad> Identidades { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

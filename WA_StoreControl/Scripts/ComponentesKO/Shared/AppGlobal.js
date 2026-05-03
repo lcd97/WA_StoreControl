@@ -56,7 +56,7 @@ var AppGlobal = {
 
     MessagesNotify: {
         AjaxRequestError: "¡Ha ocurrido un error procesando su petición, intente nuevamente y de persistir el problema contacte con el administrador del sistema.!",
-        ShowNotifyCorrect: (message)=>{
+        ShowNotifyCorrect: (message) => {
             AppGlobal.ShowNotification({
                 element: "body",
                 message: message || "OK",
@@ -117,18 +117,18 @@ var AppGlobal = {
             hour: "2-digit",
             minute: "2-digit",
             hour12: false,
-          }).replace(/[/]/g, "-").replace(",", "");
+        }).replace(/[/]/g, "-").replace(",", "");
 
-          var fechaYHora = dateString.split(' '); // Separamos la fecha de la hora
+        var fechaYHora = dateString.split(' '); // Separamos la fecha de la hora
 
-          var fecha = fechaYHora[0].split('-'); // Separamos la fecha que esta en formato DD-MM-YYYY
+        var fecha = fechaYHora[0].split('-'); // Separamos la fecha que esta en formato DD-MM-YYYY
 
-          var hora = fechaYHora[1]; // Guardamos la hora
+        var hora = fechaYHora[1]; // Guardamos la hora
 
-          if(horaValue)
+        if (horaValue)
             hora = horaValue; // Formato hora: HH:MM
 
-          var newFecha = `${fecha[2]}-${fecha[1]}-${fecha[0]} ${hora}`; // Unimos todas las partes en fromato YYYY-MM-DD HH:MM
+        var newFecha = `${fecha[2]}-${fecha[1]}-${fecha[0]} ${hora}`; // Unimos todas las partes en fromato YYYY-MM-DD HH:MM
 
         return newFecha;
     },
@@ -189,7 +189,7 @@ var AppGlobal = {
     //Mensajes del Sistema...
     Messages: {
         AjaxRequestError: "¡Ha ocurrido un error procesando su petición, intente nuevamente y de persistir el problema contacte con el administrador del sistema.!",
-        ShowNotifyCorrect: (message)=>{
+        ShowNotifyCorrect: (message) => {
             showNotificationPreventDuplicates({
                 element: "body",
                 message: message,
@@ -220,8 +220,28 @@ var AppGlobal = {
             })
         }
     },
-    validateMessage: function (typeMessage, Message, textButton, classButton) { Swal.fire({ icon: typeMessage, html: "<strong>" + Message + "</strong>", confirmButtonText: textButton, customClass: { confirmButton: classButton }, buttonsStyling: false, allowEscapeKey: false, allowOutsideClick: false, focusConfirm: true }); }
-    ,
+    validateMessage: function (typeMessage, Message, textButton = "", classButton = "btn btn-success") {
+        Swal.fire({
+            icon: typeMessage,
+            html: "<strong>" + Message + "</strong>",
+            confirmButtonText: textButton,
+            customClass: { confirmButton: classButton },
+            buttonsStyling: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            focusConfirm: true,
+        });
+    },
+    AjaxMessage: function (typeMessage, Message, TitleMessage, confirmButtonText = "Eliminar") {
+        return Swal.fire({
+            title: TitleMessage,
+            html: Message,
+            icon: typeMessage,
+            showCancelButton: true,
+            confirmButtonText: confirmButtonText,
+            cancelButtonText: "Cancelar"
+        });
+    },
     startLoad: function () { $('body').addClass('ocultar_scroll'); $('div.overlay').show(); $("#frmLoadingGlobalState").removeClass('hideLoaderGIF').fadeIn('slow'); $('#foco').focus(); }
     ,
     endLoad: function () { $('div.overlay').fadeOut('slow'); $("#frmLoadingGlobalState").addClass('hideLoaderGIF').hide(); $('body').removeClass('ocultar_scroll'); },
@@ -272,6 +292,75 @@ var AppGlobal = {
             },
             keyboard: {
                 keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                keyLeft: [37], // Left key code
+                keyRight: [39] // Right key code
+            },
+            lang: { // Language variables for button
+                next: 'Siguiente',
+                previous: 'Atras'
+            },
+            disabledSteps: data.disabledSteps || [], // Array Steps disabled
+            errorSteps: [], // Array Steps error
+            warningSteps: [], // Array Steps warning
+            hiddenSteps: data.hiddenSteps || [], // Hidden steps
+            getContent: null // Callback function for content loading
+        }
+        return option;
+    },
+
+    SmartWizardOptions: function (data = null) { //Opciones de configuracion para el pluggin smartwizard...
+        var option =
+        {
+            selected: 0, // Initial selected step, 0 = first step
+            theme: data.theme || 'arrows', // theme for the wizard, related css need to include for other than default theme
+            justified: true, // Nav menu justification. true/false
+            autoAdjustHeight: false, // Automatically adjust content height
+            backButtonSupport: true, // Enable the back button support
+            enableUrlHash: data.enableUrlHash || true, // Enable selection of the step based on url hash
+            transition: {
+                animation: data.animation || 'none', // Animation effect on navigation, none|fade|slideHorizontal|slideVertical|slideSwing|css(Animation CSS class also need to specify)
+                speed: '400', // Animation speed. Not used if animation is 'css'
+                easing: '', // Animation easing. Not supported without a jQuery easing plugin. Not used if animation is 'css'
+                prefixCss: '', // Only used if animation is 'css'. Animation CSS prefix
+                fwdShowCss: '', // Only used if animation is 'css'. Step show Animation CSS on forward direction
+                fwdHideCss: '', // Only used if animation is 'css'. Step hide Animation CSS on forward direction
+                bckShowCss: '', // Only used if animation is 'css'. Step show Animation CSS on backward direction
+                bckHideCss: '', // Only used if animation is 'css'. Step hide Animation CSS on backward direction
+            },
+            toolbar: {
+                position: 'bottom', // none|top|bottom|both
+                showNextButton: true, // show/hide a Next button
+                showPreviousButton: true, // show/hide a Previous button
+                extraHtml:
+                    // StepSaveButton: Indicar hasta que momento se mostrara el boton de guardar en el smartwizart
+                    // StepSaveButtonCallBack: Funcion que ejecutara el boton Guardar existente en el $root
+                    `
+                <!--ko if: $root.StepNumber() >= ${data.StepSaveButton} && Action() !== 'Details' -->
+                    <button id="btnConfirm" type="button" class="" data-bind="css: SaveButtonBackgroundClass, click: $root.${data.StepSaveButtonCallBack}">
+                        <span data-bind="css: SaveButtonIconClass"></span>
+                        <span data-bind="text: SaveButtonText"></span>
+                    </button>
+                <!--/ko-->
+                
+                <!--ko if: $root.StepNumber() >= ${data.StepSaveButton} && Action() === 'Details' -->
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" tabindex="-1">
+                            <span class="fas fa-window-close"></span>
+                            Cerrar
+                        </button>
+                <!--/ko-->     
+                `
+                // Extra html to show on toolbar
+            },
+            anchor: {
+                enableNavigation: true, // Enable/Disable anchor navigation 
+                enableNavigationAlways: false, // Activates all anchors clickable always
+                enableDoneState: true, // Add done state on visited steps
+                markPreviousStepsAsDone: true, // When a step selected by url hash, all previous steps are marked done
+                unDoneOnBackNavigation: false, // While navigate back, done state will be cleared
+                enableDoneStateNavigation: true // Enable/Disable the done state navigation
+            },
+            keyboard: {
+                keyNavigation: false, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
                 keyLeft: [37], // Left key code
                 keyRight: [39] // Right key code
             },

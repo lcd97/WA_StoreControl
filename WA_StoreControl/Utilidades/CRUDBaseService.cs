@@ -62,10 +62,10 @@ namespace WA_StoreControl.Utilidades
         /// Actualiza un registro
         /// </summary>
         /// <param name="entity"></param>
-        public void Update(T entity)
+        public bool Update(T entity)
         {
             db.Entry(entity).State = EntityState.Modified;
-            db.SaveChanges();
+            return db.SaveChanges() > 0;
         }
 
         /// <summary>
@@ -96,6 +96,11 @@ namespace WA_StoreControl.Utilidades
             var entity = db.Set<T>().Find(id);
 
             return entity ?? (T)Activator.CreateInstance(typeof(T));
+        }
+
+        public bool Any(Expression<Func<T, bool>> predicate)
+        {
+            return db.Set<T>().Any(predicate);
         }
 
         /// <summary>

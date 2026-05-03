@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelosDB.Inventario
 {
-    [Table("Productos", Schema = "INV")]
+    [Table("Productos", Schema = "inv")]
     public partial class Producto
     {
         public Producto()
@@ -25,18 +25,19 @@ namespace ModelosDB.Inventario
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
-        [StringLength(100, ErrorMessage = "La longitud no debe exceder los 100 caracteres")]
-        [Display(Name = "Marca")]
-        public string Marca { get; set; }
-
         [Display(Name = "Estado")]
         public bool EsActivo { get; set; }
 
         //LLAVES FORANEAS
+        [Display(Name = "SubCategoría")]
         public int SubCategoriaId { get; set; }
+
+        [Display(Name = "Marca")]
+        public int MarcaId { get; set; }
 
         //CLASES PADRES
         public virtual SubCategoria SubCategoria { get; set; }
+        public virtual Marca Marca { get; set; }
 
         //CLASES HIJAS
         public virtual ICollection<DetalleEntrada> DetallesEntrada { get; set; }

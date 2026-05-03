@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WA_StoreControl.DTO
 {
-    public class EntidadDTO
+    public class PersonaDTO
     {
         public int Id { get; set; }
         public string Identificacion { get; set; }
@@ -16,9 +16,12 @@ namespace WA_StoreControl.DTO
         public string Direccion { get; set; }
         public string Telefono { get; set; }
         public bool EsActivo { get; set; }
-        public string Descripcion { get; set; }
+        public bool EsPersonaNatural { get; set; }
 
         public int TipoIdentificacionId { get; set; }
         public string TipoIdentificacion { get; set; }
+
+        public List<DetalleTelefonoDTO> DetallesTelefono { get; set; }
+        public List<IdentidadDTO> Identidades { get; set; }
     }
 }

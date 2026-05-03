@@ -12,7 +12,8 @@ namespace WA_StoreControl.DTO
         public string Codigo { get; set; }
         public string Descripcion { get; set; }
         public bool EsActivo { get; set; }
+
         public int CategoriaId { get; set; }
-        public string DescripCategoria { get; set; }
+        public string DescripcionCategoria { get; set; }
     }
 }

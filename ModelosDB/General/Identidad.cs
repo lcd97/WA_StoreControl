@@ -7,13 +7,13 @@ using System.Web;
 
 namespace ModelosDB.General
 {
-    [Table("Identidades", Schema = "GEN")]
+    [Table("Identidades", Schema = "gen")]
     public class Identidad
     {
         [Key]
         public int Id { get; set; }
 
-        [StringLength(14, MinimumLength = 14, ErrorMessage = "La longitud debe ser de 14 caracteres")]
+        [StringLength(14, ErrorMessage = "La longitud del campo {0} debe exceder los 14 caracteres")]
         [Display(Name = "Identificación")]
         public string Identificacion { get; set; }
 
@@ -22,9 +22,9 @@ namespace ModelosDB.General
         public int TipoIdentificacionId { get; set; }
 
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public int EntidadId { get; set; }
+        public int PersonaId { get; set; }
 
-        public virtual Entidad Entidad { get; set; }
+        public virtual Persona Persona { get; set; }
         public virtual TipoIdentificacion TipoIdentificacion { get; set; }
     }
 }

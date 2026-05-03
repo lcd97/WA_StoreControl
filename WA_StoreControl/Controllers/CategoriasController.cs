@@ -10,7 +10,7 @@ using WA_StoreControl.DTO;
 using WA_StoreControl.Models;
 using WA_StoreControl.Services;
 using WA_StoreControl.Utilidades;
-using WA_StoreControl.ViewModel;
+using WA_StoreControl.ViewModels;
 
 namespace WA_StoreControl.Controllers
 {
@@ -29,7 +29,7 @@ namespace WA_StoreControl.Controllers
         public ActionResult Index()
         {
             var acViewModel = new IndexCategoriasVM();
-            ViewBag.JsonData = JsonConvert.SerializeObject(acViewModel);//PASAR LOS DATOS A LA VISTA
+            ViewBag.JsonData = JsonConvert.SerializeObject(acViewModel);
 
             return View(acViewModel);
         }
@@ -85,7 +85,7 @@ namespace WA_StoreControl.Controllers
         //[ValidateAntiForgeryToken]
         public JsonResult Delete([Bind(Include = nameof(Categoria.Id))] Categoria Categoria)
         {
-            var errorMessage = !ModelState.IsValid ? string.Join(" | ", ModelValidate.GetModelErrorMessages(ModelState)) : acService.ValidateBeforeDelete(Categoria.Id);
+            var errorMessage = acService.ValidateBeforeDelete(Categoria.Id);
 
             if (string.IsNullOrEmpty(errorMessage))
             {

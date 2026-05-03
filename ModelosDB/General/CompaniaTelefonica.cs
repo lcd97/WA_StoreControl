@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ModelosDB.General
 {
-    [Table("CompaniaTelefonica", Schema = "GEN")]
+    [Table("CompaniasTelefonica", Schema = "gen")]
     public class CompaniaTelefonica
     {
         public CompaniaTelefonica()

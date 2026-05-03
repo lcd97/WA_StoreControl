@@ -366,20 +366,18 @@ ko.bindingHandlers.jqDatepicker = {
 
         // Función para parsear strings a Date
         function parseStringToDate(val) {
-            if (!val) return new Date();
+            if (!val) return null;
 
-            // Formato dd/MM/yyyy
             if (val.includes('/')) {
                 const [d, m, y] = val.split('/');
-                return new Date(y, m - 1, d);
+                return new Date(parseInt(y), parseInt(m) - 1, parseInt(d));
             }
 
-            // Formato ISO yyyy-MM-dd o yyyy-MM-ddTHH:mm:ss
             if (val.includes('-')) {
                 return new Date(val);
             }
 
-            return new Date();
+            return null;
         }
 
         // Inicializa el datepicker con el valor correcto

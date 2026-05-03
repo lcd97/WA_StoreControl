@@ -1,0 +1,39 @@
+﻿
+@model WA_StoreControl.ViewModels.SearchPersonasVM
+
+<template id="Filter-Persona-Template">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                <span class="fas fa-filter"></span>
+                <small>Filtrar Persona/Proveedor</small>
+            </h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            @using (Html.BeginForm("", "", FormMethod.Post, new { autocomplete = "off", data_bind = "submit: $root.GetFilteredOrPaged, with: SearchViewModel", @id = "form" }))
+            {
+                <div class="row mb-1">
+                    <div class="col-10">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-5 col-lg-5 mt-2">
+                                @Html.LabelFor(model => model.Nombres, new { @class = "fw-bold" })
+                                @Html.TextBoxFor(model => model.Nombres, new { @class = "form-control form-control-sm", data_bind = "value: Nombres" })
+                            </div>
+
+                            <div class="col-sm-12 col-md-5 col-lg-5 mt-2">
+                                @Html.LabelFor(model => model.Identificacion, new { @class = "fw-bold" })
+                                @Html.TextBoxFor(model => model.Identificacion, new { @class = "form-control form-control-sm", data_bind = "value: Identificacion" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col d-grid gap-2 mt-2" data-bind="disableInputs: $root.LoadingRegistros()">
+                        <button type="submit" class="btn btn-primary btn-primary btn-sm"> <i class="fa fa-search"></i> Buscar</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-bind="click: $root.CleanFilter"><i class="fas fa-broom"></i> Limpiar</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</template>

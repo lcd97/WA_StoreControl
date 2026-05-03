@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelosDB.Inventario
 {
-    [Table("SubCategorias", Schema = "INV")]
+    [Table("SubCategorias", Schema = "inv")]
     public partial class SubCategoria
     {
         public SubCategoria()
@@ -28,6 +28,7 @@ namespace ModelosDB.Inventario
         [Display(Name = "Estado")]
         public bool EsActivo { get; set; }
 
+        [Display(Name = "Categoría")]
         public int CategoriaId { get; set; }
 
         //CLASES PADRES

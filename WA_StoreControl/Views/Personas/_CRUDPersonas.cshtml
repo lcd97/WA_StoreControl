@@ -1,0 +1,310 @@
+﻿@model ModelosDB.General.Persona
+
+<template id="CRUD-Persona-Template">
+    <div data-bind="jqValidateParseForm: true">
+        @using (Html.BeginForm("", "", FormMethod.Post, new { autocomplete = "off", data_bind = "submit: () => { $root.SaveData(formCRUD, $data.DataViewModel) }", @id = "formCRUD" }))
+        {
+            @Html.AntiForgeryToken();
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div data-bind="jqSmartwizard: $root.SmartwizardOptions, saveStepNumberOn: $root.StepNumber, validateForm:true" id="smartwizard">
+                <ul class="nav small">
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold" href="#step-0">
+                            <div class="num">1</div>
+                            <span class="fas fa-user"></span>
+                            Datos principales
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold" href="#step-1">
+                            <div class="num">2</div>
+                            <span class="fas fa-address-book"></span>
+                            Datos de contacto
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold" href="#step-1">
+                            <div class="num">3</div>
+                            <span class="fas fa-id-card"></span>
+                            Datos de Identidades
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="step-0" class="tab-pane" role="tabpanel" aria-labelledby="step-0" data-step-index="0">
+                        <div data-bind="template: { name: 'Datos-Persona-Template', data: DataViewModel() }"></div>
+                    </div>
+
+                    <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1" data-step-index="1">
+                        <div data-bind="template: { name: 'Datos-Contacto-Template', data: DataViewModel() }"></div>
+                    </div>
+
+                    <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2" data-step-index="2">
+                        <div data-bind="template: { name: 'Datos-Identidad-Template', data: DataViewModel() }"></div>
+                    </div>
+                </div>
+
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        }
+    </div>
+</template>
+
+<template id="Datos-Persona-Template">
+    <fieldset data-bind="disableInputs: !$parent.DisableUserInput()">
+
+        @Html.HiddenFor(model => model.Id, new { data_bind = "value: Id" })
+
+        <div class="form-horizontal">
+            <div class="row mb-2">
+                <div class="col-6 d-flex justify-content-center align-items-center">
+                    <div class="form-check form-switch">
+                        @Html.CheckBoxFor(model => model.EsPersonaNatural, new { @class = "form-check-input", data_bind = "checked: EsPersonaNatural" })
+                        @Html.LabelFor(model => model.EsPersonaNatural)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EsActivo, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-6 d-flex justify-content-center align-items-center">
+                    <div class="form-check form-switch">
+                        @Html.CheckBoxFor(model => model.EsActivo, new { @class = "form-check-input", data_bind = "checked: EsActivo" })
+                        @Html.LabelFor(model => model.EsActivo)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EsActivo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!--ko if: EsPersonaNatural()-->
+            <div class="row mb-2">
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                    @Html.LabelFor(model => model.Nombres, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Nombres", maxlength = "100" } })
+                    @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                    @Html.LabelFor(model => model.Apellidos, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Apellidos, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Apellidos", maxlength = "100" } })
+                    @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-12">
+                        @Html.LabelFor(model => model.FechaNacimiento, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.FechaNacimiento, "", htmlAttributes: new { @class = "form-control", data_bind = "value: FechaNacimiento, jqDatepicker: FechaNacimiento" })
+                        @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <!--/ko-->
+
+            <div>
+                <div class="col-12" data-bind="visible: !EsPersonaNatural()">
+                    @Html.LabelFor(model => model.NombreComercial, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NombreComercial, new { htmlAttributes = new { @class = "form-control", data_bind = "value: NombreComercial", maxlength = "100" } })
+                    @Html.ValidationMessageFor(model => model.NombreComercial, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col">
+                    @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextAreaFor(model => model.Direccion, new
+                    {
+                        @class = "form-control",
+                        data_bind = "value: Direccion",
+                        rows = 3
+                    })
+                    @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</template>
+
+<template id="Datos-Contacto-Template">
+    <fieldset data-bind="disableInputs: !$parent.DisableUserInput()">
+        <div class="row mb-2">
+            <!--ko with: $root.Identidades-->
+            <!--ko if: !['Details','Delete'].includes($parents[1].Action())-->
+            <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 mt-2">
+                @Html.Label("Tipo de Identidad", htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownList("TipoIdentidadId",
+                         Enumerable.Empty<SelectListItem>(),
+                         htmlAttributes: new
+                         {
+                             @class = "form-select form-select-sm",
+                             data_bind = @"options: $root.TiposIdentificacion,
+                                            optionsText: 'Descripcion',
+                                            optionsValue: 'Id',
+                                            optionsCaption: '-- Seleccione una opción --',
+                                            jqSelect2:{
+                                               language: 'es',
+                                               width: '100%',
+                                               dropdownParent: $($element).closest('.modal')
+                                            },
+                                            value: TipoIdentificacionId"
+                         })
+            </div>
+
+            <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 mt-2">
+                @Html.Label("Código de Identidad", htmlAttributes: new { @class = "control-label" })
+                @Html.TextBox("Identificacion", null, new { @class = "form-control text-uppercase", data_bind = "value: Identificacion, jqMask: { Mask: 'AAAAAAAAAAAAAA' }", maxlength = 14 })
+            </div>
+
+            <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12 text-center align-content-end mt-2">
+                <div class="btn-group" role="group" aria-label="Acciones">
+                    <button type="button" class="btn btn-outline-primary" data-bind="click: $root.AddIdentidad">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" data-bind="click: $root.ClearIdentidad">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <!--/ko -->
+            <!--/ko -->
+        </div>
+
+        <div class="row mb-2 mt-3">
+            <div class="col-12">
+                <!--ko if: (Identidades().length <= 0 && !$root.LoadingIdentidades()) -->
+                <div class="alert alert-warning animated flash mb-0 opacity-75" role="alert">
+                    <p class="mb-0">
+                        <span class="fas fa-exclamation-triangle"></span>
+                        No se han encontrado identificaciones para mostrar
+                    </p>
+                </div>
+                <!--/ko -->
+
+                <div class="table-responsive">
+                    <table class="table table-sm" data-bind="if: (!$root.LoadingIdentidades () && Identidades().length > 0)">
+                        <thead class="table-primary opacity-75 text-dark">
+                            <tr>
+                                <th>No.</th>
+                                <th>Identificación</th>
+                                <th>Código</th>
+                                <th data-bind="visible: !['Details','Delete'].includes($parent.Action())">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: Identidades">
+                            <tr>
+                                <td class="align-middle" data-bind="text: ($index() + 1)"></td>
+                                <td class="align-middle" data-bind="text: DescripcionTipoIdentificacion"></td>
+                                <td class="align-middle" data-bind="text: Identificacion"></td>
+                                <td data-bind="visible:!['Details','Delete'].includes($parents[1].Action())">
+                                    <button type="button" class="btn btn-outline-primary" title="Editar" data-bind="click: () => { $root.EditIdentidad($data) }">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger" title="Eliminar" data-bind="click: () => { $root.DeleteIdentidad($data) }">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</template>
+
+<template id="Datos-Identidad-Template">
+    <fieldset data-bind="disableInputs: !$parent.DisableUserInput()">
+        <div class="row mb-2">
+            <!--ko with: $root.Telefonos-->
+            <!--ko if: !['Details','Delete'].includes($parents[1].Action())-->
+            <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 mt-2">
+                @Html.Label("Compañía Telefónica", htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownList("CompaniaTelefonicaId",
+                         Enumerable.Empty<SelectListItem>(),
+                         htmlAttributes: new
+                         {
+                             @class = "form-select form-select-sm",
+                             data_bind = @"options: $root.CompaniasTelefonica,
+                                            optionsText: 'Descripcion',
+                                            optionsValue: 'Id',
+                                            optionsCaption: '-- Seleccione una opción --',
+                                            jqSelect2:{
+                                               language: 'es',
+                                               width: '100%',
+                                               dropdownParent: $($element).closest('.modal')
+                                            },
+                                            value: CompaniaTelefonicaId"
+                         })
+            </div>
+
+            <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 mt-2">
+                @Html.Label("Número teléfonico", htmlAttributes: new { @class = "control-label" })
+                @Html.TextBox("NumeroTelefonico", null, new
+                {
+                    @class = "form-control",
+                    data_bind = "value: NumeroTelefonico",
+                    maxlength = "8",
+                    type = "text",
+                    oninput = "this.value = this.value.replace(/[^0-9]/g, '');"
+                })
+            </div>
+
+            <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12 mt-2 text-center align-content-end">
+                <div class="btn-group" role="group" aria-label="Acciones">
+                    <button type="button" class="btn btn-outline-primary" data-bind="click: $root.AddTelefono">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" data-bind="click: $root.ClearTelefono">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <!--/ko-->
+            <!--/ko-->
+        </div>
+
+        <div class="row mb-2 mt-3">
+            <div class="col-12">
+                <!--ko if: (DetallesTelefono().length <= 0 && !$root.LoadingTelefonos()) -->
+                <div class="alert alert-warning animated flash mb-0 opacity-75" role="alert">
+                    <p class="mb-0">
+                        <span class="fas fa-exclamation-triangle"></span>
+                        No se han encontrado teléfonos para mostrar
+                    </p>
+                </div>
+                <!--/ko -->
+
+                <div class="table-responsive">
+                    <table class="table table-sm" data-bind="if: (!$root.LoadingTelefonos() && DetallesTelefono().length > 0)">
+                        <thead class="table-primary opacity-75 text-dark">
+                            <tr>
+                                <th>No.</th>
+                                <th>Teléfono</th>
+                                <th>Compañía</th>
+                                <th data-bind="visible: !['Details','Delete'].includes($parent.Action())">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: DetallesTelefono">
+                            <tr>
+                                <td class="align-middle" data-bind="text: ($index() + 1)"></td>
+                                <td class="align-middle" data-bind="text: NumeroTelefonico"></td>
+                                <td class="align-middle" data-bind="text: DescripcionCompania"></td>
+                                <td data-bind="visible:!['Details','Delete'].includes($parents[1].Action())">
+                                    <button type="button" class="btn btn-outline-primary" title="Editar" data-bind="click: () => { $root.EditTelefono($data) }">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger" title="Eliminar" data-bind="click: () => { $root.DeleteTelefono($data) }">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</template>

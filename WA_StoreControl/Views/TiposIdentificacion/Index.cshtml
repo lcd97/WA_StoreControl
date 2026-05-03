@@ -1,0 +1,56 @@
+﻿@model WA_StoreControl.ViewModels.IndexTiposIdentificacionVM
+
+@{
+    ViewBag.Title = "Tipos de Identificación";
+    @Html.Hidden("JsonData")
+}
+
+<div class="row">
+    <div class="col-12">
+        <div data-bind="template: { name: 'Filter-TipoIdentificacion-Template' }"></div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <div class="row align-items-center">
+                    <div class="col-6 d-flex justify-content-start">
+                        <h2 class="mb-0">
+                            <small>Lista de @ViewBag.Title</small>
+                        </h2>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end">
+                        <button type="button"
+                                class="btn btn-primary"
+                                title="Crear Nuevo"
+                                data-bind="click: () => ShowModal(null, 'Create')">
+                            Crear Nuevo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="x_content">
+                <div data-bind="template: { name: 'table-TipoIdentificacion-template' }"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<modal params="ViewModel: ModalViewModel"></modal>
+
+@{ Html.RenderPartial("~/Views/Shared/KnockoutComponents/_LoadingSpinner.cshtml");}
+
+@{ Html.RenderPartial("~/Views/Shared/KnockoutComponents/_Modal.cshtml");}
+
+@{ Html.RenderPartial("~/Views/Shared/KnockoutComponents/_PaginationTemplate.cshtml");}
+
+@{ Html.RenderPartial("~/Views/TiposIdentificacion/_FilterTiposIdentificacion.cshtml", Model.SearchTiposIdentificacionVM);}
+
+@{ Html.RenderPartial("~/Views/TiposIdentificacion/_TableTiposIdentificacion.cshtml", Model.TipoIdentificacion); }
+
+@{ Html.RenderPartial("~/Views/TiposIdentificacion/_CRUDTiposIdentificacion.cshtml", Model.TipoIdentificacion); }
+
+@section scripts {
+    @Scripts.Render("~/bundles/TipoIdentificacion")
+}

@@ -3,7 +3,6 @@
         data = data || {};
         const self = this;
 
-        //TRABAJAN CON LOS CAMPOS DEL DTO
         self.Id = ko.observable(data.Id || 0);
         self.Codigo = ko.observable(data.Codigo || "");
         self.Descripcion = ko.observable(data.Descripcion || "");

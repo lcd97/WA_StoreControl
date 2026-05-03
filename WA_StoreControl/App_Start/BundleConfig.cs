@@ -86,12 +86,58 @@ namespace WA_StoreControl
                 "~/Scripts/ComponentesKO/Shared/KnockoutComponents/TerceroFinder.js"
             ));
 
-            // CATEGORIA
+            #region CATALOGOS
             bundles.Add(new Bundle("~/bundles/Categoria").Include(
                 "~/Scripts/Catalogos/Categorias/CategoriaVM.js",
                 "~/Scripts/Catalogos/Categorias/SearchCategoriaVM.js",
                 "~/Scripts/Catalogos/Categorias/IndexCategoriaVM.js"
             ));
+
+            bundles.Add(new Bundle("~/bundles/SubCategoria").Include(
+                "~/Scripts/Catalogos/SubCategorias/SubCategoriaVM.js",
+                "~/Scripts/Catalogos/Categorias/CategoriaVM.js",
+                "~/Scripts/Catalogos/SubCategorias/SearchSubCategoriaVM.js",
+                "~/Scripts/Catalogos/SubCategorias/IndexSubCategoriaVM.js"
+            ));
+
+            bundles.Add(new Bundle("~/bundles/TipoIdentificacion").Include(
+                "~/Scripts/Catalogos/TiposIdentificacion/TipoIdentificacionVM.js",
+                "~/Scripts/Catalogos/TiposIdentificacion/SearchTipoIdentificacionVM.js",
+                "~/Scripts/Catalogos/TiposIdentificacion/IndexTipoIdentificacionVM.js"
+            ));
+
+            bundles.Add(new Bundle("~/bundles/CompaniaTelefonica").Include(
+                "~/Scripts/Catalogos/CompaniasTelefonica/CompaniaTelefonicaVM.js",
+                "~/Scripts/Catalogos/CompaniasTelefonica/SearchCompaniaTelefonicaVM.js",
+                "~/Scripts/Catalogos/CompaniasTelefonica/IndexCompaniaTelefonicaVM.js"
+            ));
+
+            bundles.Add(new Bundle("~/bundles/Producto").Include(
+                "~/Scripts/Catalogos/Productos/ProductoVM.js",
+               "~/Scripts/Catalogos/Marcas/MarcaVM.js",
+                "~/Scripts/Catalogos/SubCategorias/SubCategoriaVM.js",
+                "~/Scripts/Catalogos/Categorias/CategoriaVM.js",
+                "~/Scripts/Catalogos/Productos/SearchProductoVM.js",
+                "~/Scripts/Catalogos/Productos/IndexProductoVM.js"
+            ));
+
+            bundles.Add(new Bundle("~/bundles/Persona").Include(
+              "~/Scripts/Catalogos/Personas/PersonaVM.js",
+              "~/Scripts/Catalogos/Identidades/IdentidadVM.js",
+              "~/Scripts/Catalogos/DetallesTelefono/DetalleTelefonoVM.js",
+              "~/Scripts/Catalogos/TiposIdentificacion/TipoIdentificacionVM.js",
+              "~/Scripts/Catalogos/CompaniasTelefonica/CompaniaTelefonicaVM.js",
+              "~/Scripts/Catalogos/Categorias/CategoriaVM.js",
+              "~/Scripts/Catalogos/Personas/SearchPersonaVM.js",
+              "~/Scripts/Catalogos/Personas/IndexPersonaVM.js"
+          ));
+
+            bundles.Add(new Bundle("~/bundles/Marca").Include(
+               "~/Scripts/Catalogos/Marcas/MarcaVM.js",
+               "~/Scripts/Catalogos/Marcas/SearchMarcaVM.js",
+               "~/Scripts/Catalogos/Marcas/IndexMarcaVM.js"
+           ));
+            #endregion
         }
     }
 }

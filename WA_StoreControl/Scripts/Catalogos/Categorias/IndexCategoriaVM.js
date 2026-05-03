@@ -5,24 +5,23 @@
 
         //#region PROPIEDADES PRINCIPALES
         self.Categorias = ko.observableArray(data.Categorias ? data.Categorias.map(x => new CategoriaVM(x)) : []);
-        self.Categoria = ko.observable(new CategoriaVM());//OBTIENE UNA CATEGORIA DE LA TABLA
-        self.PeticionEnCurso = ko.observable(null);//CANCELAR MULTIPLES PETICIONES
+        self.Categoria = ko.observable(new CategoriaVM());
+        self.PeticionEnCurso = ko.observable(null);
 
         self.LoadingRegistros = ko.observable(false);
 
-        self.Action = ko.observable("");//CAPTURAR LA ACTION
-        self.bodyTemplate = ko.observable({}); //Data De Modal
-        self.SearchViewModel = ko.observable(new SearchCategoriaVM({ ...data.SearchCategoriasVM, RecordsPerPage: 10 } || {})); // Propiedades de configuracion para la paginacion
+        self.Action = ko.observable("");
+        self.bodyTemplate = ko.observable({});
+        self.SearchViewModel = ko.observable(new SearchCategoriaVM({ ...data.SearchCategoriasVM, RecordsPerPage: 10 } || {}));
 
-        self.PaginationViewModel = ko.observable(new PaginationViewModel({ //Instancia del ViewModel de paginacion...
-            TotalPages: self.SearchViewModel().TotalPages, //EL total de paginas se envia como referencia para controlarlo desde este nivel...
-            CurrentPage: self.SearchViewModel().Page, //Igualmente la pagina actual se pasa como referencia...
-            TotalDisplayedPages: 5, //Numero de links de paginas mostrados a la vez...
-            OnCurrentPageChange: GetFilteredOrPaged //Callback al paginar...
+        self.PaginationViewModel = ko.observable(new PaginationViewModel({
+            TotalPages: self.SearchViewModel().TotalPages,
+            CurrentPage: self.SearchViewModel().Page,
+            TotalDisplayedPages: 5,
+            OnCurrentPageChange: GetFilteredOrPaged
         }));
 
-        //Viemodels De Modal
-        self.ModalViewModel = ko.observable(new ModalViewModel({ //ViewModel para el Componente modal...
+        self.ModalViewModel = ko.observable(new ModalViewModel({
             ComponentOptions: { backdrop: "static" },
             ModalHeaderViewModel: new ModalHeaderViewModel(),
             ModalBodyViewModel: new ModalBodyViewModel()
@@ -41,13 +40,12 @@
         };
 
         self.ShowModal = function (data, action) {
-
             self.Categoria(new CategoriaVM(ko.toJS(data || {})));
 
             self.bodyTemplate(new CRUDViewModel({
                 Action: action,
                 DataViewModel: self.Categoria,
-                ModelName: "Categoria"
+                ModelName: "Categoría"
             }));
 
             self.ModalViewModel().ModalHeaderViewModel().ModalTitle(self.bodyTemplate().ModalHeaderTitle()).BackgroundColorClass(self.bodyTemplate().ModalBackgroundColorClass());
@@ -59,15 +57,15 @@
             self.ModalViewModel().BootstrapInstance().show();
         };
 
-        self.SaveData = function (formCRUD, data) { // Funcion Para El CRUD
+        self.SaveData = function (formCRUD, data) {
             let Categoria = ko.toJS(data) || {};
-            let url = "Categorias/" + self.bodyTemplate().Action(); //url de accion a realizar
-            let token = $('input[name="__RequestVerificationToken"]').val(); //Token 
-            $.validator.unobtrusive.parse($(formCRUD)); // Reaplica las validaciones
+            let url = "Categorias/" + self.bodyTemplate().Action();
+            let token = $('input[name="__RequestVerificationToken"]').val();
+            $.validator.unobtrusive.parse($(formCRUD));
 
-            if ($(formCRUD).valid()) { //Validar datos del formulario
+            if ($(formCRUD).valid()) {
                 var beforeSendCallBack = (jqXHR) => {
-                    if (self.PeticionEnCurso()) //verifica si hay otra peticion para abortar
+                    if (self.PeticionEnCurso())
                         self.PeticionEnCurso().abort();
 
                     self.PeticionEnCurso(jqXHR);
@@ -117,16 +115,12 @@
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {
-                if (statusText !== "abort") {
-                    Messages.TimerMessages({
-                        icon: "error",
-                        title: response.Message
-                    });
-                }
+                if (statusText !== "abort")
+                    AppGlobal.Messages.ShowNotifyError();
             }
 
             var beforeSendCallBack = () => (jqXHR) => {
-                if (self.PeticionEnCurso()) //verifica si hay otra peticion para abortar
+                if (self.PeticionEnCurso())
                     self.PeticionEnCurso().abort();
 
                 self.PeticionEnCurso(jqXHR);
