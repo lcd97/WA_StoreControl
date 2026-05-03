@@ -14,13 +14,13 @@
 
                     <div class="container">
                         <div class="row mb-2">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 @Html.LabelFor(model => model.Codigo)
                                 @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Codigo", maxlength = "3" } })
                                 @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
                             </div>
 
-                            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                            <div class="col-6 d-flex justify-content-center align-items-center">
                                 <div class="form-check form-switch">
                                     @Html.CheckBoxFor(model => model.EsActivo, new { @class = "form-check-input", data_bind = "checked: EsActivo" })
                                     @Html.LabelFor(model => model.EsActivo)

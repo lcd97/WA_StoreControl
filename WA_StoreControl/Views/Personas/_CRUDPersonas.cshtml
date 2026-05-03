@@ -82,13 +82,13 @@
 
             <!--ko if: EsPersonaNatural()-->
             <div class="row mb-2">
-                <div class="col-6">
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                     @Html.LabelFor(model => model.Nombres, htmlAttributes: new { @class = "control-label" })
                     @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Nombres", maxlength = "100" } })
                     @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
                 </div>
 
-                <div class="col-6">
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                     @Html.LabelFor(model => model.Apellidos, htmlAttributes: new { @class = "control-label" })
                     @Html.EditorFor(model => model.Apellidos, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Apellidos", maxlength = "100" } })
                     @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
@@ -112,8 +112,6 @@
                 </div>
             </div>
 
-
-
             <div class="row mb-2">
                 <div class="col">
                     @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label" })
@@ -135,7 +133,7 @@
         <div class="row mb-2">
             <!--ko with: $root.Identidades-->
             <!--ko if: !['Details','Delete'].includes($parents[1].Action())-->
-            <div class="col">
+            <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 mt-2">
                 @Html.Label("Tipo de Identidad", htmlAttributes: new { @class = "control-label" })
                 @Html.DropDownList("TipoIdentidadId",
                          Enumerable.Empty<SelectListItem>(),
@@ -155,12 +153,12 @@
                          })
             </div>
 
-            <div class="col">
+            <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 mt-2">
                 @Html.Label("Código de Identidad", htmlAttributes: new { @class = "control-label" })
                 @Html.TextBox("Identificacion", null, new { @class = "form-control text-uppercase", data_bind = "value: Identificacion, jqMask: { Mask: 'AAAAAAAAAAAAAA' }", maxlength = 14 })
             </div>
 
-            <div class="col-md-2 text-center align-content-end">
+            <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12 text-center align-content-end mt-2">
                 <div class="btn-group" role="group" aria-label="Acciones">
                     <button type="button" class="btn btn-outline-primary" data-bind="click: $root.AddIdentidad">
                         <i class="fas fa-plus"></i>
@@ -185,31 +183,33 @@
                 </div>
                 <!--/ko -->
 
-                <table class="table table-sm" data-bind="if: (!$root.LoadingIdentidades () && Identidades().length > 0)">
-                    <thead class="table-primary opacity-75 text-dark">
-                        <tr>
-                            <th>No.</th>
-                            <th>Identificación</th>
-                            <th>Código</th>
-                            <th data-bind="visible: !['Details','Delete'].includes($parent.Action())">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody data-bind="foreach: Identidades">
-                        <tr>
-                            <td class="align-middle" data-bind="text: ($index() + 1)"></td>
-                            <td class="align-middle" data-bind="text: DescripcionTipoIdentificacion"></td>
-                            <td class="align-middle" data-bind="text: Identificacion"></td>
-                            <td data-bind="visible:!['Details','Delete'].includes($parents[1].Action())">
-                                <button type="button" class="btn btn-outline-primary" title="Editar" data-bind="click: () => { $root.EditIdentidad($data) }">
-                                    <i class="fa fa-pencil-square-o"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline-danger" title="Eliminar" data-bind="click: () => { $root.DeleteIdentidad($data) }">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-sm" data-bind="if: (!$root.LoadingIdentidades () && Identidades().length > 0)">
+                        <thead class="table-primary opacity-75 text-dark">
+                            <tr>
+                                <th>No.</th>
+                                <th>Identificación</th>
+                                <th>Código</th>
+                                <th data-bind="visible: !['Details','Delete'].includes($parent.Action())">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: Identidades">
+                            <tr>
+                                <td class="align-middle" data-bind="text: ($index() + 1)"></td>
+                                <td class="align-middle" data-bind="text: DescripcionTipoIdentificacion"></td>
+                                <td class="align-middle" data-bind="text: Identificacion"></td>
+                                <td data-bind="visible:!['Details','Delete'].includes($parents[1].Action())">
+                                    <button type="button" class="btn btn-outline-primary" title="Editar" data-bind="click: () => { $root.EditIdentidad($data) }">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger" title="Eliminar" data-bind="click: () => { $root.DeleteIdentidad($data) }">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </fieldset>
@@ -220,7 +220,7 @@
         <div class="row mb-2">
             <!--ko with: $root.Telefonos-->
             <!--ko if: !['Details','Delete'].includes($parents[1].Action())-->
-            <div class="col-5">
+            <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 mt-2">
                 @Html.Label("Compañía Telefónica", htmlAttributes: new { @class = "control-label" })
                 @Html.DropDownList("CompaniaTelefonicaId",
                          Enumerable.Empty<SelectListItem>(),
@@ -240,7 +240,7 @@
                          })
             </div>
 
-            <div class="col-5">
+            <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 mt-2">
                 @Html.Label("Número teléfonico", htmlAttributes: new { @class = "control-label" })
                 @Html.TextBox("NumeroTelefonico", null, new
                 {
@@ -252,7 +252,7 @@
                 })
             </div>
 
-            <div class="col text-center align-content-end">
+            <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12 mt-2 text-center align-content-end">
                 <div class="btn-group" role="group" aria-label="Acciones">
                     <button type="button" class="btn btn-outline-primary" data-bind="click: $root.AddTelefono">
                         <i class="fas fa-plus"></i>
@@ -277,31 +277,33 @@
                 </div>
                 <!--/ko -->
 
-                <table class="table table-sm" data-bind="if: (!$root.LoadingTelefonos() && DetallesTelefono().length > 0)">
-                    <thead class="table-primary opacity-75 text-dark">
-                        <tr>
-                            <th>No.</th>
-                            <th>Teléfono</th>
-                            <th>Compañía</th>
-                            <th data-bind="visible: !['Details','Delete'].includes($parent.Action())">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody data-bind="foreach: DetallesTelefono">
-                        <tr>
-                            <td class="align-middle" data-bind="text: ($index() + 1)"></td>
-                            <td class="align-middle" data-bind="text: NumeroTelefonico"></td>
-                            <td class="align-middle" data-bind="text: DescripcionCompania"></td>
-                            <td data-bind="visible:!['Details','Delete'].includes($parents[1].Action())">
-                                <button type="button" class="btn btn-outline-primary" title="Editar" data-bind="click: () => { $root.EditTelefono($data) }">
-                                    <i class="fa fa-pencil-square-o"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline-danger" title="Eliminar" data-bind="click: () => { $root.DeleteTelefono($data) }">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-sm" data-bind="if: (!$root.LoadingTelefonos() && DetallesTelefono().length > 0)">
+                        <thead class="table-primary opacity-75 text-dark">
+                            <tr>
+                                <th>No.</th>
+                                <th>Teléfono</th>
+                                <th>Compañía</th>
+                                <th data-bind="visible: !['Details','Delete'].includes($parent.Action())">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: DetallesTelefono">
+                            <tr>
+                                <td class="align-middle" data-bind="text: ($index() + 1)"></td>
+                                <td class="align-middle" data-bind="text: NumeroTelefonico"></td>
+                                <td class="align-middle" data-bind="text: DescripcionCompania"></td>
+                                <td data-bind="visible:!['Details','Delete'].includes($parents[1].Action())">
+                                    <button type="button" class="btn btn-outline-primary" title="Editar" data-bind="click: () => { $root.EditTelefono($data) }">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger" title="Eliminar" data-bind="click: () => { $root.DeleteTelefono($data) }">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </fieldset>
