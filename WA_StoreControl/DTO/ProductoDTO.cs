@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -18,5 +19,7 @@ namespace WA_StoreControl.DTO
         public string DescripcionCategoria { get; set; }
         public string DescripcionSubCategoria { get; set; }
         public int MarcaId { get; set; }
+
+        public string DescripcionProducto { get; set; }
     }
 }

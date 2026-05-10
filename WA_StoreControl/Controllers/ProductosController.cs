@@ -36,6 +36,7 @@ namespace WA_StoreControl.Controllers
         {
             var indexProductos = new IndexProductosVM();
             indexProductos.Categorias = Mapper.Map<ICollection<CategoriaDTO>>(categoriasService.GetAll().ToList());
+            indexProductos.CategoriasYSub = Mapper.Map<ICollection<SubCategoriaDTO>>(subCategoriasService.GetAll().ToList());
             indexProductos.Marcas = Mapper.Map<ICollection<MarcaDTO>>(marcasService.GetAll().ToList());
 
             ViewBag.JsonData = JsonConvert.SerializeObject(indexProductos);

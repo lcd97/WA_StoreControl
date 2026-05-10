@@ -1,0 +1,58 @@
+﻿@model WA_StoreControl.ViewModels.IndexCrearEntradasVM
+
+@{
+    ViewBag.Title = "Ingreso de productos";
+    @Html.Hidden("JsonData")
+}
+
+<div class="row">
+    @using (Html.BeginForm("", "", FormMethod.Post, new { autocomplete = "off", data_bind = "submit: () => { $root.SaveData(formCRUD, $root.Entrada) }", @id = "formCRUD" }))
+    {
+        @Html.AntiForgeryToken();
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <!--ko with : $root.Entrada-->
+        <div class="col-12">
+            <div data-bind="template: { name: 'Filter-DatosEntrada-Template', data: $root.Entrada() }"></div>
+        </div>
+
+        <div class="col-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="row align-items-center">
+                        <div class="col-6 d-flex justify-content-start">
+                            <h2 class="mb-0">
+                                <small>@ViewBag.Title</small>
+                            </h2>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <button type="button"
+                                    class="btn btn-outline-success btn-sm"
+                                    title="Agregar producto"
+                                    data-bind="click: $root.AgregarProducto">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="x_content">
+                    <div data-bind="template: { name: 'table-IngresoProducto-template' }"></div>
+                </div>
+            </div>
+        </div>
+        <!--/ko-->
+    }
+</div>
+
+@{ Html.RenderPartial("~/Views/Shared/KnockoutComponents/_Modal.cshtml");}
+
+@{ Html.RenderPartial("~/Views/Shared/KnockoutComponents/_PaginationTemplate.cshtml");}
+
+@{ Html.RenderPartial("~/Views/Entradas/_DatosEntradas.cshtml");}
+
+@{ Html.RenderPartial("~/Views/Entradas/_TableIngresoProd.cshtml"); }
+
+@section scripts {
+    @Scripts.Render("~/bundles/CrearEntrada")
+}

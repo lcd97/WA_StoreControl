@@ -17,5 +17,7 @@
         self.CategoriaYSubCategoria = ko.computed(() => {
             return `${self.DescripcionCategoria()} - ${self.DescripcionSubCategoria()}`;
         });
+
+        self.DescripcionProducto = ko.observable(data.DescripcionProducto || "");
     }
 }

@@ -24,11 +24,9 @@ namespace ModelosDB.Inventario
 
         //DEFINCION DE FK
         public int EntradaId { get; set; }
-        public int ProveedorId { get; set; }
         public int ProductoId { get; set; }
 
         //CLASE PADRE
-        public virtual Persona Proveedor { get; set; }
         public virtual Entrada Entrada { get; set; }
         public virtual Producto Producto { get; set; }
     }

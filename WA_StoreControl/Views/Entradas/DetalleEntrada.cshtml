@@ -1,0 +1,145 @@
+﻿@model WA_StoreControl.ViewModels.IndexCrearEntradasVM
+
+@{
+    ViewBag.Title = "Detalle de Entrada";
+    @Html.Hidden("JsonData")
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2> @ViewBag.Title</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <!--ko with: $root.Entrada-->
+                <section class="container-fluid py-4">
+                    <div class="row g-4">
+
+                        <div class="col-12 col-lg-3">
+                            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                                <div class="card-body bg-white">
+                                    <div class="mb-4">
+                                        <label class="small text-muted text-uppercase fw-bold">Número de Entrada</label>
+                                        <div class="h5 fw-bold text-success"># <span data-bind="text: Codigo"></span></div>
+                                    </div>
+
+                                    <hr class="text-muted opacity-25">
+
+                                    <div class="mb-3 d-flex align-items-center">
+                                        <div class="p-2 bg-light rounded-3 me-3">
+                                            <i class="fas fa-solid fa-truck text-secondary"></i>
+                                        </div>
+                                        <div>
+                                            <label class="small text-muted d-block">Proveedor</label>
+                                            <span class="fw-bold" data-bind="text: NombreProveedor"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 d-flex align-items-center">
+                                        <div class="p-2 bg-light rounded-3 me-3">
+                                            <i class="fas fa-solid fa-user text-secondary"></i>
+                                        </div>
+                                        <div>
+                                            <label class="small text-muted d-block">Registrado por</label>
+                                            <span class="fw-bold text-dark">Usuario Prueba</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4 d-flex align-items-center">
+                                        <div class="p-2 bg-light rounded-3 me-3">
+                                            <i class="fas fa-solid fa-calendar text-secondary"></i>
+                                        </div>
+                                        <div>
+                                            <label class="small text-muted d-block">Fecha de emisión</label>
+                                            <span class="fw-bold text-dark" data-bind="text: FechaEntrada"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-primary shadow-sm" type="button">
+                                            <i class="fas fa-solid fa-file-pdf me-2"></i>Descargar PDF
+                                        </button>
+                                        <button class="btn btn-outline-secondary btn-sm border-0" onclick="window.print()">
+                                            <i class="fas fa-solid fa-print me-2"></i>Imprimir copia
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-9">
+                            <div class="card border-0 shadow-sm rounded-4">
+                                <div class="card-body p-0">
+                                    <div class="p-4 border-bottom d-flex justify-content-between align-items-center bg-light rounded-top-4">
+                                        <h5 class="mb-0 fw-bold">Productos Recibidos</h5>
+                                        <span class="bg-opacity-30 px-3 py-2 rounded-pill"
+                                              data-bind="css: EsActivo() ? 'badge text-bg-success' : 'badge text-bg-warning',
+                                                            text: EsActivo() ? 'Entrada Procesada' : 'Entrada Anulada'">
+                                        </span>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-hover align-middle mb-0">
+                                            <thead class="bg-light">
+                                                <tr>
+                                                    <th class="border-0 ps-4 py-3  fw-bold" style="width: 60px;">#</th>
+                                                    <th class="border-0 py-3 fw-bold">Descripción</th>
+                                                    <th class="border-0 py-3 text-center fw-bold">Cantidad</th>
+                                                    <th class="border-0 py-3 text-end fw-bold">Precio Unit.</th>
+                                                    <th class="border-0 pe-4 py-3 text-end fw-bold">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-bind="foreach: $root.Entrada().DetallesEntrada">
+                                                <tr>
+                                                    <td class="ps-4 text-muted small" data-bind="text: ($index() + 1)"></td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="p-2 bg-primary bg-opacity-10 text-primary rounded-2 me-3 d-none d-md-block">
+                                                                <i class="fas fa-solid fa-box-open small"></i>
+                                                            </div>
+                                                            <span class="fw-semibold text-dark" data-bind="text: DescripcionProducto"></span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center" data-bind="text: Cantidad"></td>
+                                                    <td class="text-end text-muted" data-bind="text: 'C$ ' + PrecioUnitario()"></td>
+                                                    <td class="pe-4 text-end fw-bold" data-bind="text: 'C$ ' + Total()"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="p-4 bg-light bg-opacity-50 rounded-bottom-4">
+                                        <div class="row justify-content-end">
+                                            <div class="col-auto text-end">
+                                                <p class="text-muted mb-1 small uppercase fw-bold">Monto Total de Entrada</p>
+                                                <h3 class="fw-bold text-success mb-0">
+                                                    <span class="small fs-5">C$</span>
+                                                    <span data-bind="text: $root.Entrada().Total()"></span>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <a class="btn btn-outline-primary text-decoration-none" data-bind="click:() => $root.Regresar()">
+                                    <i class="fa-solid fa-arrow-left-long me-2"></i>Volver al listado
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!--/ko-->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/DetalleEntrada")
+}

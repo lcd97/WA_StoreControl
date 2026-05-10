@@ -1,0 +1,82 @@
+﻿<template id="table-IngresoProducto-template">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <caption class="small fw-bold" data-bind="visible: $root.Entrada().DetallesEntrada.length>0">
+                <span data-bind="text: $root.Entrada().DetallesEntrada.length"></span> registros en la tabla.
+            </caption>
+            <thead>
+                <tr>
+                    <th scope="row" class="text-center">
+                        #
+                    </th>
+                    <th>
+                        @Html.DisplayName("Producto")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Cantidad")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Precio")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("Total")
+                    </th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider" data-bind="foreach: $root.Entrada().DetallesEntrada">
+                <tr data-bind="css: { 'table-danger': EsInvalido() }">
+                    <td class="text-center align-middle fw-bold" data-bind="text: ($index() + 1)"></td>
+                    <td class="align-middle">
+                        <div class="col">
+                            <select class="form-select form-select-sm"
+                                    data-bind="attr: {
+                                        id:   'ProductoId_' + $index(),
+                                        name: 'ProductoId_' + $index()
+                                     },
+                                    select2Ajax: $root.ProductosConfig($data)">
+                            </select>
+                        </div>
+                    </td>
+                    <td class="align-middle">
+                        <div class="col">
+                            <input data-bind="value:Cantidad" oninput="this.value = this.value.replace(/[^0-9]/g, '')" type="text" class="form-control form-control-sm" maxlength="6" />
+                        </div>
+                    </td>
+                    <td class="align-middle">
+                        <div class="col">
+                            <input data-bind="value:Precio, jqMask: { Mask: '####0.00', Config: { reverse: true } }" type="text" class="form-control form-control-sm" maxlength="8" />
+                        </div>
+                    </td>
+                    <td class="align-middle text-center" data-bind="text: 'C$ ' + Total()"></td>
+                    <td>
+                        <button type="button" class="btn btn-outline-danger" title="Eliminar" data-bind="click: () => { $root.DeleteProducto($data) }">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <!--ko if: ($root.Entrada().DetallesEntrada().length <= 0) -->
+                        <div class="alert alert-warning animated flash mb-0 opacity-75" role="alert">
+                            <p class="mb-0 text-center">
+                                <span class="fas fa-exclamation-triangle"></span>
+                                <b>No hay productos agregados.</b><br />
+
+                                Haga clic en Agregar para ingresar productos a la entrada.
+                            </p>
+                        </div>
+                        <!--/ko -->
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="4" class="fw-bold text-end">Total: </td>
+                    <td colspan="2" data-bind="text: 'C$ ' +  $root.Entrada().Total()" class="align-middle"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</template>

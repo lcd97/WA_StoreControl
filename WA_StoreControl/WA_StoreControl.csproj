@@ -179,6 +179,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="AutoMapper\MappingProfile.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EntradasController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\CompaniasTelefonicaController.cs" />
@@ -187,8 +188,10 @@
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="DTO\DetalleTelefonoDTO.cs" />
+    <Compile Include="DTO\EntradaDTO.cs" />
     <Compile Include="DTO\IdentidadDTO.cs" />
     <Compile Include="DTO\MarcaDTO.cs" />
+    <Compile Include="Services\EntradasService.cs" />
     <Compile Include="Services\MarcasService.cs" />
     <Compile Include="Utilidades\PersonaHelper.cs" />
     <Compile Include="Controllers\SubCategoriasController.cs" />
@@ -220,6 +223,8 @@
     <Compile Include="Utilidades\SystemMessage.cs" />
     <Compile Include="ViewModels\IndexCompaniasTelefonicaVM.cs" />
     <Compile Include="ViewModels\IndexCategoriasVM.cs" />
+    <Compile Include="ViewModels\IndexCrearEntradasVM.cs" />
+    <Compile Include="ViewModels\IndexEntradasVM.cs" />
     <Compile Include="ViewModels\IndexMarcasVM.cs" />
     <Compile Include="ViewModels\IndexPersonasVM.cs" />
     <Compile Include="ViewModels\IndexProductosVM.cs" />
@@ -491,6 +496,12 @@
     <Content Include="Scripts\knockout-mapping\knockout.mapping.min.js" />
     <Content Include="Scripts\knockout\knockout-3.5.1.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Movimientos\Entradas\EntradaVM.js" />
+    <Content Include="Scripts\Movimientos\Entradas\IndexDetalleEntradaVM.js" />
+    <Content Include="Scripts\Movimientos\Entradas\IndexCrearEntradaVM.js" />
+    <Content Include="Scripts\Movimientos\Entradas\IndexEntradaVM.js" />
+    <Content Include="Scripts\Movimientos\Entradas\SearchCrearEntradaVM.js" />
+    <Content Include="Scripts\Movimientos\Entradas\SearchEntradaVM.js" />
     <Content Include="Scripts\Plantilla\bootstrap.bundle.min.js" />
     <Content Include="Scripts\Plantilla\custom.js" />
     <Content Include="Web.config" />
@@ -562,6 +573,13 @@
     <Content Include="Views\Marcas\_FilterMarcas.cshtml" />
     <Content Include="Views\Marcas\_TableMarcas.cshtml" />
     <Content Include="Views\Marcas\Index.cshtml" />
+    <Content Include="Views\Entradas\Index.cshtml" />
+    <Content Include="Views\Entradas\_FilterEntradas.cshtml" />
+    <Content Include="Views\Entradas\_TableEntradas.cshtml" />
+    <Content Include="Views\Entradas\CrearEntrada.cshtml" />
+    <Content Include="Views\Entradas\_DatosEntradas.cshtml" />
+    <Content Include="Views\Entradas\_TableIngresoProd.cshtml" />
+    <Content Include="Views\Entradas\DetalleEntrada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
