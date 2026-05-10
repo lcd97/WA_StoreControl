@@ -9,9 +9,10 @@ namespace ModelosDB
     {
         public DBStore() : base("DBStore")
         {
-            Database.SetInitializer<DBStore>(new CreateDatabaseIfNotExists<DBStore>());
+            Database.SetInitializer<DBStore>(null);
             this.Configuration.ProxyCreationEnabled = true;
             this.Configuration.LazyLoadingEnabled = true;
+
         }
 
         //MODULO INVENTARIO

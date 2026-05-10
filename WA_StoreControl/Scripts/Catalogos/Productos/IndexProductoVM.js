@@ -9,6 +9,8 @@
         self.PeticionEnCurso = ko.observable(null);
 
         self.Categorias = ko.observableArray(data.Categorias ? data.Categorias.map(x => new CategoriaVM(x)) : []);
+        self.CategoriasYSub = ko.observableArray(data.CategoriasYSub ? data.CategoriasYSub.map(x => new SubCategoriaVM(x)) : []);
+
         self.SubCategorias = ko.observableArray([]);
         self.Marcas = ko.observableArray(data.Marcas ? data.Marcas.map(x => new MarcaVM(x)) : []);
 

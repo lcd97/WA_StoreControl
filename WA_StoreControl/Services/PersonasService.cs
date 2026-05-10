@@ -13,6 +13,8 @@ using ModelosDB;
 using WA_StoreControl.Utilidades;
 using WA_StoreControl.ViewModels;
 using WebGrease.Css.Extensions;
+using WA_StoreControl.DTO;
+using AutoMapper;
 
 namespace WA_StoreControl.Services
 {
@@ -42,7 +44,7 @@ namespace WA_StoreControl.Services
         {
             try
             {
-                if (Persona.EsPersonaNatural && (string.IsNullOrEmpty(Persona.Nombres)) || string.IsNullOrEmpty(Persona.Apellidos))
+                if (Persona.EsPersonaNatural && (string.IsNullOrEmpty(Persona.Nombres) || string.IsNullOrEmpty(Persona.Apellidos)))
                     return string.Format($"{SystemMessage.ValidateOperationError} : Para personas naturales, los campos de nombres y apellidos son obligatorios. Modifique y vuelva a intentar");
 
                 if (Persona.EsPersonaNatural && Persona.FechaNacimiento == null)
@@ -162,11 +164,11 @@ namespace WA_StoreControl.Services
             try
             {
                 if (Persona.EsPersonaNatural)
-                    Persona.NombreComercial = string.Concat(Persona.Nombres, " ", Persona.Apellidos);
+                    Persona.NombreComercial = string.Concat(Persona.Nombres.Trim(), " ", Persona.Apellidos.Trim());
                 else
                 {
-                    Persona.Nombres = Persona.NombreComercial;
-                    Persona.Apellidos = Persona.NombreComercial;
+                    Persona.Nombres = Persona.NombreComercial.Trim();
+                    Persona.Apellidos = Persona.NombreComercial.Trim();
                 }
 
                 var personaDB = db.Personas
@@ -262,6 +264,15 @@ namespace WA_StoreControl.Services
             {
                 return false;
             }
+        }
+
+        public List<PersonaDTO> BusquedaPersona(string nombre = "")
+        {
+            var personas = db.Personas.Where(x => x.Nombres.Contains(nombre)
+                    || x.Apellidos.Contains(nombre)
+                    || x.NombreComercial.Contains(nombre)).ToList();
+
+            return Mapper.Map<ICollection<PersonaDTO>>(personas).ToList();
         }
     }
 }

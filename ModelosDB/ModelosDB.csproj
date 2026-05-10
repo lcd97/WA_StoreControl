@@ -68,6 +68,18 @@
     <Compile Include="Migrations\202604270055543_InitialCreate.Designer.cs">
       <DependentUpon>202604270055543_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202605032020274_UpdateEntradas.cs" />
+    <Compile Include="Migrations\202605032020274_UpdateEntradas.Designer.cs">
+      <DependentUpon>202605032020274_UpdateEntradas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202605032112348_AgregandoPrecioEntrada.cs" />
+    <Compile Include="Migrations\202605032112348_AgregandoPrecioEntrada.Designer.cs">
+      <DependentUpon>202605032112348_AgregandoPrecioEntrada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202605032250022_ModificacionCodigoEntrada.cs" />
+    <Compile Include="Migrations\202605032250022_ModificacionCodigoEntrada.Designer.cs">
+      <DependentUpon>202605032250022_ModificacionCodigoEntrada.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -81,6 +93,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202604270055543_InitialCreate.resx">
       <DependentUpon>202604270055543_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605032020274_UpdateEntradas.resx">
+      <DependentUpon>202605032020274_UpdateEntradas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605032112348_AgregandoPrecioEntrada.resx">
+      <DependentUpon>202605032112348_AgregandoPrecioEntrada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605032250022_ModificacionCodigoEntrada.resx">
+      <DependentUpon>202605032250022_ModificacionCodigoEntrada.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

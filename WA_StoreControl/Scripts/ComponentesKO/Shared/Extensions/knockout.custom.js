@@ -1211,27 +1211,45 @@ ko.bindingHandlers.keyPressAction = {
 //Custom Binding para inicializar el plugin jquery de select2 con busqueda de datos interactiva
 ko.bindingHandlers.select2Ajax = {
     init: function (element, valueAccessor) {
+        let options = valueAccessor();
+        let $element = $(element);
+        let dropdownParent = null;
 
-        var options = ko.unwrap(valueAccessor());
-        var $element = $(element);
+        if (ko.unwrap(options.dropdownParent))
+            dropdownParent = $(ko.unwrap(options.dropdownParent));
+        else {
+            let $modal = $element.closest('.modal');
 
-        var dropdownParent = null;
-
-        if (options.dropdownParent) {
-            dropdownParent = $(options.dropdownParent);
-        } else {
-            var $modal = $element.closest('.modal');
-            if ($modal.length > 0) {
+            if ($modal.length)
                 dropdownParent = $modal;
-            }
         }
 
+        let idField = ko.unwrap(options.idField) || 'Id';
+        let textFields = ko.unwrap(options.textFields) || ['Nombre'];
+        let textSeparator = ko.unwrap(options.textSeparator) || ' || ';
+        let queryParam = ko.unwrap(options.queryParam) || 'q';
+
+        let mapResult = options.mapResult || function (item) {
+            return {
+                id: item[idField],
+                text: textFields.map(function (f) {
+                    return item[f] || '';
+                }).join(textSeparator)
+            };
+        };
+
+        var recordKey = ko.unwrap(options.recordKey) || 'Record';
+
+        var getRecords = options.getRecords || function (data) {
+            return data[recordKey] || [];
+        };
+
         var select2Options = {
-            width: options.width || '100%',
-            placeholder: options.placeholder || 'Selecciona...',
-            allowClear: true,
-            minimumInputLength: options.minimumInputLength ?? 5,
-            language: options.language || {
+            width: ko.unwrap(options.width) || '100%',
+            placeholder: ko.unwrap(options.placeholder) || 'Seleccione...',
+            allowClear: ko.unwrap(options.allowClear) !== false,
+            minimumInputLength: ko.unwrap(options.minimumInputLength) ?? 3,
+            language: ko.unwrap(options.language) || {
                 inputTooShort: function (args) {
                     return 'Escriba al menos ' + args.minimum + ' caracteres';
                 },
@@ -1244,32 +1262,40 @@ ko.bindingHandlers.select2Ajax = {
             },
 
             ajax: {
-                url: options.url || '/FiltroEmpleado/BusquedaEmpleado',
-                dataType: 'json',
-                delay: 1000,
-                data: params => ({ empleado: params.term }),
-                beforeSend: () => $('.select2-search__field').prop('disabled', true),
-                complete: () => $('.select2-search__field').prop('disabled', false),
+                url: ko.unwrap(options.url),
+                dataType: ko.unwrap(options.dataType) || 'json',
+                delay: ko.unwrap(options.delay) ?? 400,
+                data: function (params) {
+                    var extra = ko.unwrap(options.extraParams) || {};
+                    var query = {};
+                    query[queryParam] = params.term;
+
+                    return $.extend({}, query, extra);
+                },
+                beforeSend: function () {
+                    $element.closest('.select2-container')
+                        .find('.select2-search__field')
+                        .prop('disabled', true);
+                },
+                complete: function () {
+                    $element.closest('.select2-container')
+                        .find('.select2-search__field')
+                        .prop('disabled', false);
+                },
                 processResults: function (data) {
                     return {
-                        results: (data.Record || []).map(function (item) {
-                            return {
-                                id: item.Id,
-                                text: item.NombreYApellido + ' || ' + item.IdentidadesDelTercero
-                            };
-                        }),
+                        results: getRecords(data).map(mapResult),
                         pagination: {
-                            more: false
+                            more: !!data.more
                         }
                     };
                 },
-                cache: true
+                cache: ko.unwrap(options.cache) !== false
             }
         };
 
-        if (dropdownParent && dropdownParent.length > 0) {
+        if (dropdownParent && dropdownParent.length)
             select2Options.dropdownParent = dropdownParent;
-        }
 
         $element.select2(select2Options);
 
@@ -1278,27 +1304,71 @@ ko.bindingHandlers.select2Ajax = {
                 options.value($element.val());
             });
 
-            options.value.subscribe(function (newValue) {
-                $element.val(newValue).trigger('change.select2');
+            options.value.subscribe(function (newVal) {
+                $element.val(newVal)
+                    .trigger('change.select2');
             });
         }
 
-        /* PRECARGA DEL EMPLEADO */
-        if (ko.isObservable(options.selectedItem)) {
-            options.selectedItem.subscribe(function (item) {
+        var applyItem = function (item) {
+            if (!item)
+                return;
 
-                if (!item) return;
+            var mapped = (item.id != null && item.text != null) ? item : mapResult(item);
 
-                var option = new Option(item.text, item.id, true, true);
-                $element.append(option).trigger('change');
-            });
+            var exists = $element.find('option[value="' + mapped.id + '"]').length;
+
+            if (!exists) {
+                var option = new Option(mapped.text, mapped.id, true, true);
+
+                $element.append(option);
+            }
+
+            $element.val(mapped.id).trigger('change.select2');
+
+            if (options.value && ko.isObservable(options.value))
+                options.value(mapped.id);
+        };
+
+        if (options.selectedItem) {
+            var initial = ko.unwrap(options.selectedItem);
+
+            if (initial)
+                applyItem(initial);
+
+            if (ko.isObservable(options.selectedItem))
+                options.selectedItem.subscribe(applyItem);
         }
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-            if ($element.data('select2')) {
+            if ($element.data('select2'))
                 $element.select2('destroy');
-            }
+
+            $element.off('select2:select select2:unselect');
         });
+    },
+
+    update: function (element, valueAccessor) {
+        var options = valueAccessor();
+        var $element = $(element);
+
+        if (!options.selectedItem)
+            return;
+
+        var item = ko.unwrap(options.selectedItem);
+
+        if (!item)
+            return;
+
+        var exists = $element.find('option[value="' + item.id + '"]').length;
+
+        if (!exists) {
+            var option = new Option(item.text, item.id, true, true);
+
+            $element.append(option);
+        }
+
+        $element.val(item.id).trigger('change.select2');
     }
 };
 
