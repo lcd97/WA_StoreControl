@@ -80,6 +80,10 @@
     <Compile Include="Migrations\202605032250022_ModificacionCodigoEntrada.Designer.cs">
       <DependentUpon>202605032250022_ModificacionCodigoEntrada.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202605110057252_CorreccionRelacionProveedor.cs" />
+    <Compile Include="Migrations\202605110057252_CorreccionRelacionProveedor.Designer.cs">
+      <DependentUpon>202605110057252_CorreccionRelacionProveedor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -102,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202605032250022_ModificacionCodigoEntrada.resx">
       <DependentUpon>202605032250022_ModificacionCodigoEntrada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605110057252_CorreccionRelacionProveedor.resx">
+      <DependentUpon>202605110057252_CorreccionRelacionProveedor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

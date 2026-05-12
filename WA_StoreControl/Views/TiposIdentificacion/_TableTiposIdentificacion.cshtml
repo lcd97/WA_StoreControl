@@ -1,9 +1,7 @@
 ﻿@model ModelosDB.General.TipoIdentificacion
 
 <template id="table-TipoIdentificacion-template">
-    <!--ko if: LoadingRegistros() -->
-    <div data-bind="template: { name: 'loading-spinner-template', data: { Loading: true, Message: 'Cargando...' } }"></div>
-    <!--/ko-->
+    <loading-spinner params="{ Loading: LoadingRegistros, Message: 'Cargando...' }"></loading-spinner>
 
     <div class="table-responsive">
         <table class="table table-hover" data-bind="if: (!LoadingRegistros() && TiposIdentificacion().length > 0)">

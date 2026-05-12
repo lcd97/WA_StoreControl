@@ -41,19 +41,13 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeUpdate(SubCategoria SubCategoria)
         {
-            var objeto = db.SubCategorias.Find(SubCategoria.Id);
+            if (db.SubCategorias.Any(x => x.Codigo.Trim().ToLower() == SubCategoria.Codigo.Trim().ToLower() && x.Id != SubCategoria.Id))
+                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            db.Entry(objeto).State = EntityState.Detached;
+            if (db.SubCategorias.Any(x => x.Descripcion.Trim().ToLower() == SubCategoria.Descripcion.Trim().ToLower() && x.Id != SubCategoria.Id))
+                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
-            if (objeto != null)
-            {
-                if (objeto.Codigo.Trim().ToLower() == SubCategoria.Codigo.Trim().ToLower())
-                    return string.Empty;
-
-                return ValidateBeforeCreate(SubCategoria);
-            }
-
-            return string.Format("¡El registro a modificar no existe!");
+            return string.Empty;
         }
 
         public string ValidateBeforeDelete(int id)

@@ -6,7 +6,7 @@
         //#region PROPIEDADES PRINCIPALES
         self.Entradas = ko.observableArray(data.Entradas ? data.Entradas.map(x => new EntradaVM(x)) : []);
         self.PeticionEnCurso = ko.observable(null);
-        self.LoadingRegistros = ko.observable(false);
+        self.LoadingRegistros = ko.observable(true);
 
         self.SearchViewModel = ko.observable(new SearchEntradaVM({ ...data.SearchEntradasVM, RecordsPerPage: 10 } || {}));
 
@@ -90,10 +90,10 @@
             var successCallBack = (response) => {
                 if (response.Success) {
                     GetFilteredOrPaged();
-                    AppGlobal.validateMessage("success", response.Message);
+                    AppGlobal.validateMessage("success", response.Message, "Aceptar");
                 }
                 else
-                    AppGlobal.validateMessage("error", response.Message);
+                    AppGlobal.validateMessage("error", response.Message, "Reintentar");
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {

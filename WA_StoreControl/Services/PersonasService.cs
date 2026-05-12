@@ -80,6 +80,9 @@ namespace WA_StoreControl.Services
 
                 if (objeto != null)
                 {
+                    if (Persona.Id == 1)
+                        return string.Format($"{SystemMessage.ValidateOperationError} : No está permitido editar datos del cliente por defecto.");
+
                     if (Persona.EsPersonaNatural && (string.IsNullOrEmpty(Persona.Nombres.Trim()) || string.IsNullOrEmpty(Persona.Apellidos.Trim())))
                         return string.Format($"{SystemMessage.ValidateOperationError} : Para personas naturales, los campos de nombres y apellidos son obligatorios. Modifique y vuelva a intentar");
 
@@ -110,7 +113,7 @@ namespace WA_StoreControl.Services
         {
             try
             {
-                var objeto = db.Personas.Find(id);
+                var objeto = db.Personas.FirstOrDefault(x => x.Id == id);
 
                 if (objeto == null)
                     return string.Format($"{SystemMessage.ValidateOperationError} : El registro ya no existe, actualice la lista.");
@@ -118,7 +121,7 @@ namespace WA_StoreControl.Services
                 if (db.Personas.Find(id).Id == 1)
                     return string.Format($"{SystemMessage.ValidateOperationError} : El registro no se puede eliminar debido a que es el cliente por defecto");
 
-                if (objeto.DetallesEntrada.Count > 0)
+                if (objeto.Entradas.Count > 0)
                     return string.Format($"{SystemMessage.ValidateOperationError} : El registro no se puede eliminar, debido ha que esta siendo usado por otros registros");
 
                 db.Entry(objeto).State = EntityState.Detached;
@@ -258,7 +261,7 @@ namespace WA_StoreControl.Services
 
                 db.Personas.Remove(PersonaDB);
 
-                return db.SaveChanges() > 1;
+                return db.SaveChanges() > 0;
             }
             catch (Exception)
             {

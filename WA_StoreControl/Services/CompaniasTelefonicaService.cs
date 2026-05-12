@@ -39,19 +39,10 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeUpdate(CompaniaTelefonica CompaniaTelefonica)
         {
-            var objeto = db.CompaniasTelefonica.Find(CompaniaTelefonica.Id);
+            if (db.CompaniasTelefonica.Any(x => x.Descripcion.Trim().ToLower() == CompaniaTelefonica.Descripcion.Trim().ToLower() && x.Id != CompaniaTelefonica.Id))
+                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
-            db.Entry(objeto).State = EntityState.Detached;
-
-            if (objeto != null)
-            {
-                if (objeto.Descripcion.Trim().ToLower() == CompaniaTelefonica.Descripcion.Trim().ToLower())
-                    return string.Empty;
-
-                return ValidateBeforeCreate(CompaniaTelefonica);
-            }
-
-            return string.Format("¡El registro a modificar no existe!");
+            return string.Empty;
         }
 
         public string ValidateBeforeDelete(int id)

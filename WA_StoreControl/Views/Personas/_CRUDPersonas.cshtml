@@ -94,18 +94,16 @@
                     @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
                 </div>
 
-                <div class="row mb-2">
-                    <div class="col-12">
-                        @Html.LabelFor(model => model.FechaNacimiento, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.FechaNacimiento, "", htmlAttributes: new { @class = "form-control", data_bind = "value: FechaNacimiento, jqDatepicker: FechaNacimiento" })
-                        @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger" })
-                    </div>
+                <div class="col">
+                    @Html.LabelFor(model => model.FechaNacimiento, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.FechaNacimiento, Model.FechaNacimiento.ToString("dd/MM/yyyy"), htmlAttributes: new { @class = "form-control", data_bind = "jqDatepicker: FechaNacimiento, jqMask: { Mask: '00/00/0000' }", maxlength = "10", inputmode = "number" })
+                    @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger" })
                 </div>
             </div>
             <!--/ko-->
 
-            <div>
-                <div class="col-12" data-bind="visible: !EsPersonaNatural()">
+            <div class="row mb-2">
+                <div class="col" data-bind="visible: !EsPersonaNatural()">
                     @Html.LabelFor(model => model.NombreComercial, htmlAttributes: new { @class = "control-label" })
                     @Html.EditorFor(model => model.NombreComercial, new { htmlAttributes = new { @class = "form-control", data_bind = "value: NombreComercial", maxlength = "100" } })
                     @Html.ValidationMessageFor(model => model.NombreComercial, "", new { @class = "text-danger" })
@@ -116,11 +114,12 @@
                 <div class="col">
                     @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label" })
                     @Html.TextAreaFor(model => model.Direccion, new
-                    {
-                        @class = "form-control",
-                        data_bind = "value: Direccion",
-                        rows = 3
-                    })
+                   {
+                       @class = "form-control",
+                       data_bind = "value: Direccion",
+                       rows = 3,
+                       maxlength = "100"
+                   })
                     @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -243,13 +242,14 @@
             <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 mt-2">
                 @Html.Label("Número teléfonico", htmlAttributes: new { @class = "control-label" })
                 @Html.TextBox("NumeroTelefonico", null, new
-                {
-                    @class = "form-control",
-                    data_bind = "value: NumeroTelefonico",
-                    maxlength = "8",
-                    type = "text",
-                    oninput = "this.value = this.value.replace(/[^0-9]/g, '');"
-                })
+               {
+                      @class = "form-control",
+                      data_bind = "value: NumeroTelefonico",
+                      maxlength = "8",
+                      type = "text",
+                      inputmode = "numeric",
+                      oninput = "this.value = this.value.replace(/[^0-9]/g, '');"
+               })
             </div>
 
             <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12 mt-2 text-center align-content-end">

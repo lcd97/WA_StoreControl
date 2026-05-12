@@ -41,19 +41,15 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeUpdate(Marca Marca)
         {
-            var objeto = db.Marcas.Find(Marca.Id);
 
-            db.Entry(objeto).State = EntityState.Detached;
+            if (db.Marcas.Any(x => x.Codigo.Trim().ToLower() == Marca.Codigo.Trim().ToLower() && x.Id != Marca.Id))
+                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (objeto != null)
-            {
-                if (objeto.Codigo.Trim().ToLower() == Marca.Codigo.Trim().ToLower())
-                    return string.Empty;
+            if (db.Marcas.Any(x => x.Descripcion.Trim().ToLower() == Marca.Descripcion.Trim().ToLower() && x.Id != Marca.Id))
+                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
-                return ValidateBeforeCreate(Marca);
-            }
+            return string.Empty;
 
-            return string.Format("¡El registro a modificar no existe!");
         }
 
         public string ValidateBeforeDelete(int id)
