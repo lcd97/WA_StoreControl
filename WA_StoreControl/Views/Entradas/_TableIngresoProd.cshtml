@@ -40,12 +40,12 @@
                     </td>
                     <td class="align-middle">
                         <div class="col">
-                            <input data-bind="value:Cantidad" oninput="this.value = this.value.replace(/[^0-9]/g, '')" type="text" class="form-control form-control-sm" maxlength="6" />
+                            <input data-bind="value:Cantidad" oninput="this.value = this.value.replace(/[^0-9]/g, '')" type="text" inputmode="numeric" class="form-control form-control-sm" maxlength="6" />
                         </div>
                     </td>
                     <td class="align-middle">
                         <div class="col">
-                            <input data-bind="value:Precio, jqMask: { Mask: '####0.00', Config: { reverse: true } }" type="text" class="form-control form-control-sm" maxlength="8" />
+                            <input data-bind="value:Precio, jqMask: { Mask: '####0.00', Config: { reverse: true } }" type="text" inputmode="numeric" class="form-control form-control-sm" maxlength="8" />
                         </div>
                     </td>
                     <td class="align-middle text-center" data-bind="text: 'C$ ' + Total()"></td>

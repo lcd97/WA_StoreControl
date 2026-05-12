@@ -92,12 +92,13 @@ namespace WA_StoreControl.Services
             try
             {
                 Entrada.Codigo = GenerarNuevoNumeroEntrada();
+                Entrada.EsActivo = true;
                 db.Entradas.Add(Entrada);
 
                 var almacenado = db.SaveChanges() > 0;
 
                 Message = almacenado
-                    ? string.Format($"{SystemMessage.CreateSuccessful} : Se ha almacenado correctamente el registro de entrada con numeración {Entrada.Codigo}")
+                    ? string.Format($"{SystemMessage.CreateSuccessful} : Se ha almacenado el registro de entrada con numeración {Entrada.Codigo}")
                     : string.Format($"{SystemMessage.ValidateOperationError} : Se ha generado un error al crear el registro, intente nuevamente o consulte con el administrador");
 
                 return almacenado;

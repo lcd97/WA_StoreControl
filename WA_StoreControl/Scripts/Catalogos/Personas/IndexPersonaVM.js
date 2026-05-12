@@ -15,7 +15,7 @@
 
         self.PeticionEnCurso = ko.observable(null);
 
-        self.LoadingRegistros = ko.observable(false);
+        self.LoadingRegistros = ko.observable(true);
         self.LoadingTelefonos = ko.observable(false);
         self.LoadingIdentidades = ko.observable(false);
 

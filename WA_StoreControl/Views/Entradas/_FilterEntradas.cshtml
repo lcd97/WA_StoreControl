@@ -16,9 +16,9 @@
                     <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 mt-2 align-content-center">
                         <div class="input-group">
                             <span class="input-group-text">Desde </span>
-                            @Html.TextBoxFor(model => model.FechaDesde, new { @class = "form-control form-control-sm", data_bind = "value: FechaDesde, jqDatepicker: FechaDesde" })
+                            @Html.TextBoxFor(model => model.FechaDesde, new { @class = "form-control form-control-sm", data_bind = "jqDatepicker: FechaDesde, jqMask: { Mask: '00/00/0000' }", maxlength = "10", inputmode = "number" })
                             <span class="input-group-text">Hasta </span>
-                            @Html.TextBoxFor(model => model.FechaHasta, new { @class = "form-control form-control-sm", data_bind = "value: FechaHasta, jqDatepicker: FechaHasta" })
+                            @Html.TextBoxFor(model => model.FechaHasta, new { @class = "form-control form-control-sm", data_bind = "jqDatepicker: FechaHasta, jqMask: { Mask: '00/00/0000' }", maxlength = "10", inputmode = "number" })
                         </div>
                     </div>
 

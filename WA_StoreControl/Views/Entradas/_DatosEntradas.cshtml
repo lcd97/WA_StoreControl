@@ -20,7 +20,8 @@
             <div class="row mb-1">
                 <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 mt-2">
                     @Html.Label("Fecha Entrada", new { @class = "fw-bold col-12" })
-                    <input type="text" class="form-control" maxlength="15" data-bind="value:FechaEntrada, jqDatepicker: FechaEntrada" />
+
+                    <input type="text" class="form-control" data-bind="jqDatepicker: FechaEntrada, jqMask: { Mask: '00/00/0000' }" maxlength="10" inputmode="number" />
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 mt-2">

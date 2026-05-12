@@ -12,9 +12,9 @@
             @using (Html.BeginForm("", "", FormMethod.Post, new { autocomplete = "off", data_bind = "submit: $root.GetFilteredOrPaged, with: SearchViewModel", @id = "form" }))
             {
                 <div class="row mb-1">
-                    <div class="col-10 mt-2">
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 mt-2">
                         <div class="row">
-                            <div class="col-md-4 col-sm-12 col-lg-4 mt-1">
+                            <div class="col-xs-12 col-md-4 col-sm-12 col-lg-4 mt-1">
                                 @Html.LabelFor(model => model.CategoriaId, new { @class = "fw-bold" })
                                 @Html.DropDownListFor(model => model.CategoriaId,
                                          Enumerable.Empty<SelectListItem>(),
@@ -34,7 +34,7 @@
                                          })
                             </div>
 
-                            <div class="col-md-4 col-sm-12 col-lg-4 mt-1">
+                            <div class="col-xs-12 col-md-4 col-sm-12 col-lg-4 mt-1">
                                 @Html.LabelFor(model => model.SubCategoriaId, new { @class = "fw-bold" })
                                 @Html.DropDownListFor(model => model.SubCategoriaId,
                                          Enumerable.Empty<SelectListItem>(),
@@ -54,13 +54,13 @@
                                          })
                             </div>
 
-                            <div class="col-md-4 col-sm-12 col-lg-4 mt-1">
+                            <div class="col-xs-12 col-md-4 col-sm-12 col-lg-4 mt-1">
                                 @Html.LabelFor(model => model.Descripcion, new { @class = "fw-bold" })
                                 @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control", data_bind = "value: Descripcion" })
                             </div>
                         </div>
                     </div>
-                    <div class="col d-grid gap-2 mt-2" data-bind="disableInputs: $root.LoadingRegistros()">
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 d-grid gap-2 mt-2" data-bind="disableInputs: $root.LoadingRegistros()">
                         <button type="submit" class="btn btn-primary btn-primary btn-sm"> <i class="fa fa-search"></i> Buscar</button>
                         <button type="button" class="btn btn-secondary btn-sm" data-bind="click: $root.CleanFilter"><i class="fas fa-broom"></i> Limpiar</button>
                     </div>

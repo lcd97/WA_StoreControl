@@ -11,7 +11,7 @@ namespace ModelosDB.General
     {
         public Persona()
         {
-            this.DetallesEntrada = new HashSet<DetalleEntrada>();
+            this.Entradas = new HashSet<Entrada>();
             this.Identidades = new HashSet<Identidad>();
             this.DetallesTelefono = new HashSet<DetalleTelefono>();
         }
@@ -46,7 +46,7 @@ namespace ModelosDB.General
         public bool EsPersonaNatural { get; set; }
 
         //CLASES HIJAS
-        public virtual ICollection<DetalleEntrada> DetallesEntrada { get; set; }
+        public virtual ICollection<Entrada> Entradas { get; set; }
         public virtual ICollection<Identidad> Identidades { get; set; }
         public virtual ICollection<DetalleTelefono> DetallesTelefono { get; set; }
     }

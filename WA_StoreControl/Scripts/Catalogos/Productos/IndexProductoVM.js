@@ -14,7 +14,7 @@
         self.SubCategorias = ko.observableArray([]);
         self.Marcas = ko.observableArray(data.Marcas ? data.Marcas.map(x => new MarcaVM(x)) : []);
 
-        self.LoadingRegistros = ko.observable(false);
+        self.LoadingRegistros = ko.observable(true);
 
         self.Action = ko.observable("");
         self.bodyTemplate = ko.observable({});

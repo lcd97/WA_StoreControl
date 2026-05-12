@@ -1,12 +1,11 @@
-﻿//Registrar componente...
-ko.components.register("loading-spinner", {
-    template: { element: "loading-spinner-template" },
+﻿ko.components.register("loading-spinner", {
+    template: document.getElementById("loading-spinner-template").innerHTML,
     viewModel: function (params) {
         const self = this;
         params = params || {};
-        self.Loading = ko.isObservable(params.Loading) ? params.Loading : ko.observable(false); //Bandera: Se está cargando (?)...
-        self.Message = ko.observable(params.Message || "Cargando...");  //Mensaje a mostrar cuando se está cargando algo...
-        
-        // return params.LoadingSpinnerViewModel
+
+        self.Loading = ko.isObservable(params.Loading) ? params.Loading : ko.observable(false);
+
+        self.Message = ko.observable(params.Message || " Cargando...");
     }
-})
+});

@@ -8,7 +8,7 @@
         self.Marca = ko.observable(new MarcaVM());
         self.PeticionEnCurso = ko.observable(null);
 
-        self.LoadingRegistros = ko.observable(false);
+        self.LoadingRegistros = ko.observable(true);
 
         self.Action = ko.observable("");
         self.bodyTemplate = ko.observable({});
@@ -45,7 +45,7 @@
             self.bodyTemplate(new CRUDViewModel({
                 Action: action,
                 DataViewModel: self.Marca,
-                ModelName: "Categoría"
+                ModelName: "Marca"
             }));
 
             self.ModalViewModel().ModalHeaderViewModel().ModalTitle(self.bodyTemplate().ModalHeaderTitle()).BackgroundColorClass(self.bodyTemplate().ModalBackgroundColorClass());

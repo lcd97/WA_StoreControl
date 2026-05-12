@@ -11,7 +11,7 @@
 
         self.PeticionEnCurso = ko.observable(null);
 
-        self.LoadingRegistros = ko.observable(false);
+        self.LoadingRegistros = ko.observable(true);
 
         self.Action = ko.observable("");
         self.bodyTemplate = ko.observable({});
