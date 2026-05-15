@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ModelosDB;
+using ModelosDB.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
-using ModelosDB;
 
 namespace WA_StoreControl.Utilidades
 {
@@ -44,7 +45,19 @@ namespace WA_StoreControl.Utilidades
         public bool Create(T entity)
         {
             db.Entry(entity).State = EntityState.Added;
-            return db.SaveChanges() > 0;
+
+            var result = db.SaveChanges() > 0;
+
+            if (entity is ICodeEntity codeEntity)
+            {
+                codeEntity.Codigo = codeEntity.Id.ToString("D6");
+
+                db.Entry(entity).State = EntityState.Modified;
+
+                db.SaveChanges();
+            }
+
+            return result;
         }
 
         /// <summary>
