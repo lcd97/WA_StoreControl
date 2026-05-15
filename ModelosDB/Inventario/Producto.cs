@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using ModelosDB.Interfaces;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelosDB.Inventario
 {
     [Table("Productos", Schema = "inv")]
-    public partial class Producto
+    public partial class Producto : ICodeEntity
     {
         public Producto()
         {
@@ -16,7 +18,7 @@ namespace ModelosDB.Inventario
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        [StringLength(3, MinimumLength = 3, ErrorMessage = "La longitud debe ser de 3 caracteres")]
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "La longitud debe ser de 3 caracteres")]
         [Display(Name = "Código")]
         public string Codigo { get; set; }
 

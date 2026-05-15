@@ -28,7 +28,7 @@
                 <tr data-bind="css: { 'table-danger': EsInvalido() }">
                     <td class="text-center align-middle fw-bold" data-bind="text: ($index() + 1)"></td>
                     <td class="align-middle">
-                        <div class="col">
+                        <div class="w-100">
                             <select class="form-select form-select-sm"
                                     data-bind="attr: {
                                         id:   'ProductoId_' + $index(),
@@ -39,12 +39,12 @@
                         </div>
                     </td>
                     <td class="align-middle">
-                        <div class="col">
+                        <div class="w-100">
                             <input data-bind="value:Cantidad" oninput="this.value = this.value.replace(/[^0-9]/g, '')" type="text" inputmode="numeric" class="form-control form-control-sm" maxlength="6" />
                         </div>
                     </td>
                     <td class="align-middle">
-                        <div class="col">
+                        <div class="w-100">
                             <input data-bind="value:Precio, jqMask: { Mask: '####0.00', Config: { reverse: true } }" type="text" inputmode="numeric" class="form-control form-control-sm" maxlength="8" />
                         </div>
                     </td>

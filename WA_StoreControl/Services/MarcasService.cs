@@ -59,6 +59,9 @@ namespace WA_StoreControl.Services
             if (objeto == null)
                 return string.Format($"{SystemMessage.ValidateOperationError} : El registro ya no existe, actualice la lista.");
 
+            if (objeto.Codigo == "0000001")
+                return string.Format($"{SystemMessage.ValidateOperationError} : El registro no se puede eliminar debido a que es un registro predeterminado");
+
             if (objeto.Productos.Count > 0)
                 return string.Format($"{SystemMessage.ValidateOperationError} : El registro no se puede eliminar, debido ha que esta siendo usado por otros registros");
 

@@ -16,7 +16,7 @@
                         <div class="row mb-2">
                             <div class="col-6">
                                 @Html.LabelFor(model => model.Codigo)
-                                @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Codigo", maxlength = "3" } })
+                                @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Codigo", maxlength = "6", @readonly = "readonly" } })
                                 @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
                             </div>
 
@@ -32,7 +32,10 @@
                         <div class="row mb-2">
                             <div class="col-md-12">
                                 @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Descripcion", maxlength = "100" } })
+                                @Html.EditorFor(model => model.Descripcion, new
+                                {
+                                    htmlAttributes = new { @class = "form-control", data_bind = "value: Descripcion", maxlength = "100" }
+                                    })
                                 @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                             </div>
                         </div>

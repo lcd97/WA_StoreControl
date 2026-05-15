@@ -19,7 +19,7 @@
             context.Marcas.AddOrUpdate(m => m.Codigo,
                new Marca
                {
-                   Codigo = "001",
+                   Codigo = "000001",
                    Descripcion = "Sin Marca",
                    EsActivo = true
                });
@@ -32,6 +32,10 @@
                }, new TipoIdentificacion
                {
                    Descripcion = "RUC",
+                   EsActivo = true
+               }, new TipoIdentificacion
+               {
+                   Descripcion = "Pasaporte",
                    EsActivo = true
                });
 
@@ -46,23 +50,22 @@
                   EsActivo = true
               });
 
-
             context.Categorias.AddOrUpdate(m => m.Codigo,
                new Categoria
                {
-                   Codigo = "001",
+                   Codigo = "000001",
                    Descripcion = "Joyas",
                    EsActivo = true
                },
                new Categoria
                {
-                   Codigo = "002",
+                   Codigo = "000002",
                    Descripcion = "Accesorios",
                    EsActivo = true
                },
                new Categoria
                {
-                   Codigo = "003",
+                   Codigo = "000003",
                    Descripcion = "Electrónicos",
                    EsActivo = true
                });
@@ -70,35 +73,35 @@
             context.SubCategorias.AddOrUpdate(m => m.Codigo,
                 new SubCategoria
                 {
-                    Codigo = "001",
+                    Codigo = "000001",
                     Descripcion = "Oro",
                     CategoriaId = 1,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
-                    Codigo = "002",
+                    Codigo = "000002",
                     Descripcion = "Plata",
                     CategoriaId = 1,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
-                    Codigo = "003",
+                    Codigo = "000003",
                     Descripcion = "Enchapado",
                     CategoriaId = 1,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
-                    Codigo = "004",
+                    Codigo = "000004",
                     Descripcion = "Botella de agua",
                     CategoriaId = 2,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
-                    Codigo = "005",
+                    Codigo = "000005",
                     Descripcion = "Cargadores Portátiles",
                     CategoriaId = 3,
                     EsActivo = true

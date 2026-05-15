@@ -51,13 +51,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DBStore.cs" />
     <Compile Include="General\DetalleTelefono.cs" />
     <Compile Include="General\Persona.cs" />
     <Compile Include="General\Identidad.cs" />
     <Compile Include="General\TipoIdentificacion.cs" />
     <Compile Include="General\CompaniaTelefonica.cs" />
+    <Compile Include="Interfaces\ICodeEntity.cs" />
     <Compile Include="Inventario\Categoria.cs" />
     <Compile Include="Inventario\DetalleEntrada.cs" />
     <Compile Include="Inventario\Entrada.cs" />
@@ -84,6 +84,10 @@
     <Compile Include="Migrations\202605110057252_CorreccionRelacionProveedor.Designer.cs">
       <DependentUpon>202605110057252_CorreccionRelacionProveedor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202605130033378_AutomaticCodesRefactor.cs" />
+    <Compile Include="Migrations\202605130033378_AutomaticCodesRefactor.Designer.cs">
+      <DependentUpon>202605130033378_AutomaticCodesRefactor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -109,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202605110057252_CorreccionRelacionProveedor.resx">
       <DependentUpon>202605110057252_CorreccionRelacionProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605130033378_AutomaticCodesRefactor.resx">
+      <DependentUpon>202605130033378_AutomaticCodesRefactor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

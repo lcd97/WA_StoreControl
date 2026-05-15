@@ -4,7 +4,7 @@
         const self = this;
 
         self.Id = ko.observable(data.Id || 0);
-        self.Codigo = ko.observable(data.Codigo || "");
+        self.Codigo = ko.observable(data.Codigo || "PRO000");
         self.Descripcion = ko.observable(data.Descripcion || "");
         self.DescripcionMarca = ko.observable(data.DescripcionMarca || "");
         self.SubCategoriaId = ko.observable(data.SubCategoriaId || 0);
