@@ -72,12 +72,40 @@
                         <div class="col-12 col-lg-9">
                             <div class="card border-0 shadow-sm rounded-4">
                                 <div class="card-body p-0">
-                                    <div class="p-4 border-bottom d-flex justify-content-between align-items-center bg-light rounded-top-4">
-                                        <h5 class="mb-0 fw-bold">Productos Recibidos</h5>
-                                        <span class="bg-opacity-30 px-3 py-2 rounded-pill"
-                                              data-bind="css: EsActivo() ? 'badge text-bg-success' : 'badge text-bg-warning',
-                                                            text: EsActivo() ? 'Entrada Procesada' : 'Entrada Anulada'">
-                                        </span>
+                                    <div class="p-4 border-bottom bg-light rounded-top-4">
+
+                                        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+
+                                            <h5 class="mb-0 fw-bold">
+                                                Productos
+                                            </h5>
+
+                                            <span class="px-3 py-2 rounded-pill small fw-semibold"
+                                                  data-bind="css: EsActivo()
+                                                    ? 'badge text-bg-success'
+                                                  : 'badge text-bg-danger',
+                                                    text: EsActivo()
+                                                  ? 'Entrada Procesada'
+                                                  : 'Entrada Anulada'">
+                                            </span>
+
+                                        </div>
+
+                                        <!-- ko if: !EsActivo() -->
+                                        <div class="mt-3 pt-3 border-top">
+
+                                            <div class="small text-uppercase fw-bold text-danger mb-1">
+                                                Motivo de Anulación
+                                            </div>
+
+                                            <div class="small text-muted"
+                                                 style="white-space: pre-wrap; word-break: break-word;"
+                                                 data-bind="text: MotivoAnulacion">
+                                            </div>
+
+                                        </div>
+                                        <!-- /ko -->
+
                                     </div>
 
                                     <div class="table-responsive">
