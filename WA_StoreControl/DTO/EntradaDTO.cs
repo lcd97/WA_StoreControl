@@ -14,6 +14,7 @@ namespace WA_StoreControl.DTO
         public int ProveedorId { get; set; }
         public bool EsActivo { get; set; }
         public float TotalEntrada { get; set; }
+        public string MotivoAnulacion { get; set; }
 
         public string NombreProveedor { get; set; }
 

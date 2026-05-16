@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using WA_StoreControl.Controllers;
 using WA_StoreControl.DTO;
 using WA_StoreControl.Utilidades;
 using WA_StoreControl.ViewModels;
@@ -76,8 +77,10 @@ namespace WA_StoreControl.Services
 
         public List<ProductoDTO> BusquedaProducto(string producto = "")
         {
-            var productos = db.Productos.Where(x => (x.Descripcion.Contains(producto)
-                    || x.Marca.Descripcion.Contains(producto)) && x.EsActivo).ToList();
+            var FormatProducto = PersonaHelper.BuscarCoincidencias(producto);
+
+            var productos = db.Productos.Where(x => (x.Descripcion.Trim().Contains(FormatProducto.Trim())
+                    || x.Marca.Descripcion.Trim().Contains(FormatProducto.Trim())) && x.EsActivo).ToList();
 
             return Mapper.Map<ICollection<ProductoDTO>>(productos).ToList();
         }

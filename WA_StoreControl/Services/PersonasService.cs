@@ -271,9 +271,22 @@ namespace WA_StoreControl.Services
 
         public List<PersonaDTO> BusquedaPersona(string nombre = "")
         {
-            var personas = db.Personas.Where(x => x.Nombres.Contains(nombre)
-                    || x.Apellidos.Contains(nombre)
-                    || x.NombreComercial.Contains(nombre)).ToList();
+            var FormatName = PersonaHelper.BuscarCoincidencias(nombre);
+
+            var personas = db.Personas.Where(x => x.Nombres.Contains(FormatName)
+                    || x.Apellidos.Contains(FormatName)
+                    || x.NombreComercial.Contains(FormatName)).ToList();
+
+            return Mapper.Map<ICollection<PersonaDTO>>(personas).ToList();
+        }
+
+        public List<PersonaDTO> BusquedaProveedor(string nombre = "")
+        {
+            var FormatName = PersonaHelper.BuscarCoincidencias(nombre);
+
+            var personas = db.Personas.Where(x => (x.Nombres.Contains(FormatName)
+                    || x.Apellidos.Contains(FormatName)
+                    || x.NombreComercial.Contains(FormatName)) && x.Id != 1).ToList();
 
             return Mapper.Map<ICollection<PersonaDTO>>(personas).ToList();
         }

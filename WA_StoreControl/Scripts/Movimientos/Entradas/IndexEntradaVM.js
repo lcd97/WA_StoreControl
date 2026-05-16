@@ -14,7 +14,7 @@
             TotalPages: self.SearchViewModel().TotalPages,
             CurrentPage: self.SearchViewModel().Page,
             TotalDisplayedPages: 5,
-            OnCurrentPageChange: GetFilteredOrPaged
+            OnCurrentPageChange: () => GetFilteredOrPaged()
         }));
         //#endregion
 
@@ -36,10 +36,30 @@
         };
 
         self.AnularEntrada = (entrada) => {
-            AppGlobal.AjaxMessage("warning", "¿Deseas anular este registro?\nUna vez anulado no se tomará en cuenta en el stock de productos")
+            AppGlobal.AjaxMessage("warning", "¿Deseas anular este registro? Una vez anulado no se tomará en cuenta en el stock de productos")
                 .then((result) => {
-                    if (result.isConfirmed)
-                        AnularEntrada(entrada);
+                    if (!result.isConfirmed)
+                        retrun;
+
+                    AppGlobal.AjaxRequestMessage({
+                        icon: "info",
+                        message: "Ingrese el motivo para anular la entrada",
+                        title: "Anular",
+                        inputType: "textarea",
+                        preConfirm: async (value) => {
+
+                            if (!value)
+                                return Swal.showValidationMessage("El motivo para anular la entrada es requerido");
+
+                            if (value.length > 250)
+                                return Swal.showValidationMessage("El motivo no puede exceder los 250 caracteres");
+
+                            return value;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed)
+                            AnularEntrada(entrada, result.value);
+                    });
                 });
         };
 
@@ -55,8 +75,13 @@
         //#region FUNCIONES PRIVADAS
         function GetFilteredOrPaged() {
             var successCallBack = (response) => {
-                if (response.Success)
+                if (response.Success) {
+                    self.PaginationViewModel().TriggerOnCurrentPageChange(false);
+                    self.SearchViewModel().TotalRecords(response.TotalRecords).TotalPages(response.TotalPages).Page(response.Page);
                     self.Entradas(response.Records ? response.Records.map(x => new EntradaVM(x)) : []);
+                } else {
+                    AppGlobal.Messages.ShowNotifyError(res.Message);
+                }
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {
@@ -86,7 +111,7 @@
             }).done(successCallBack).fail(errorCallBack);
         }
 
-        function AnularEntrada(Entrada) {
+        function AnularEntrada(Entrada, Motivo) {
             var successCallBack = (response) => {
                 if (response.Success) {
                     GetFilteredOrPaged();
@@ -116,7 +141,7 @@
 
             Ajax.CRUD({
                 url: "Entradas/AnularEntrada",
-                data: { Entrada },
+                data: { Entrada, Motivo },
                 method: "POST",
                 beforeSend: beforeSendCallBack,
                 complete: completeCallBack,
