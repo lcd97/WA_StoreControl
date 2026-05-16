@@ -25,12 +25,18 @@ namespace WA_StoreControl.Services
             var query = from d in db.Entradas select d;
 
             if (!string.IsNullOrEmpty(viewModel.FechaDesde))
-                query = query.Where(x => x.FechaEntrada >= DateTime.Parse(viewModel.FechaDesde));
+            {
+                var desde = DateTime.Parse(viewModel.FechaDesde);
+                query = query.Where(x => x.FechaEntrada >= desde);
+            }
 
             if (!string.IsNullOrEmpty(viewModel.FechaHasta))
-                query = query.Where(x => x.FechaEntrada <= DateTime.Parse(viewModel.FechaHasta));
+            {
+                var hasta = DateTime.Parse(viewModel.FechaHasta);
+                query = query.Where(x => x.FechaEntrada <= hasta);
+            }
 
-            query = PaginateData(query.OrderBy(x => x.Codigo), viewModel);
+            query = PaginateData(query.OrderByDescending(x => x.FechaEntrada).ThenBy(x => x.Codigo), viewModel);
 
             return query.AsNoTracking();
         }
@@ -88,54 +94,87 @@ namespace WA_StoreControl.Services
         public bool Create(Entrada Entrada, out string Message)
         {
             Message = string.Empty;
-
-            try
+            using (var ts = db.Database.BeginTransaction())
             {
-                Entrada.Codigo = GenerarNuevoNumeroEntrada();
-                Entrada.EsActivo = true;
-                db.Entradas.Add(Entrada);
+                try
+                {
+                    Entrada.Codigo = GenerarNuevoNumeroEntrada();
+                    Entrada.EsActivo = true;
+                    db.Entradas.Add(Entrada);
 
-                var almacenado = db.SaveChanges() > 0;
+                    foreach (var item in Entrada.DetallesEntrada)
+                    {
+                        var productoDB = db.Productos.Find(item.ProductoId);
 
-                Message = almacenado
-                    ? string.Format($"{SystemMessage.CreateSuccessful} : Se ha almacenado el registro de entrada con numeración {Entrada.Codigo}")
-                    : string.Format($"{SystemMessage.ValidateOperationError} : Se ha generado un error al crear el registro, intente nuevamente o consulte con el administrador");
+                        if (productoDB == null)
+                            throw new Exception("Producto no encontrado");
 
-                return almacenado;
+                        productoDB.Stock += item.Cantidad;
 
-            }
-            catch (Exception ex)
-            {
-                Message = string.Format($"{SystemMessage.ValidateOperationError} : Ha ocurrido un error al crear el registro : {ex.ToString()}");
-                return false;
+                        db.Entry(productoDB).State = EntityState.Modified;
+                    }
+
+                    var almacenado = db.SaveChanges() > 0;
+                    ts.Commit();
+
+                    Message = almacenado
+                        ? string.Format($"{SystemMessage.CreateSuccessful} : Se ha almacenado el registro de entrada con numeración {Entrada.Codigo}")
+                        : string.Format($"{SystemMessage.ValidateOperationError} : Se ha generado un error al crear el registro, intente nuevamente o consulte con el administrador");
+
+                    return almacenado;
+
+                }
+                catch (Exception ex)
+                {
+                    ts.Rollback();
+
+                    Message = string.Format($"{SystemMessage.ValidateOperationError} : Ha ocurrido un error al crear el registro : {ex.ToString()}");
+                    return false;
+                }
             }
         }
 
         public bool AnularEntrada(Entrada Entrada, out string Message)
         {
             Message = string.Empty;
-
-            try
+            using (var ts = db.Database.BeginTransaction())
             {
-                var EntradaDB = db.Entradas.Find(Entrada.Id);
+                try
+                {
+                    var EntradaDB = db.Entradas.Include(x => x.DetallesEntrada).FirstOrDefault(x => x.Id == Entrada.Id);
 
-                EntradaDB.EsActivo = false;
+                    EntradaDB.EsActivo = false;
+                    db.Entry(EntradaDB).State = EntityState.Modified;
 
-                db.Entry(EntradaDB).State = EntityState.Modified;
+                    foreach (var item in EntradaDB.DetallesEntrada)
+                    {
+                        var productoDB = db.Productos.Find(item.ProductoId);
 
-                var almacenado = db.SaveChanges() > 0;
+                        if (productoDB == null)
+                            throw new Exception("Producto no encontrado");
 
-                Message = almacenado
-                    ? string.Format($"{SystemMessage.UpdateSuccessful} : Se ha anulado correctamente el registro de entrada con numeración {Entrada.Codigo}")
-                    : string.Format($"{SystemMessage.ValidateOperationError} : Se ha generado un error al anular el registro, intente nuevamente o consulte con el administrador");
+                        productoDB.Stock -= item.Cantidad;
 
-                return almacenado;
+                        db.Entry(productoDB).State = EntityState.Modified;
+                    }
 
-            }
-            catch (Exception ex)
-            {
-                Message = string.Format($"{SystemMessage.ValidateOperationError} : Ha ocurrido un error al anular el registro : {ex.ToString()}");
-                return false;
+                    var almacenado = db.SaveChanges() > 0;
+                    ts.Commit();
+
+                    Message = almacenado
+                        ? string.Format($"{SystemMessage.UpdateSuccessful} : Se ha anulado el registro de entrada con numeración {EntradaDB.Codigo}")
+                        : string.Format($"{SystemMessage.ValidateOperationError} : Se ha generado un error al anular el registro, intente nuevamente o consulte con el administrador");
+
+                    return almacenado;
+
+                }
+                catch (Exception ex)
+                {
+                    ts.Rollback();
+
+                    Message = string.Format($"{SystemMessage.ValidateOperationError} : Ha ocurrido un error al anular el registro : {ex.ToString()}");
+                    return false;
+                }
             }
         }
 

@@ -14,7 +14,7 @@
             TotalPages: self.SearchViewModel().TotalPages,
             CurrentPage: self.SearchViewModel().Page,
             TotalDisplayedPages: 5,
-            OnCurrentPageChange: GetFilteredOrPaged
+            OnCurrentPageChange: () => GetFilteredOrPaged()
         }));
         //#endregion
 
@@ -55,8 +55,13 @@
         //#region FUNCIONES PRIVADAS
         function GetFilteredOrPaged() {
             var successCallBack = (response) => {
-                if (response.Success)
+                if (response.Success) {
+                    self.PaginationViewModel().TriggerOnCurrentPageChange(false);
+                    self.SearchViewModel().TotalRecords(response.TotalRecords).TotalPages(response.TotalPages).Page(response.Page);
                     self.Entradas(response.Records ? response.Records.map(x => new EntradaVM(x)) : []);
+                } else {
+                    AppGlobal.Messages.ShowNotifyError(res.Message);
+                }
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {

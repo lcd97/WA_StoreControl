@@ -79,6 +79,23 @@
                             @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                         </div>
                     </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Stock, new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @class = "form-control",
+                                    data_bind = "value: Stock, attr: { readonly: $parent.Action() != 'Create' }",
+                                    oninput = "this.value = this.value.replace(/[^0-9]/g, '')",
+                                    type = "text"
+                                }
+                            })
+                            @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                     <!--/ko-->
 
                 </div>

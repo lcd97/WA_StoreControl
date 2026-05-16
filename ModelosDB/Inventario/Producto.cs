@@ -37,6 +37,10 @@ namespace ModelosDB.Inventario
         [Display(Name = "Marca")]
         public int MarcaId { get; set; }
 
+        [Display(Name = "Stock")]
+        [Range(0, int.MaxValue, ErrorMessage = "El campo {0} debe ser mayor a 0")]
+        public int Stock { get; set; }
+
         //CLASES PADRES
         public virtual SubCategoria SubCategoria { get; set; }
         public virtual Marca Marca { get; set; }

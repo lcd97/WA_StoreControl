@@ -88,6 +88,14 @@
     <Compile Include="Migrations\202605130033378_AutomaticCodesRefactor.Designer.cs">
       <DependentUpon>202605130033378_AutomaticCodesRefactor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202605152326277_agregandoStockProducts.cs" />
+    <Compile Include="Migrations\202605152326277_agregandoStockProducts.Designer.cs">
+      <DependentUpon>202605152326277_agregandoStockProducts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202605152355334_correccionCantidadProducts.cs" />
+    <Compile Include="Migrations\202605152355334_correccionCantidadProducts.Designer.cs">
+      <DependentUpon>202605152355334_correccionCantidadProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -116,6 +124,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202605130033378_AutomaticCodesRefactor.resx">
       <DependentUpon>202605130033378_AutomaticCodesRefactor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605152326277_agregandoStockProducts.resx">
+      <DependentUpon>202605152326277_agregandoStockProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605152355334_correccionCantidadProducts.resx">
+      <DependentUpon>202605152355334_correccionCantidadProducts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

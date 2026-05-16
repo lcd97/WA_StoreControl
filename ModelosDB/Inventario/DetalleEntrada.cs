@@ -14,7 +14,7 @@ namespace ModelosDB.Inventario
 
         [Required(ErrorMessage = "El campo es {0} obligatorio")]
         [Display(Name = "Cantidad")]
-        public double Cantidad { get; set; }
+        public int Cantidad { get; set; }
 
         [Required(ErrorMessage = "El campo es {0} obligatorio")]
         [DataType(DataType.Currency)]

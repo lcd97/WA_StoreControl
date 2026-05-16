@@ -107,7 +107,7 @@ namespace WA_StoreControl.Controllers
 
         public JsonResult BusquedaProveedor(string nombre)
         {
-            return Json(new RequestResult(personasService.BusquedaPersona(nombre)), JsonRequestBehavior.AllowGet);
+            return Json(new RequestResult(personasService.BusquedaProveedor(nombre)), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult BusquedaProductos(string producto)
