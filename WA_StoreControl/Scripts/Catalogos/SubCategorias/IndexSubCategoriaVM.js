@@ -115,8 +115,11 @@
             let url = "SubCategorias/GetFilteredOrPaged/";
 
             var successCallBack = (response) => {
-                if (response.Success)
+                if (response.Success) {
+                    self.PaginationViewModel().TriggerOnCurrentPageChange(false);
+                    self.SearchViewModel().TotalRecords(response.TotalRecords).TotalPages(response.TotalPages).Page(response.Page);
                     self.SubCategorias(response.Records ? response.Records.map(x => new SubCategoriaVM(x)) : []);
+                }
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {

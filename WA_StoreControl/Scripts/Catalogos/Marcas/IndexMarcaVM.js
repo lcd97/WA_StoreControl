@@ -110,8 +110,11 @@
             let url = "Marcas/GetFilteredOrPaged/";
 
             var successCallBack = (response) => {
-                if (response.Success)
+                if (response.Success) {
+                    self.PaginationViewModel().TriggerOnCurrentPageChange(false);
+                    self.SearchViewModel().TotalRecords(response.TotalRecords).TotalPages(response.TotalPages).Page(response.Page);
                     self.Marcas(response.Records ? response.Records.map(x => new MarcaVM(x)) : []);
+                }
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {
