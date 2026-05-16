@@ -96,6 +96,14 @@
     <Compile Include="Migrations\202605152355334_correccionCantidadProducts.Designer.cs">
       <DependentUpon>202605152355334_correccionCantidadProducts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202605161546326_motivoAnulacionEntradas.cs" />
+    <Compile Include="Migrations\202605161546326_motivoAnulacionEntradas.Designer.cs">
+      <DependentUpon>202605161546326_motivoAnulacionEntradas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202605161657543_longitudMotivoEntradas.cs" />
+    <Compile Include="Migrations\202605161657543_longitudMotivoEntradas.Designer.cs">
+      <DependentUpon>202605161657543_longitudMotivoEntradas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -130,6 +138,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202605152355334_correccionCantidadProducts.resx">
       <DependentUpon>202605152355334_correccionCantidadProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605161546326_motivoAnulacionEntradas.resx">
+      <DependentUpon>202605161546326_motivoAnulacionEntradas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605161657543_longitudMotivoEntradas.resx">
+      <DependentUpon>202605161657543_longitudMotivoEntradas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

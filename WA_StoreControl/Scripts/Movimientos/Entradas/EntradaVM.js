@@ -11,6 +11,7 @@
         self.TotalEntrada = ko.observable(data.TotalEntrada || 0);
 
         self.NombreProveedor = ko.observable(data.NombreProveedor || "");
+        self.MotivoAnulacion = ko.observable(data.MotivoAnulacion || "");
 
         self.DetallesEntrada = ko.observableArray(data.DetallesEntrada ? data.DetallesEntrada.map(x => new DetalleEntrada(x)) : []);
 

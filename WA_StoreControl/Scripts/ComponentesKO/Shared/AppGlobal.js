@@ -242,6 +242,23 @@ var AppGlobal = {
             cancelButtonText: "Cancelar"
         });
     },
+    AjaxRequestMessage: function ({ icon = "info", message = "", title = "", inputType = "text", confirmButtonText = "Enviar", maxLength = "250", preConfirm = null }) {
+        return Swal.fire({
+            title: title,
+            icon: icon,
+            html: message,
+            input: inputType,
+            inputAttributes: {
+                maxlength: maxLength
+            },
+            inputAttributes: { autocapitalize: "off" },
+            showCancelButton: true,
+            confirmButtonText: confirmButtonText,
+            allowOutsideClick: () => !Swal.isLoading(),
+            showLoaderOnConfirm: !!preConfirm,
+            preConfirm
+        });
+    },
     startLoad: function () { $('body').addClass('ocultar_scroll'); $('div.overlay').show(); $("#frmLoadingGlobalState").removeClass('hideLoaderGIF').fadeIn('slow'); $('#foco').focus(); }
     ,
     endLoad: function () { $('div.overlay').fadeOut('slow'); $("#frmLoadingGlobalState").addClass('hideLoaderGIF').hide(); $('body').removeClass('ocultar_scroll'); },

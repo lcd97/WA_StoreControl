@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.ModelBinding;
@@ -128,13 +129,13 @@ namespace WA_StoreControl.Services
                 {
                     ts.Rollback();
 
-                    Message = string.Format($"{SystemMessage.ValidateOperationError} : Ha ocurrido un error al crear el registro : {ex.ToString()}");
+                    Message = string.Format($"{SystemMessage.ValidateOperationError} : Ha ocurrido un error al crear el registro : {ex.Message.ToString()}");
                     return false;
                 }
             }
         }
 
-        public bool AnularEntrada(Entrada Entrada, out string Message)
+        public bool AnularEntrada(Entrada Entrada, string Motivo, out string Message)
         {
             Message = string.Empty;
             using (var ts = db.Database.BeginTransaction())
@@ -144,6 +145,8 @@ namespace WA_StoreControl.Services
                     var EntradaDB = db.Entradas.Include(x => x.DetallesEntrada).FirstOrDefault(x => x.Id == Entrada.Id);
 
                     EntradaDB.EsActivo = false;
+                    EntradaDB.MotivoAnulacion = Motivo.Trim().ToUpper();
+
                     db.Entry(EntradaDB).State = EntityState.Modified;
 
                     foreach (var item in EntradaDB.DetallesEntrada)
@@ -168,11 +171,16 @@ namespace WA_StoreControl.Services
                     return almacenado;
 
                 }
+                catch (DbEntityValidationException ex)
+                {
+                    Message = string.Format($"{SystemMessage.ValidateOperationError} : Ha ocurrido un error al anular el registro : {ex.Message.ToString()}");
+                    return false;
+                }
                 catch (Exception ex)
                 {
                     ts.Rollback();
 
-                    Message = string.Format($"{SystemMessage.ValidateOperationError} : Ha ocurrido un error al anular el registro : {ex.ToString()}");
+                    Message = string.Format($"{SystemMessage.ValidateOperationError} : Ha ocurrido un error al anular el registro : {ex.Message.ToString()}");
                     return false;
                 }
             }

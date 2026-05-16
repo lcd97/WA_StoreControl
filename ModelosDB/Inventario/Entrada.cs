@@ -18,7 +18,7 @@ namespace ModelosDB.Inventario
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo es {0} obligatorio")]
-        [StringLength(15, MinimumLength = 3, ErrorMessage = "La longitud debe ser de 3 dígitos")]
+        [StringLength(15, MinimumLength = 15, ErrorMessage = "La longitud debe ser de 15 dígitos")]
         [Display(Name = "Código")]
         public string Codigo { get; set; }
 
@@ -39,6 +39,10 @@ namespace ModelosDB.Inventario
         [DisplayFormat(DataFormatString = "(0:c2)")]
         [Display(Name = "Total")]
         public double TotalEntrada { get; set; }
+
+        [Display(Name = "Motivo de anulación")]
+        [StringLength(250, ErrorMessage = "La longitud debe ser de 250 caracteres")]
+        public string MotivoAnulacion { get; set; }
 
         public virtual Persona Proveedor { get; set; }
 

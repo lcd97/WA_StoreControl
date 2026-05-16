@@ -50,6 +50,9 @@
                         <button type="button" class="btn btn-outline-danger" title="Anular" data-bind="visible: EsActivo(), click: () => $root.AnularEntrada($data)">
                             <i class="fa fa-times"></i>
                         </button>
+                        <button type="button" class="btn btn-outline-info" title="Ver" _data-bind="visible: !EsActivo(), click: () => $root.VerAnulacion($data)">
+                            <i class="fa fa-eye"></i>
+                        </button>
                     </td>
                 </tr>
             </tbody>

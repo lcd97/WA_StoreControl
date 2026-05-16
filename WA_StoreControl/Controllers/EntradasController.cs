@@ -90,13 +90,13 @@ namespace WA_StoreControl.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public JsonResult AnularEntrada([Bind(Include = nameof(Entrada.Id))] Entrada Entrada)
+        public JsonResult AnularEntrada([Bind(Include = nameof(Entrada.Id))] Entrada Entrada, string Motivo)
         {
             var Message = entradaService.ValidateBeforeDelete(Entrada.Id);
 
             if (string.IsNullOrEmpty(Message))
             {
-                if (entradaService.AnularEntrada(Entrada, out Message))
+                if (entradaService.AnularEntrada(Entrada, Motivo, out Message))
                     return Json(new RequestResult(Message), JsonRequestBehavior.AllowGet);
                 else
                     return Json(new RequestResult(Message, false), JsonRequestBehavior.AllowGet);
