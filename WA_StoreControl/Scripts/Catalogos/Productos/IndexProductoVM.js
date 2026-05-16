@@ -126,8 +126,11 @@
             let url = "Productos/GetFilteredOrPaged/";
 
             var successCallBack = (response) => {
-                if (response.Success)
+                if (response.Success) {
+                    self.PaginationViewModel().TriggerOnCurrentPageChange(false);
+                    self.SearchViewModel().TotalRecords(response.TotalRecords).TotalPages(response.TotalPages).Page(response.Page);
                     self.Productos(response.Records ? response.Records.map(x => new ProductoVM(x)) : []);
+                }
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {

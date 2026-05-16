@@ -110,8 +110,11 @@
             let url = "Categorias/GetFilteredOrPaged/";
 
             var successCallBack = (response) => {
-                if (response.Success)
+                if (response.Success) {
+                    self.PaginationViewModel().TriggerOnCurrentPageChange(false);
+                    self.SearchViewModel().TotalRecords(response.TotalRecords).TotalPages(response.TotalPages).Page(response.Page);
                     self.Categorias(response.Records ? response.Records.map(x => new CategoriaVM(x)) : []);
+                }
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {

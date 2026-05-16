@@ -111,8 +111,11 @@
             let url = "CompaniasTelefonica/GetFilteredOrPaged/";
 
             var successCallBack = (response) => {
-                if (response.Success)
+                if (response.Success) {
+                    self.PaginationViewModel().TriggerOnCurrentPageChange(false);
+                    self.SearchViewModel().TotalRecords(response.TotalRecords).TotalPages(response.TotalPages).Page(response.Page);
                     self.CompaniasTelefonica(response.Records ? response.Records.map(x => new CompaniaTelefonicaVM(x)) : []);
+                }
             }
 
             var errorCallBack = (response) => (jqXHR, statusText) => {
