@@ -71,13 +71,8 @@ namespace WA_StoreControl.Controllers
             var errorMessage = !ModelState.IsValid ? string.Join(" | ", ModelValidate.GetModelErrorMessages(ModelState)) : subCategoriaService.ValidateBeforeUpdate(SubCategoria);
             if (string.IsNullOrEmpty(errorMessage))
             {
-                if (string.IsNullOrEmpty(errorMessage))
-                {
-                    subCategoriaService.Update(SubCategoria);
-                    return Json(new RequestResult(SystemMessage.UpdateSuccessful), JsonRequestBehavior.AllowGet);
-                }
-                else
-                    return Json(new RequestResult(SystemMessage.ServerError, false), JsonRequestBehavior.AllowGet);
+                subCategoriaService.Update(SubCategoria);
+                return Json(new RequestResult(SystemMessage.UpdateSuccessful), JsonRequestBehavior.AllowGet);
             }
             else
                 return Json(new RequestResult(errorMessage, false), JsonRequestBehavior.AllowGet);

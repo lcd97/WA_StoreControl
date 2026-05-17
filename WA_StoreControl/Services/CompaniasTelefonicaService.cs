@@ -1,11 +1,12 @@
-﻿using ModelosDB.General;
+﻿using ModelosDB;
+using ModelosDB.General;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using WA_StoreControl.Controllers;
 using WA_StoreControl.DTO;
-using ModelosDB;
 using WA_StoreControl.Utilidades;
 using WA_StoreControl.ViewModels;
 
@@ -31,7 +32,9 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeCreate(CompaniaTelefonica CompaniaTelefonica)
         {
-            if (db.CompaniasTelefonica.Any(x => x.Descripcion.Trim().ToLower() == CompaniaTelefonica.Descripcion.Trim().ToLower()))
+            var companiaTelefonica = PersonaHelper.BuscarCoincidencias(CompaniaTelefonica.Descripcion);
+
+            if (db.CompaniasTelefonica.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == companiaTelefonica.Trim().ToLower()))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
             return string.Empty;
@@ -39,7 +42,9 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeUpdate(CompaniaTelefonica CompaniaTelefonica)
         {
-            if (db.CompaniasTelefonica.Any(x => x.Descripcion.Trim().ToLower() == CompaniaTelefonica.Descripcion.Trim().ToLower() && x.Id != CompaniaTelefonica.Id))
+            var companiaTelefonica = PersonaHelper.BuscarCoincidencias(CompaniaTelefonica.Descripcion);
+
+            if (db.CompaniasTelefonica.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == companiaTelefonica.Trim().ToLower() && x.Id != CompaniaTelefonica.Id))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
             return string.Empty;
