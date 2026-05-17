@@ -37,13 +37,16 @@ namespace WA_StoreControl.Services
                 query = query.Where(x => x.FechaEntrada <= hasta);
             }
 
-            query = PaginateData(query.OrderByDescending(x => x.FechaEntrada).ThenBy(x => x.Codigo), viewModel);
+            query = PaginateData(query.OrderByDescending(x => x.Codigo).ThenBy(x => x.FechaEntrada), viewModel);
 
             return query.AsNoTracking();
         }
 
         public string ValidateBeforeCreate(Entrada Entrada)
         {
+            if (Entrada.ProveedorId <= 0)
+                return string.Format($"{SystemMessage.ValidateOperationError} : Ingrese un proveedor para la entrada");
+
             if (Entrada.DetallesEntrada.Any(x => x.ProductoId <= 0 || x.Cantidad <= 0 || x.Precio <= 0))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Existen detalles de productos inválidos. Intente nuevamente o contactese con el administrador");
 
@@ -110,7 +113,8 @@ namespace WA_StoreControl.Services
                         if (productoDB == null)
                             throw new Exception("Producto no encontrado");
 
-                        productoDB.Stock += item.Cantidad;
+                        if (productoDB.EsInventariable)
+                            productoDB.Stock += item.Cantidad;
 
                         db.Entry(productoDB).State = EntityState.Modified;
                     }
@@ -156,7 +160,8 @@ namespace WA_StoreControl.Services
                         if (productoDB == null)
                             throw new Exception("Producto no encontrado");
 
-                        productoDB.Stock -= item.Cantidad;
+                        if (productoDB.EsInventariable)
+                            productoDB.Stock -= item.Cantidad;
 
                         db.Entry(productoDB).State = EntityState.Modified;
                     }

@@ -77,7 +77,9 @@
             let Entrada = ko.toJS(data) || {};
             $.validator.unobtrusive.parse($(formCRUD));
 
-            if (self.Entrada().DetallesEntrada().length <= 0)
+            if (!self.Entrada().ProveedorId() > 0)
+                AppGlobal.validateMessage("error", "Ingrese un proveedor para la entrada.", "Reintentar");
+            else if (self.Entrada().DetallesEntrada().length <= 0)
                 AppGlobal.validateMessage("error", "No ha agregado registros de productos.", "Reintentar");
             else if (!self.DetallesValidos()) {
                 AppGlobal.validateMessage("warning", "Existen registros de productos vacios, elimine o corrija antes de almacenar", "Reintentar");

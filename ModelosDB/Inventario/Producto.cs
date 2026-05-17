@@ -41,6 +41,9 @@ namespace ModelosDB.Inventario
         [Range(0, int.MaxValue, ErrorMessage = "El campo {0} debe ser mayor a 0")]
         public int Stock { get; set; }
 
+        [Display(Name = "Inventariable")]
+        public bool EsInventariable { get; set; }
+
         //CLASES PADRES
         public virtual SubCategoria SubCategoria { get; set; }
         public virtual Marca Marca { get; set; }

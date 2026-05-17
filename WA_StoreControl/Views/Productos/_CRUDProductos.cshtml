@@ -13,18 +13,10 @@
                     @Html.HiddenFor(model => model.Id, new { data_bind = "value: Id" })
 
                     <div class="row mb-2">
-                        <div class="col-6">
+                        <div class="col-12">
                             @Html.LabelFor(model => model.Codigo)
                             @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Codigo", maxlength = "6", @readonly = "readonly" } })
                             @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="col-6 d-flex justify-content-center align-items-center">
-                            <div class="form-check form-switch">
-                                @Html.CheckBoxFor(model => model.EsActivo, new { @class = "form-check-input", data_bind = "checked: EsActivo" })
-                                @Html.LabelFor(model => model.EsActivo)
-                            </div>
-                            @Html.ValidationMessageFor(model => model.EsActivo, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -71,7 +63,6 @@
                         </div>
                     </div>
 
-
                     <div class="row mb-2">
                         <div class="col-md-12">
                             @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })
@@ -81,19 +72,36 @@
                     </div>
 
                     <div class="row mb-2">
-                        <div class="col-md-12">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                             @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label" })
                             @Html.EditorFor(model => model.Stock, new
-                            {
-                                htmlAttributes = new
-                                {
-                                    @class = "form-control",
-                                    data_bind = "value: Stock, attr: { readonly: $parent.Action() != 'Create' }",
-                                    oninput = "this.value = this.value.replace(/[^0-9]/g, '')",
-                                    type = "text"
-                                }
-                            })
+                       {
+                           htmlAttributes = new
+                           {
+                               @class = "form-control",
+                               data_bind = "value: Stock, attr: { readonly: ($parent.Action() != 'Create' || !EsInventariable()) }",
+                               oninput = "this.value = this.value.replace(/[^0-9]/g, '')",
+                               inputmode = "numeric",
+                               type = "text"
+                           }
+                       })
                             @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 d-flex justify-content-center align-items-center">
+                            <div class="form-check form-switch">
+                                @Html.CheckBoxFor(model => model.EsActivo, new { @class = "form-check-input", data_bind = "checked: EsActivo" })
+                                @Html.LabelFor(model => model.EsActivo)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.EsActivo, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 d-flex justify-content-center align-items-center">
+                            <div class="form-check form-switch">
+                                @Html.CheckBoxFor(model => model.EsInventariable, new { @class = "form-check-input", data_bind = "checked: EsInventariable" })
+                                @Html.LabelFor(model => model.EsInventariable)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.EsInventariable, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <!--/ko-->

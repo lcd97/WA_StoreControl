@@ -58,6 +58,7 @@
         self.ShowModal = function (data, action) {
             self.Producto(new ProductoVM(ko.toJS(data || {})));
 
+            self.AplicarSubscritions();
             self.bodyTemplate(new CRUDViewModel({
                 Action: action,
                 DataViewModel: self.Producto,
@@ -118,6 +119,13 @@
                     complete: completeCallBack,
                 }).done(successCallBack).fail(errorCallBack);
             }
+        };
+
+        self.AplicarSubscritions = () => {
+            self.Producto().EsInventariable.subscribe(function (value) {
+                if (!value)
+                    self.Producto().Stock(0);
+            });
         };
         //#endregion
 

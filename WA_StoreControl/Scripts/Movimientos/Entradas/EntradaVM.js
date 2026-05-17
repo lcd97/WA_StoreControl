@@ -4,7 +4,7 @@
         const self = this;
 
         self.Id = ko.observable(data.Id || 0);
-        self.Codigo = ko.observable(data.Codigo || "000");
+        self.Codigo = ko.observable(data.Codigo || "000000000000000");
         self.FechaEntrada = ko.observable(data.FechaEntrada || new Date().toLocaleDateString('es-ES'));
         self.EsActivo = ko.observable(typeof (data.EsActivo) == "boolean" ? data.EsActivo : true);
         self.ProveedorId = ko.observable(data.ProveedorId || 0);
