@@ -12,6 +12,7 @@
         self.DescripcionSubCategoria = ko.observable(data.DescripcionSubCategoria || 0);
         self.Stock = ko.observable(data.Stock || 0);
         self.EsActivo = ko.observable(typeof (data.EsActivo) == "boolean" ? data.EsActivo : true);
+        self.EsInventariable = ko.observable(typeof (data.EsInventariable) == "boolean" ? data.EsInventariable : true);
 
         self.MarcaId = ko.observable(data.MarcaId || 1);
 

@@ -54,18 +54,24 @@
                new Categoria
                {
                    Codigo = "000001",
-                   Descripcion = "Joyas",
+                   Descripcion = "Servicios",
                    EsActivo = true
                },
                new Categoria
                {
                    Codigo = "000002",
-                   Descripcion = "Accesorios",
+                   Descripcion = "Joyas",
                    EsActivo = true
                },
                new Categoria
                {
                    Codigo = "000003",
+                   Descripcion = "Accesorios",
+                   EsActivo = true
+               },
+               new Categoria
+               {
+                   Codigo = "000004",
                    Descripcion = "Electrónicos",
                    EsActivo = true
                });
@@ -74,38 +80,79 @@
                 new SubCategoria
                 {
                     Codigo = "000001",
-                    Descripcion = "Oro",
+                    Descripcion = "Logistica",
                     CategoriaId = 1,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
                     Codigo = "000002",
-                    Descripcion = "Plata",
-                    CategoriaId = 1,
+                    Descripcion = "Oro",
+                    CategoriaId = 2,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
                     Codigo = "000003",
-                    Descripcion = "Enchapado",
-                    CategoriaId = 1,
+                    Descripcion = "Plata",
+                    CategoriaId = 2,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
                     Codigo = "000004",
-                    Descripcion = "Botella de agua",
+                    Descripcion = "Enchapado",
                     CategoriaId = 2,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
                     Codigo = "000005",
-                    Descripcion = "Cargadores Portátiles",
+                    Descripcion = "Botella de agua",
                     CategoriaId = 3,
                     EsActivo = true
+                },
+                new SubCategoria
+                {
+                    Codigo = "000006",
+                    Descripcion = "Cargadores Portátiles",
+                    CategoriaId = 4,
+                    EsActivo = true
                 });
+
+            context.Productos.AddOrUpdate(m => m.Codigo,
+               new Producto
+               {
+                   Codigo = "000001",
+                   SubCategoriaId = 1,
+                   MarcaId = 1,
+                   Descripcion = "Parqueo",
+                   Stock = 0,
+                   EsInventariable = false,
+                   EsActivo = true
+               },
+               new Producto
+               {
+                   Codigo = "000002",
+                   SubCategoriaId = 1,
+                   MarcaId = 1,
+                   Descripcion = "Bebidas",
+                   Stock = 0,
+                   EsInventariable = false,
+                   EsActivo = true
+               });
+
+            context.Personas.AddOrUpdate(m => m.EsPersonaNatural,
+               new Persona
+               {
+                   Nombres = "CLIENTE POR ",
+                   Apellidos = "DEFECTO",
+                   NombreComercial = "CLIENTE POR DEFECTO",
+                   EsPersonaNatural = true,
+                   EsActivo = true,
+                   Direccion = "N/A",
+                   FechaNacimiento = new DateTime().Date
+               });
         }
     }
 }

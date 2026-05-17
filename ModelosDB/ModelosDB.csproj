@@ -104,6 +104,10 @@
     <Compile Include="Migrations\202605161657543_longitudMotivoEntradas.Designer.cs">
       <DependentUpon>202605161657543_longitudMotivoEntradas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202605171556004_AgregandoEsInventariableProducto.cs" />
+    <Compile Include="Migrations\202605171556004_AgregandoEsInventariableProducto.Designer.cs">
+      <DependentUpon>202605171556004_AgregandoEsInventariableProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -144,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202605161657543_longitudMotivoEntradas.resx">
       <DependentUpon>202605161657543_longitudMotivoEntradas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605171556004_AgregandoEsInventariableProducto.resx">
+      <DependentUpon>202605171556004_AgregandoEsInventariableProducto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
