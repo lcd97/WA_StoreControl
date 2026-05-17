@@ -77,15 +77,11 @@ namespace WA_StoreControl.Controllers
         public JsonResult Edit(Producto Producto)
         {
             var errorMessage = !ModelState.IsValid ? string.Join(" | ", ModelValidate.GetModelErrorMessages(ModelState)) : productosService.ValidateBeforeUpdate(Producto);
+
             if (string.IsNullOrEmpty(errorMessage))
             {
-                if (string.IsNullOrEmpty(errorMessage))
-                {
-                    productosService.Update(Producto);
-                    return Json(new RequestResult(SystemMessage.UpdateSuccessful), JsonRequestBehavior.AllowGet);
-                }
-                else
-                    return Json(new RequestResult(SystemMessage.ServerError, false), JsonRequestBehavior.AllowGet);
+                productosService.Update(Producto);
+                return Json(new RequestResult(SystemMessage.UpdateSuccessful), JsonRequestBehavior.AllowGet);
             }
             else
                 return Json(new RequestResult(errorMessage, false), JsonRequestBehavior.AllowGet);

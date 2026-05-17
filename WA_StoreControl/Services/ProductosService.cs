@@ -39,10 +39,12 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeCreate(Producto Producto)
         {
+            var producto = PersonaHelper.BuscarCoincidencias(Producto.Descripcion);
+
             if (db.Productos.Any(x => x.Codigo.Trim().ToLower() == Producto.Codigo.Trim().ToLower()))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (db.Productos.Any(x => x.Descripcion.Trim().ToLower() == Producto.Descripcion.Trim().ToLower() && x.MarcaId == Producto.MarcaId))
+            if (db.Productos.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == producto.Trim().ToLower() && x.MarcaId == Producto.MarcaId))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
             return string.Empty;
@@ -50,10 +52,12 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeUpdate(Producto Producto)
         {
+            var producto = PersonaHelper.BuscarCoincidencias(Producto.Descripcion);
+
             if (db.Productos.Any(x => x.Codigo.Trim().ToLower() == Producto.Codigo.Trim().ToLower() && x.Id != Producto.Id))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (db.Productos.Any(x => x.Descripcion.Trim().ToLower() == Producto.Descripcion.Trim().ToLower() && x.MarcaId == Producto.MarcaId && x.Id != Producto.Id))
+            if (db.Productos.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == producto.Trim().ToLower() && x.MarcaId == Producto.MarcaId && x.Id != Producto.Id))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
             return string.Empty;

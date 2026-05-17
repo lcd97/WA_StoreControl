@@ -68,13 +68,8 @@ namespace WA_StoreControl.Controllers
             var errorMessage = !ModelState.IsValid ? string.Join(" | ", ModelValidate.GetModelErrorMessages(ModelState)) : tiposIdentificacionService.ValidateBeforeUpdate(tipoIdentificacion);
             if (string.IsNullOrEmpty(errorMessage))
             {
-                if (string.IsNullOrEmpty(errorMessage))
-                {
-                    tiposIdentificacionService.Update(tipoIdentificacion);
-                    return Json(new RequestResult(SystemMessage.UpdateSuccessful), JsonRequestBehavior.AllowGet);
-                }
-                else
-                    return Json(new RequestResult(SystemMessage.ServerError, false), JsonRequestBehavior.AllowGet);
+                tiposIdentificacionService.Update(tipoIdentificacion);
+                return Json(new RequestResult(SystemMessage.UpdateSuccessful), JsonRequestBehavior.AllowGet);
             }
             else
                 return Json(new RequestResult(errorMessage, false), JsonRequestBehavior.AllowGet);

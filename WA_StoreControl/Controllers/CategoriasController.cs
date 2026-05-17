@@ -69,13 +69,8 @@ namespace WA_StoreControl.Controllers
             var errorMessage = !ModelState.IsValid ? string.Join(" | ", ModelValidate.GetModelErrorMessages(ModelState)) : acService.ValidateBeforeUpdate(Categoria);
             if (string.IsNullOrEmpty(errorMessage))
             {
-                if (string.IsNullOrEmpty(errorMessage))
-                {
-                    acService.Update(Categoria);
-                    return Json(new RequestResult(SystemMessage.UpdateSuccessful), JsonRequestBehavior.AllowGet);
-                }
-                else
-                    return Json(new RequestResult(SystemMessage.ServerError, false), JsonRequestBehavior.AllowGet);
+                acService.Update(Categoria);
+                return Json(new RequestResult(SystemMessage.UpdateSuccessful), JsonRequestBehavior.AllowGet);
             }
             else
                 return Json(new RequestResult(errorMessage, false), JsonRequestBehavior.AllowGet);

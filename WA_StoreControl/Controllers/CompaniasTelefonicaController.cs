@@ -68,15 +68,11 @@ namespace WA_StoreControl.Controllers
         public JsonResult Edit(CompaniaTelefonica CompaniaTelefonica)
         {
             var errorMessage = !ModelState.IsValid ? string.Join(" | ", ModelValidate.GetModelErrorMessages(ModelState)) : companiasTelefonicaService.ValidateBeforeUpdate(CompaniaTelefonica);
+
             if (string.IsNullOrEmpty(errorMessage))
             {
-                if (string.IsNullOrEmpty(errorMessage))
-                {
-                    companiasTelefonicaService.Update(CompaniaTelefonica);
-                    return Json(new RequestResult(SystemMessage.UpdateSuccessful), JsonRequestBehavior.AllowGet);
-                }
-                else
-                    return Json(new RequestResult(SystemMessage.ServerError, false), JsonRequestBehavior.AllowGet);
+                companiasTelefonicaService.Update(CompaniaTelefonica);
+                return Json(new RequestResult(SystemMessage.UpdateSuccessful), JsonRequestBehavior.AllowGet);
             }
             else
                 return Json(new RequestResult(errorMessage, false), JsonRequestBehavior.AllowGet);

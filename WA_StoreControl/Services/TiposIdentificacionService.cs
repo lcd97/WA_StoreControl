@@ -1,11 +1,12 @@
-﻿using ModelosDB.General;
+﻿using ModelosDB;
+using ModelosDB.General;
 using ModelosDB.Inventario;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using ModelosDB;
+using WA_StoreControl.Controllers;
 using WA_StoreControl.Utilidades;
 using WA_StoreControl.ViewModels;
 
@@ -31,7 +32,9 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeCreate(TipoIdentificacion TipoIdentificacion)
         {
-            if (db.TiposIdentificacion.Any(x => x.Descripcion.Trim().ToLower() == TipoIdentificacion.Descripcion.Trim().ToLower()))
+            var tipoIdentificacion = PersonaHelper.BuscarCoincidencias(TipoIdentificacion.Descripcion);
+
+            if (db.TiposIdentificacion.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == tipoIdentificacion.Trim().ToLower()))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
             return string.Empty;
@@ -39,20 +42,13 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeUpdate(TipoIdentificacion TipoIdentificacion)
         {
-            var objeto = db.TiposIdentificacion.Find(TipoIdentificacion.Id);
+            var tipoIdentificacion = PersonaHelper.BuscarCoincidencias(TipoIdentificacion.Descripcion);
 
-            db.Entry(objeto).State = EntityState.Detached;
+            if (db.TiposIdentificacion.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == tipoIdentificacion.Trim().ToLower() && x.Id != TipoIdentificacion.Id))
+                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
-            if (objeto != null)
-            {
-                if (objeto.Descripcion.Trim().ToLower() == TipoIdentificacion.Descripcion.Trim().ToLower())
-                    return string.Empty;
-
-                return ValidateBeforeCreate(TipoIdentificacion);
+            return string.Empty;
             }
-
-            return string.Format("¡El registro a modificar no existe!");
-        }
 
         public string ValidateBeforeDelete(int id)
         {

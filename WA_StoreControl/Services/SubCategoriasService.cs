@@ -1,10 +1,11 @@
-﻿using ModelosDB.Inventario;
+﻿using ModelosDB;
+using ModelosDB.Inventario;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using ModelosDB;
+using WA_StoreControl.Controllers;
 using WA_StoreControl.Utilidades;
 using WA_StoreControl.ViewModels;
 
@@ -30,10 +31,12 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeCreate(SubCategoria SubCategoria)
         {
+            var subCategoria = PersonaHelper.BuscarCoincidencias(SubCategoria.Descripcion);
+
             if (db.SubCategorias.Any(x => x.Codigo.Trim().ToLower() == SubCategoria.Codigo.Trim().ToLower()))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (db.SubCategorias.Any(x => x.Descripcion.Trim().ToLower() == SubCategoria.Descripcion.Trim().ToLower()))
+            if (db.SubCategorias.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == subCategoria.Trim().ToLower()))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
             return string.Empty;
@@ -41,10 +44,12 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeUpdate(SubCategoria SubCategoria)
         {
+            var subCategoria = PersonaHelper.BuscarCoincidencias(SubCategoria.Descripcion);
+
             if (db.SubCategorias.Any(x => x.Codigo.Trim().ToLower() == SubCategoria.Codigo.Trim().ToLower() && x.Id != SubCategoria.Id))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (db.SubCategorias.Any(x => x.Descripcion.Trim().ToLower() == SubCategoria.Descripcion.Trim().ToLower() && x.Id != SubCategoria.Id))
+            if (db.SubCategorias.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == subCategoria.Trim().ToLower() && x.Id != SubCategoria.Id))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
             return string.Empty;

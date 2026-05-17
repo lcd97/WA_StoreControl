@@ -7,6 +7,7 @@ using System.Web;
 using ModelosDB;
 using WA_StoreControl.Utilidades;
 using WA_StoreControl.ViewModels;
+using WA_StoreControl.Controllers;
 
 namespace WA_StoreControl.Services
 {
@@ -30,10 +31,12 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeCreate(Categoria Categoria)
         {
+            var categoria = PersonaHelper.BuscarCoincidencias(Categoria.Descripcion);
+
             if (db.Categorias.Any(x => x.Codigo.Trim().ToLower() == Categoria.Codigo.Trim().ToLower()))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (db.Categorias.Any(x => x.Descripcion.Trim().ToLower() == Categoria.Descripcion.Trim().ToLower()))
+            if (db.Categorias.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == categoria.Trim().ToLower()))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
             return string.Empty;
@@ -41,11 +44,12 @@ namespace WA_StoreControl.Services
 
         public string ValidateBeforeUpdate(Categoria Categoria)
         {
+            var categoria = PersonaHelper.BuscarCoincidencias(Categoria.Descripcion);
 
             if (db.Categorias.Any(x => x.Codigo.Trim().ToLower() == Categoria.Codigo.Trim().ToLower() && x.Id != Categoria.Id))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (db.Categorias.Any(x => x.Descripcion.Trim().ToLower() == Categoria.Descripcion.Trim().ToLower() && x.Id != Categoria.Id))
+            if (db.Categorias.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == categoria.Trim().ToLower() && x.Id != Categoria.Id))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
 
             return string.Empty;
