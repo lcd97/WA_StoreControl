@@ -96,7 +96,16 @@
 
                 <div class="col">
                     @Html.LabelFor(model => model.FechaNacimiento, htmlAttributes: new { @class = "control-label" })
-                    @Html.TextBoxFor(model => model.FechaNacimiento, Model.FechaNacimiento.ToString("dd/MM/yyyy"), htmlAttributes: new { @class = "form-control", data_bind = "jqDatepicker: FechaNacimiento, jqMask: { Mask: '00/00/0000' }", maxlength = "10", inputmode = "number" })
+                    @Html.TextBoxFor(
+                        model => model.FechaNacimiento,
+                        "{0:dd/MM/yyyy}",
+                        new
+                        {
+                            @class = "form-control",
+                            data_bind = "jqDatepicker: FechaNacimiento, jqMask: { Mask: '00/00/0000' }",
+                            maxlength = "10",
+                            inputmode = "numeric"
+                        })
                     @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger" })
                 </div>
             </div>

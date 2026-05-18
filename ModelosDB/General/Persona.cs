@@ -28,7 +28,7 @@ namespace ModelosDB.General
         public string Apellidos { get; set; }
 
         [Display(Name = "Fecha de Nacimiento")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FechaNacimiento { get; set; }
 
         [StringLength(100, ErrorMessage = "La longitud no debe exceder los 100 caracteres")]

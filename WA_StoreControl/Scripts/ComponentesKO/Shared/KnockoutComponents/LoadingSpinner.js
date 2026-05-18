@@ -1,11 +1,17 @@
-﻿ko.components.register("loading-spinner", {
-    template: document.getElementById("loading-spinner-template").innerHTML,
-    viewModel: function (params) {
-        const self = this;
-        params = params || {};
+﻿const loadingTemplate = document.getElementById("loading-spinner-template");
 
-        self.Loading = ko.isObservable(params.Loading) ? params.Loading : ko.observable(false);
+if (loadingTemplate) {
+    ko.components.register("loading-spinner", {
+        template: loadingTemplate.innerHTML,
+        viewModel: function (params) {
+            const self = this;
+            params = params || {};
 
-        self.Message = ko.observable(params.Message || " Cargando...");
-    }
-});
+            self.Loading = ko.isObservable(params.Loading)
+                ? params.Loading
+                : ko.observable(false);
+
+            self.Message = ko.observable(params.Message || "Cargando...");
+        }
+    });
+}
