@@ -15,10 +15,10 @@
                     <th>
                         @Html.DisplayName("Cantidad")
                     </th>
-                    <th>
+                    <th style="min-width: 80px;">
                         @Html.DisplayName("Precio")
                     </th>
-                    <th class="text-center">
+                    <th class="text-center" style="min-width: 80px;">
                         @Html.DisplayName("Total")
                     </th>
                     <th>Acciones</th>
@@ -43,12 +43,12 @@
                             <input data-bind="value:Cantidad" oninput="this.value = this.value.replace(/[^0-9]/g, '')" type="text" inputmode="numeric" class="form-control form-control-sm" maxlength="6" />
                         </div>
                     </td>
-                    <td class="align-middle">
+                    <td class="align-middle" style="min-width: 80px;">
                         <div class="w-100">
                             <input data-bind="value:Precio, jqMask: { Mask: '####0.00', Config: { reverse: true } }" type="text" inputmode="numeric" class="form-control form-control-sm" maxlength="8" />
                         </div>
                     </td>
-                    <td class="align-middle text-center" data-bind="text: 'C$ ' + Total()"></td>
+                    <td class="align-middle text-center" data-bind="text: 'C$ ' + Total()" style="min-width: 80px;"></td>
                     <td>
                         <button type="button" class="btn btn-outline-danger" title="Eliminar" data-bind="click: () => { $root.DeleteProducto($data) }">
                             <i class="fa fa-trash"></i>

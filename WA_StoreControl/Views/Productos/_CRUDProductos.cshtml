@@ -87,8 +87,10 @@
                        })
                             @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
                         </div>
+                    </div>
 
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 d-flex justify-content-center align-items-center">
+                    <div class="row mb-2">
+                        <div class="col-6 col-lg-4 d-flex justify-content-center align-items-center">
                             <div class="form-check form-switch">
                                 @Html.CheckBoxFor(model => model.EsActivo, new { @class = "form-check-input", data_bind = "checked: EsActivo" })
                                 @Html.LabelFor(model => model.EsActivo)
@@ -96,7 +98,7 @@
                             @Html.ValidationMessageFor(model => model.EsActivo, "", new { @class = "text-danger" })
                         </div>
 
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 d-flex justify-content-center align-items-center">
+                        <div class="col-6 d-flex justify-content-center align-items-center">
                             <div class="form-check form-switch">
                                 @Html.CheckBoxFor(model => model.EsInventariable, new { @class = "form-check-input", data_bind = "checked: EsInventariable" })
                                 @Html.LabelFor(model => model.EsInventariable)
