@@ -1,0 +1,749 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CompaniasTelefonica">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetallesTelefono">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroTelefonico" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="CompaniaTelefonicaId" Type="int" Nullable="false" />
+          <Property Name="PersonaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Identidades">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Identificacion" Type="nvarchar" MaxLength="14" />
+          <Property Name="TipoIdentificacionId" Type="int" Nullable="false" />
+          <Property Name="PersonaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Personas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombres" Type="nvarchar" MaxLength="100" />
+          <Property Name="Apellidos" Type="nvarchar" MaxLength="100" />
+          <Property Name="FechaNacimiento" Type="datetime" Nullable="false" />
+          <Property Name="NombreComercial" Type="nvarchar" MaxLength="100" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="150" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="EsPersonaNatural" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TiposIdentificacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetallesEntrada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="Precio" Type="float" Nullable="false" />
+          <Property Name="EntradaId" Type="int" Nullable="false" />
+          <Property Name="ProductoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Entradas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="FechaEntrada" Type="datetime" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="ProveedorId" Type="int" Nullable="false" />
+          <Property Name="TotalEntrada" Type="float" Nullable="false" />
+          <Property Name="MotivoAnulacion" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Marcas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Productos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="SubCategoriaId" Type="int" Nullable="false" />
+          <Property Name="MarcaId" Type="int" Nullable="false" />
+          <Property Name="Stock" Type="int" Nullable="false" />
+          <Property Name="EsInventariable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubCategorias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+          <Property Name="CategoriaId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_gen_DetallesTelefono_gen_CompaniasTelefonica_CompaniaTelefonicaId">
+          <End Role="CompaniasTelefonica" Type="Self.CompaniasTelefonica" Multiplicity="1" />
+          <End Role="DetallesTelefono" Type="Self.DetallesTelefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompaniasTelefonica">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetallesTelefono">
+              <PropertyRef Name="CompaniaTelefonicaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_gen_DetallesTelefono_gen_Personas_PersonaId">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="DetallesTelefono" Type="Self.DetallesTelefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetallesTelefono">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_gen_Identidades_gen_Personas_PersonaId">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Identidades" Type="Self.Identidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Identidades">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_gen_Identidades_gen_TiposIdentificacion_TipoIdentificacionId">
+          <End Role="TiposIdentificacion" Type="Self.TiposIdentificacion" Multiplicity="1" />
+          <End Role="Identidades" Type="Self.Identidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposIdentificacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Identidades">
+              <PropertyRef Name="TipoIdentificacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inv_DetallesEntrada_inv_Entradas_EntradaId">
+          <End Role="Entradas" Type="Self.Entradas" Multiplicity="1" />
+          <End Role="DetallesEntrada" Type="Self.DetallesEntrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entradas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetallesEntrada">
+              <PropertyRef Name="EntradaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inv_DetallesEntrada_inv_Productos_ProductoId">
+          <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+          <End Role="DetallesEntrada" Type="Self.DetallesEntrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetallesEntrada">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inv_Entradas_gen_Personas_ProveedorId">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Entradas" Type="Self.Entradas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entradas">
+              <PropertyRef Name="ProveedorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inv_Productos_inv_Marcas_MarcaId">
+          <End Role="Marcas" Type="Self.Marcas" Multiplicity="1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marcas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="MarcaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inv_Productos_inv_SubCategorias_SubCategoriaId">
+          <End Role="SubCategorias" Type="Self.SubCategorias" Multiplicity="1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubCategorias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="SubCategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inv_SubCategorias_inv_Categorias_CategoriaId">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+          <End Role="SubCategorias" Type="Self.SubCategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubCategorias">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBStoreModelStoreContainer">
+          <EntitySet Name="CompaniasTelefonica" EntityType="Self.CompaniasTelefonica" Schema="gen" store:Type="Tables" />
+          <EntitySet Name="DetallesTelefono" EntityType="Self.DetallesTelefono" Schema="gen" store:Type="Tables" />
+          <EntitySet Name="Identidades" EntityType="Self.Identidades" Schema="gen" store:Type="Tables" />
+          <EntitySet Name="Personas" EntityType="Self.Personas" Schema="gen" store:Type="Tables" />
+          <EntitySet Name="TiposIdentificacion" EntityType="Self.TiposIdentificacion" Schema="gen" store:Type="Tables" />
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="inv" store:Type="Tables" />
+          <EntitySet Name="DetallesEntrada" EntityType="Self.DetallesEntrada" Schema="inv" store:Type="Tables" />
+          <EntitySet Name="Entradas" EntityType="Self.Entradas" Schema="inv" store:Type="Tables" />
+          <EntitySet Name="Marcas" EntityType="Self.Marcas" Schema="inv" store:Type="Tables" />
+          <EntitySet Name="Productos" EntityType="Self.Productos" Schema="inv" store:Type="Tables" />
+          <EntitySet Name="SubCategorias" EntityType="Self.SubCategorias" Schema="inv" store:Type="Tables" />
+          <AssociationSet Name="FK_gen_DetallesTelefono_gen_CompaniasTelefonica_CompaniaTelefonicaId" Association="Self.FK_gen_DetallesTelefono_gen_CompaniasTelefonica_CompaniaTelefonicaId">
+            <End Role="CompaniasTelefonica" EntitySet="CompaniasTelefonica" />
+            <End Role="DetallesTelefono" EntitySet="DetallesTelefono" />
+          </AssociationSet>
+          <AssociationSet Name="FK_gen_DetallesTelefono_gen_Personas_PersonaId" Association="Self.FK_gen_DetallesTelefono_gen_Personas_PersonaId">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="DetallesTelefono" EntitySet="DetallesTelefono" />
+          </AssociationSet>
+          <AssociationSet Name="FK_gen_Identidades_gen_Personas_PersonaId" Association="Self.FK_gen_Identidades_gen_Personas_PersonaId">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Identidades" EntitySet="Identidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_gen_Identidades_gen_TiposIdentificacion_TipoIdentificacionId" Association="Self.FK_gen_Identidades_gen_TiposIdentificacion_TipoIdentificacionId">
+            <End Role="TiposIdentificacion" EntitySet="TiposIdentificacion" />
+            <End Role="Identidades" EntitySet="Identidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inv_DetallesEntrada_inv_Entradas_EntradaId" Association="Self.FK_inv_DetallesEntrada_inv_Entradas_EntradaId">
+            <End Role="Entradas" EntitySet="Entradas" />
+            <End Role="DetallesEntrada" EntitySet="DetallesEntrada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inv_DetallesEntrada_inv_Productos_ProductoId" Association="Self.FK_inv_DetallesEntrada_inv_Productos_ProductoId">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="DetallesEntrada" EntitySet="DetallesEntrada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inv_Entradas_gen_Personas_ProveedorId" Association="Self.FK_inv_Entradas_gen_Personas_ProveedorId">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Entradas" EntitySet="Entradas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inv_Productos_inv_Marcas_MarcaId" Association="Self.FK_inv_Productos_inv_Marcas_MarcaId">
+            <End Role="Marcas" EntitySet="Marcas" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inv_Productos_inv_SubCategorias_SubCategoriaId" Association="Self.FK_inv_Productos_inv_SubCategorias_SubCategoriaId">
+            <End Role="SubCategorias" EntitySet="SubCategorias" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inv_SubCategorias_inv_Categorias_CategoriaId" Association="Self.FK_inv_SubCategorias_inv_Categorias_CategoriaId">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="SubCategorias" EntitySet="SubCategorias" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CompaniasTelefonica">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DetallesTelefono" Relationship="Self.FK_gen_DetallesTelefono_gen_CompaniasTelefonica_CompaniaTelefonicaId" FromRole="CompaniasTelefonica" ToRole="DetallesTelefono" />
+        </EntityType>
+        <EntityType Name="DetallesTelefono">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroTelefonico" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompaniaTelefonicaId" Type="Int32" Nullable="false" />
+          <Property Name="PersonaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CompaniasTelefonica" Relationship="Self.FK_gen_DetallesTelefono_gen_CompaniasTelefonica_CompaniaTelefonicaId" FromRole="DetallesTelefono" ToRole="CompaniasTelefonica" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK_gen_DetallesTelefono_gen_Personas_PersonaId" FromRole="DetallesTelefono" ToRole="Personas" />
+        </EntityType>
+        <EntityType Name="Identidades">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Identificacion" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+          <Property Name="TipoIdentificacionId" Type="Int32" Nullable="false" />
+          <Property Name="PersonaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK_gen_Identidades_gen_Personas_PersonaId" FromRole="Identidades" ToRole="Personas" />
+          <NavigationProperty Name="TiposIdentificacion" Relationship="Self.FK_gen_Identidades_gen_TiposIdentificacion_TipoIdentificacionId" FromRole="Identidades" ToRole="TiposIdentificacion" />
+        </EntityType>
+        <EntityType Name="Personas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NombreComercial" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="EsPersonaNatural" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DetallesTelefono" Relationship="Self.FK_gen_DetallesTelefono_gen_Personas_PersonaId" FromRole="Personas" ToRole="DetallesTelefono" />
+          <NavigationProperty Name="Identidades" Relationship="Self.FK_gen_Identidades_gen_Personas_PersonaId" FromRole="Personas" ToRole="Identidades" />
+          <NavigationProperty Name="Entradas" Relationship="Self.FK_inv_Entradas_gen_Personas_ProveedorId" FromRole="Personas" ToRole="Entradas" />
+        </EntityType>
+        <EntityType Name="TiposIdentificacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Identidades" Relationship="Self.FK_gen_Identidades_gen_TiposIdentificacion_TipoIdentificacionId" FromRole="TiposIdentificacion" ToRole="Identidades" />
+        </EntityType>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SubCategorias" Relationship="Self.FK_inv_SubCategorias_inv_Categorias_CategoriaId" FromRole="Categorias" ToRole="SubCategorias" />
+        </EntityType>
+        <EntityType Name="DetallesEntrada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="Precio" Type="Double" Nullable="false" />
+          <Property Name="EntradaId" Type="Int32" Nullable="false" />
+          <Property Name="ProductoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Entradas" Relationship="Self.FK_inv_DetallesEntrada_inv_Entradas_EntradaId" FromRole="DetallesEntrada" ToRole="Entradas" />
+          <NavigationProperty Name="Productos" Relationship="Self.FK_inv_DetallesEntrada_inv_Productos_ProductoId" FromRole="DetallesEntrada" ToRole="Productos" />
+        </EntityType>
+        <EntityType Name="Entradas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaEntrada" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="ProveedorId" Type="Int32" Nullable="false" />
+          <Property Name="TotalEntrada" Type="Double" Nullable="false" />
+          <Property Name="MotivoAnulacion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK_inv_Entradas_gen_Personas_ProveedorId" FromRole="Entradas" ToRole="Personas" />
+          <NavigationProperty Name="DetallesEntrada" Relationship="Self.FK_inv_DetallesEntrada_inv_Entradas_EntradaId" FromRole="Entradas" ToRole="DetallesEntrada" />
+        </EntityType>
+        <EntityType Name="Marcas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Productos" Relationship="Self.FK_inv_Productos_inv_Marcas_MarcaId" FromRole="Marcas" ToRole="Productos" />
+        </EntityType>
+        <EntityType Name="Productos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="SubCategoriaId" Type="Int32" Nullable="false" />
+          <Property Name="MarcaId" Type="Int32" Nullable="false" />
+          <Property Name="Stock" Type="Int32" Nullable="false" />
+          <Property Name="EsInventariable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DetallesEntrada" Relationship="Self.FK_inv_DetallesEntrada_inv_Productos_ProductoId" FromRole="Productos" ToRole="DetallesEntrada" />
+          <NavigationProperty Name="Marcas" Relationship="Self.FK_inv_Productos_inv_Marcas_MarcaId" FromRole="Productos" ToRole="Marcas" />
+          <NavigationProperty Name="SubCategorias" Relationship="Self.FK_inv_Productos_inv_SubCategorias_SubCategoriaId" FromRole="Productos" ToRole="SubCategorias" />
+        </EntityType>
+        <EntityType Name="SubCategorias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="CategoriaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categorias" Relationship="Self.FK_inv_SubCategorias_inv_Categorias_CategoriaId" FromRole="SubCategorias" ToRole="Categorias" />
+          <NavigationProperty Name="Productos" Relationship="Self.FK_inv_Productos_inv_SubCategorias_SubCategoriaId" FromRole="SubCategorias" ToRole="Productos" />
+        </EntityType>
+        <Association Name="FK_gen_DetallesTelefono_gen_CompaniasTelefonica_CompaniaTelefonicaId">
+          <End Role="CompaniasTelefonica" Type="Self.CompaniasTelefonica" Multiplicity="1" />
+          <End Role="DetallesTelefono" Type="Self.DetallesTelefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompaniasTelefonica">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetallesTelefono">
+              <PropertyRef Name="CompaniaTelefonicaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_gen_DetallesTelefono_gen_Personas_PersonaId">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="DetallesTelefono" Type="Self.DetallesTelefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetallesTelefono">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_gen_Identidades_gen_Personas_PersonaId">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Identidades" Type="Self.Identidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Identidades">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_gen_Identidades_gen_TiposIdentificacion_TipoIdentificacionId">
+          <End Role="TiposIdentificacion" Type="Self.TiposIdentificacion" Multiplicity="1" />
+          <End Role="Identidades" Type="Self.Identidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposIdentificacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Identidades">
+              <PropertyRef Name="TipoIdentificacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inv_Entradas_gen_Personas_ProveedorId">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Entradas" Type="Self.Entradas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entradas">
+              <PropertyRef Name="ProveedorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inv_SubCategorias_inv_Categorias_CategoriaId">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+          <End Role="SubCategorias" Type="Self.SubCategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SubCategorias">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inv_DetallesEntrada_inv_Entradas_EntradaId">
+          <End Role="Entradas" Type="Self.Entradas" Multiplicity="1" />
+          <End Role="DetallesEntrada" Type="Self.DetallesEntrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entradas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetallesEntrada">
+              <PropertyRef Name="EntradaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inv_DetallesEntrada_inv_Productos_ProductoId">
+          <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+          <End Role="DetallesEntrada" Type="Self.DetallesEntrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetallesEntrada">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inv_Productos_inv_Marcas_MarcaId">
+          <End Role="Marcas" Type="Self.Marcas" Multiplicity="1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marcas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="MarcaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inv_Productos_inv_SubCategorias_SubCategoriaId">
+          <End Role="SubCategorias" Type="Self.SubCategorias" Multiplicity="1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubCategorias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="SubCategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBStoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CompaniasTelefonica" EntityType="Self.CompaniasTelefonica" />
+          <EntitySet Name="DetallesTelefono" EntityType="Self.DetallesTelefono" />
+          <EntitySet Name="Identidades" EntityType="Self.Identidades" />
+          <EntitySet Name="Personas" EntityType="Self.Personas" />
+          <EntitySet Name="TiposIdentificacion" EntityType="Self.TiposIdentificacion" />
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" />
+          <EntitySet Name="DetallesEntrada" EntityType="Self.DetallesEntrada" />
+          <EntitySet Name="Entradas" EntityType="Self.Entradas" />
+          <EntitySet Name="Marcas" EntityType="Self.Marcas" />
+          <EntitySet Name="Productos" EntityType="Self.Productos" />
+          <EntitySet Name="SubCategorias" EntityType="Self.SubCategorias" />
+          <AssociationSet Name="FK_gen_DetallesTelefono_gen_CompaniasTelefonica_CompaniaTelefonicaId" Association="Self.FK_gen_DetallesTelefono_gen_CompaniasTelefonica_CompaniaTelefonicaId">
+            <End Role="CompaniasTelefonica" EntitySet="CompaniasTelefonica" />
+            <End Role="DetallesTelefono" EntitySet="DetallesTelefono" />
+          </AssociationSet>
+          <AssociationSet Name="FK_gen_DetallesTelefono_gen_Personas_PersonaId" Association="Self.FK_gen_DetallesTelefono_gen_Personas_PersonaId">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="DetallesTelefono" EntitySet="DetallesTelefono" />
+          </AssociationSet>
+          <AssociationSet Name="FK_gen_Identidades_gen_Personas_PersonaId" Association="Self.FK_gen_Identidades_gen_Personas_PersonaId">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Identidades" EntitySet="Identidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_gen_Identidades_gen_TiposIdentificacion_TipoIdentificacionId" Association="Self.FK_gen_Identidades_gen_TiposIdentificacion_TipoIdentificacionId">
+            <End Role="TiposIdentificacion" EntitySet="TiposIdentificacion" />
+            <End Role="Identidades" EntitySet="Identidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inv_Entradas_gen_Personas_ProveedorId" Association="Self.FK_inv_Entradas_gen_Personas_ProveedorId">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Entradas" EntitySet="Entradas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inv_SubCategorias_inv_Categorias_CategoriaId" Association="Self.FK_inv_SubCategorias_inv_Categorias_CategoriaId">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="SubCategorias" EntitySet="SubCategorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inv_DetallesEntrada_inv_Entradas_EntradaId" Association="Self.FK_inv_DetallesEntrada_inv_Entradas_EntradaId">
+            <End Role="Entradas" EntitySet="Entradas" />
+            <End Role="DetallesEntrada" EntitySet="DetallesEntrada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inv_DetallesEntrada_inv_Productos_ProductoId" Association="Self.FK_inv_DetallesEntrada_inv_Productos_ProductoId">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="DetallesEntrada" EntitySet="DetallesEntrada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inv_Productos_inv_Marcas_MarcaId" Association="Self.FK_inv_Productos_inv_Marcas_MarcaId">
+            <End Role="Marcas" EntitySet="Marcas" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inv_Productos_inv_SubCategorias_SubCategoriaId" Association="Self.FK_inv_Productos_inv_SubCategorias_SubCategoriaId">
+            <End Role="SubCategorias" EntitySet="SubCategorias" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBStoreModelStoreContainer" CdmEntityContainer="DBStoreEntities">
+          <EntitySetMapping Name="CompaniasTelefonica">
+            <EntityTypeMapping TypeName="DBStoreModel.CompaniasTelefonica">
+              <MappingFragment StoreEntitySet="CompaniasTelefonica">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetallesTelefono">
+            <EntityTypeMapping TypeName="DBStoreModel.DetallesTelefono">
+              <MappingFragment StoreEntitySet="DetallesTelefono">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NumeroTelefonico" ColumnName="NumeroTelefonico" />
+                <ScalarProperty Name="CompaniaTelefonicaId" ColumnName="CompaniaTelefonicaId" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Identidades">
+            <EntityTypeMapping TypeName="DBStoreModel.Identidades">
+              <MappingFragment StoreEntitySet="Identidades">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="TipoIdentificacionId" ColumnName="TipoIdentificacionId" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personas">
+            <EntityTypeMapping TypeName="DBStoreModel.Personas">
+              <MappingFragment StoreEntitySet="Personas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="NombreComercial" ColumnName="NombreComercial" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="EsPersonaNatural" ColumnName="EsPersonaNatural" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposIdentificacion">
+            <EntityTypeMapping TypeName="DBStoreModel.TiposIdentificacion">
+              <MappingFragment StoreEntitySet="TiposIdentificacion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="DBStoreModel.Categorias">
+              <MappingFragment StoreEntitySet="Categorias">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetallesEntrada">
+            <EntityTypeMapping TypeName="DBStoreModel.DetallesEntrada">
+              <MappingFragment StoreEntitySet="DetallesEntrada">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="EntradaId" ColumnName="EntradaId" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entradas">
+            <EntityTypeMapping TypeName="DBStoreModel.Entradas">
+              <MappingFragment StoreEntitySet="Entradas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="FechaEntrada" ColumnName="FechaEntrada" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="ProveedorId" ColumnName="ProveedorId" />
+                <ScalarProperty Name="TotalEntrada" ColumnName="TotalEntrada" />
+                <ScalarProperty Name="MotivoAnulacion" ColumnName="MotivoAnulacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marcas">
+            <EntityTypeMapping TypeName="DBStoreModel.Marcas">
+              <MappingFragment StoreEntitySet="Marcas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Productos">
+            <EntityTypeMapping TypeName="DBStoreModel.Productos">
+              <MappingFragment StoreEntitySet="Productos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="SubCategoriaId" ColumnName="SubCategoriaId" />
+                <ScalarProperty Name="MarcaId" ColumnName="MarcaId" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="EsInventariable" ColumnName="EsInventariable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubCategorias">
+            <EntityTypeMapping TypeName="DBStoreModel.SubCategorias">
+              <MappingFragment StoreEntitySet="SubCategorias">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+                <ScalarProperty Name="CategoriaId" ColumnName="CategoriaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1a8f7757322d40169801a350f33e4d3f" Name="Diagram1">
+        <EntityTypeShape EntityType="DBStoreModel.CompaniasTelefonica" Width="1.5" PointX="10.5" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBStoreModel.DetallesTelefono" Width="1.5" PointX="5.375" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBStoreModel.Identidades" Width="1.5" PointX="10.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBStoreModel.Personas" Width="1.5" PointX="8.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBStoreModel.TiposIdentificacion" Width="1.5" PointX="9.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBStoreModel.Categorias" Width="1.5" PointX="0.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBStoreModel.DetallesEntrada" Width="1.5" PointX="7.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBStoreModel.Entradas" Width="1.5" PointX="3.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBStoreModel.Marcas" Width="1.5" PointX="1" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBStoreModel.Productos" Width="1.5" PointX="5.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBStoreModel.SubCategorias" Width="1.5" PointX="3" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="DBStoreModel.FK_gen_DetallesTelefono_gen_CompaniasTelefonica_CompaniaTelefonicaId" ManuallyRouted="false" />
+        <AssociationConnector Association="DBStoreModel.FK_gen_DetallesTelefono_gen_Personas_PersonaId" ManuallyRouted="false" />
+        <AssociationConnector Association="DBStoreModel.FK_gen_Identidades_gen_Personas_PersonaId" ManuallyRouted="false" />
+        <AssociationConnector Association="DBStoreModel.FK_gen_Identidades_gen_TiposIdentificacion_TipoIdentificacionId" ManuallyRouted="false" />
+        <AssociationConnector Association="DBStoreModel.FK_inv_Entradas_gen_Personas_ProveedorId" ManuallyRouted="false" />
+        <AssociationConnector Association="DBStoreModel.FK_inv_SubCategorias_inv_Categorias_CategoriaId" ManuallyRouted="false" />
+        <AssociationConnector Association="DBStoreModel.FK_inv_DetallesEntrada_inv_Entradas_EntradaId" ManuallyRouted="false" />
+        <AssociationConnector Association="DBStoreModel.FK_inv_DetallesEntrada_inv_Productos_ProductoId" ManuallyRouted="false" />
+        <AssociationConnector Association="DBStoreModel.FK_inv_Productos_inv_Marcas_MarcaId" ManuallyRouted="false" />
+        <AssociationConnector Association="DBStoreModel.FK_inv_Productos_inv_SubCategorias_SubCategoriaId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

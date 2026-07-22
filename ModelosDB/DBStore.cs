@@ -10,6 +10,9 @@ namespace ModelosDB
         public DBStore() : base("DBStore")
         {
             Database.SetInitializer<DBStore>(null);
+
+            //Database.SetInitializer<DBStore>(new CreateDatabaseIfNotExists<DBStore>());
+
             this.Configuration.ProxyCreationEnabled = true;
             this.Configuration.LazyLoadingEnabled = true;
 
