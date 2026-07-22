@@ -1,4 +1,5 @@
 ﻿using ModelosDB.Interfaces;
+using ModelosDB.Venta;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,6 +13,7 @@ namespace ModelosDB.Inventario
         public Producto()
         {
             this.DetallesEntrada = new HashSet<DetalleEntrada>();
+            this.DetallesProductoVenta = new HashSet<DetalleProductoVenta>();
         }
 
         [Key]
@@ -50,5 +52,6 @@ namespace ModelosDB.Inventario
 
         //CLASES HIJAS
         public virtual ICollection<DetalleEntrada> DetallesEntrada { get; set; }
+        public virtual ICollection<DetalleProductoVenta> DetallesProductoVenta { get; set; }
     }
 }

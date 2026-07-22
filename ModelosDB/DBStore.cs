@@ -1,5 +1,6 @@
 ﻿using ModelosDB.General;
 using ModelosDB.Inventario;
+using ModelosDB.Venta;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -29,6 +30,10 @@ namespace ModelosDB
         public virtual DbSet<CompaniaTelefonica> CompaniasTelefonica { get; set; }
         public virtual DbSet<DetalleTelefono> DetallesTelefono { get; set; }
         public virtual DbSet<Identidad> Identidades { get; set; }
+
+        //VENTAS
+        public virtual DbSet<ProductoVenta> ProductosVenta { get; set; }
+        public virtual DbSet<DetalleProductoVenta> DetallesProductoVenta { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
