@@ -16,13 +16,15 @@ namespace WA_StoreControl.Controllers
 {
     public class CategoriasController : Controller
     {
-        private DBStore db;
         private CategoriasService acService;
 
-        public CategoriasController()
+        public CategoriasController() : this(new CategoriasService(new DBStore()))
         {
-            db = new DBStore();
-            acService = new CategoriasService(db);
+        }
+
+        public CategoriasController(CategoriasService acService)
+        {
+            this.acService = acService;
         }
 
         // GET: Categorias
