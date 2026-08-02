@@ -23,6 +23,11 @@ namespace WA_StoreControl.Controllers
             this.tiposIdentificacionService = new TiposIdentificacionService(db);
         }
 
+        public TiposIdentificacionController(TiposIdentificacionService tiposIdentificacionService)
+        {
+            this.tiposIdentificacionService = tiposIdentificacionService;
+        }
+
         // GET: TiposIdentificacion
         public ActionResult Index()
         {

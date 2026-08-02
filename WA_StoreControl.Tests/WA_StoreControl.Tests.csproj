@@ -74,6 +74,7 @@
     <Compile Include="CategoriasControllerTests.cs" />
     <Compile Include="MarcasControllerTests.cs" />
     <Compile Include="SubCategoriasControllerTests.cs" />
+    <Compile Include="TiposIdentificacionControllerTests.cs" />
     <Compile Include="TestDoubles.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
