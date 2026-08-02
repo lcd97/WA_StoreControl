@@ -44,10 +44,16 @@ namespace ModelosDB.Venta
         [Display(Name = "Precio en Descuento")]
         public double PrecioDescuento { get; set; }
 
-        [DataType(DataType.Currency)]
-        [Display(Name = "Cantidad")]
-        [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor a 0")]
-        public int Cantidad { get; set; }
+        [Display(Name = "Estado")]
+        public bool EsActivo { get; set; }
+
+        [Display(Name = "Fecha Inicio Vigencia")]
+        [DataType(DataType.DateTime)]
+        public DateTime FechaInicio { get; set; }
+
+        [Display(Name = "Fecha Fin Vigencia")]
+        [DataType(DataType.DateTime)]
+        public DateTime FechaFin { get; set; }
 
         public virtual ICollection<DetalleProductoVenta> DetallesProductoVenta { get; set; }
     }

@@ -76,56 +76,68 @@
                    EsActivo = true
                });
 
+            context.SaveChanges();
+
+            var catServicios = context.Categorias.FirstOrDefault(c => c.Codigo == "000001");
+            var catJoyas = context.Categorias.FirstOrDefault(c => c.Codigo == "000002");
+            var catAccesorios = context.Categorias.FirstOrDefault(c => c.Codigo == "000003");
+            var catElectronicos = context.Categorias.FirstOrDefault(c => c.Codigo == "000004");
+
             context.SubCategorias.AddOrUpdate(m => m.Codigo,
                 new SubCategoria
                 {
                     Codigo = "000001",
                     Descripcion = "Logistica",
-                    CategoriaId = 1,
+                    CategoriaId = catJoyas != null ? catJoyas.Id : 1,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
                     Codigo = "000002",
                     Descripcion = "Oro",
-                    CategoriaId = 2,
+                    CategoriaId = catJoyas != null ? catJoyas.Id : 2,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
                     Codigo = "000003",
                     Descripcion = "Plata",
-                    CategoriaId = 2,
+                    CategoriaId = catJoyas != null ? catJoyas.Id : 2,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
                     Codigo = "000004",
                     Descripcion = "Enchapado",
-                    CategoriaId = 2,
+                    CategoriaId = catJoyas != null ? catJoyas.Id : 2,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
                     Codigo = "000005",
                     Descripcion = "Botella de agua",
-                    CategoriaId = 3,
+                    CategoriaId = catJoyas != null ? catJoyas.Id : 3,
                     EsActivo = true
                 },
                 new SubCategoria
                 {
                     Codigo = "000006",
                     Descripcion = "Cargadores Portátiles",
-                    CategoriaId = 4,
+                    CategoriaId = catJoyas != null ? catJoyas.Id : 4,
                     EsActivo = true
                 });
+
+            context.SaveChanges();
+
+            var marcaSinMarca = context.Marcas.FirstOrDefault(m => m.Codigo == "000001");
+            var subLogistica = context.SubCategorias.FirstOrDefault(s => s.Codigo == "000001");
 
             context.Productos.AddOrUpdate(m => m.Codigo,
                new Producto
                {
                    Codigo = "000001",
-                   SubCategoriaId = 1,
-                   MarcaId = 1,
+                   SubCategoriaId = subLogistica != null ? subLogistica.Id : 1,
+                   MarcaId = marcaSinMarca != null ? marcaSinMarca.Id : 1,
                    Descripcion = "Parqueo",
                    Stock = 0,
                    EsInventariable = false,
@@ -134,8 +146,8 @@
                new Producto
                {
                    Codigo = "000002",
-                   SubCategoriaId = 1,
-                   MarcaId = 1,
+                   SubCategoriaId = subLogistica != null ? subLogistica.Id : 1,
+                   MarcaId = marcaSinMarca != null ? marcaSinMarca.Id : 1,
                    Descripcion = "Bebidas",
                    Stock = 0,
                    EsInventariable = false,
@@ -151,8 +163,10 @@
                    EsPersonaNatural = true,
                    EsActivo = true,
                    Direccion = "N/A",
-                   FechaNacimiento = new DateTime().Date
+                   FechaNacimiento = DateTime.Today
                });
+
+            context.SaveChanges();
         }
     }
 }

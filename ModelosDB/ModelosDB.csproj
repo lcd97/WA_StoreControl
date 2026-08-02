@@ -75,6 +75,14 @@
     <Compile Include="Migrations\202607221812199_modifyProducto.Designer.cs">
       <DependentUpon>202607221812199_modifyProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202607222148429_modifyTableProductoVenta.cs" />
+    <Compile Include="Migrations\202607222148429_modifyTableProductoVenta.Designer.cs">
+      <DependentUpon>202607222148429_modifyTableProductoVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202607262203266_AddFechaProductosVenta.cs" />
+    <Compile Include="Migrations\202607262203266_AddFechaProductosVenta.Designer.cs">
+      <DependentUpon>202607262203266_AddFechaProductosVenta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Venta\DetalleProductoVenta.cs" />
     <Compile Include="Venta\ProductoVenta.cs" />
     <Compile Include="Inventario\DetalleEntrada.cs" />
@@ -179,6 +187,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202607221812199_modifyProducto.resx">
       <DependentUpon>202607221812199_modifyProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202607222148429_modifyTableProductoVenta.resx">
+      <DependentUpon>202607222148429_modifyTableProductoVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202607262203266_AddFechaProductosVenta.resx">
+      <DependentUpon>202607262203266_AddFechaProductosVenta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

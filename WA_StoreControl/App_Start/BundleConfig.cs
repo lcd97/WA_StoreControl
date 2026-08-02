@@ -151,12 +151,18 @@ namespace WA_StoreControl
               "~/Scripts/Catalogos/Productos/ProductoVM.js",
                "~/Scripts/Movimientos/Entradas/SearchCrearEntradaVM.js",
               "~/Scripts/Movimientos/Entradas/IndexCrearEntradaVM.js"
-          ));
+            ));
 
             bundles.Add(new Bundle("~/bundles/DetalleEntrada").Include(
               "~/Scripts/Movimientos/Entradas/EntradaVM.js",
               "~/Scripts/Movimientos/Entradas/IndexDetalleEntradaVM.js"
-          ));
+            ));
+
+            bundles.Add(new Bundle("~/bundles/ProductoVenta").Include(
+             "~/Scripts/Movimientos/ProductosVenta/ProductoVentaVM.js",
+             "~/Scripts/Movimientos/ProductosVenta/SearchProductoVentaVM.js",
+             "~/Scripts/Movimientos/ProductosVenta/IndexProductoVentaVM.js"
+            ));
 
             #endregion
 

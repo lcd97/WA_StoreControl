@@ -20,6 +20,7 @@ namespace ModelosDB.Venta
         [Display(Name = "Producto")]
         public int ProductoId { get; set; }
 
+        [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor a 0")]
         public int Cantidad { get; set; }
 
         public virtual ProductoVenta ProductoVenta { get; set; }

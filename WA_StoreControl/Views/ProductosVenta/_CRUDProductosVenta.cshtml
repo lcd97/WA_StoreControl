@@ -1,0 +1,279 @@
+﻿@model ModelosDB.Venta.ProductoVenta
+
+<template id="CRUD-ProductoVenta-Template">
+    <div data-bind="jqValidateParseForm: true">
+        @using (Html.BeginForm("", "", FormMethod.Post, new { autocomplete = "off", @id = "formCRUD" }))
+        {
+            @Html.AntiForgeryToken();
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div data-bind="jqSmartwizard: $root.SmartwizardOptions, saveStepNumberOn: $root.StepNumber, validateForm:true" id="smartwizard">
+                <ul class="nav small">
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold" href="#step-0">
+                            <div class="num">1</div>
+                            <span class="fas fa-user"></span>
+                            Datos Generales
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold" href="#step-1">
+                            <div class="num">2</div>
+                            <span class="fas fa-address-book"></span>
+                            Precios
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold" href="#step-1">
+                            <div class="num">3</div>
+                            <span class="fas fa-id-card"></span>
+                            Productos
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="step-0" class="tab-pane" role="tabpanel" aria-labelledby="step-0" data-step-index="0">
+                        <div data-bind="template: { name: 'Datos-Generales-Template', data: DataViewModel() }"></div>
+                    </div>
+
+                    <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1" data-step-index="1">
+                        <div data-bind="template: { name: 'Precios-Template', data: DataViewModel() }"></div>
+                    </div>
+
+                    <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2" data-step-index="2">
+                        <div data-bind="template: { name: 'Lista-Productos-Template', data: DataViewModel() }"></div>
+                    </div>
+                </div>
+
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        }
+    </div>
+</template>
+
+<template id="Datos-Generales-Template">
+    <div data-bind="jqValidateParseForm: true">
+        <fieldset data-bind="disableInputs: !$parent.DisableUserInput()">
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.Id, new { data_bind = "value: Id" })
+
+                <div class="row mb-2">
+                    <div class="col-6">
+                        @Html.LabelFor(model => model.Nombre)
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Nombre" } })
+                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                        <div class="form-check form-switch">
+                            @Html.CheckBoxFor(model => model.EsActivo, new { @class = "form-check-input", data_bind = "checked: EsActivo" })
+                            @Html.LabelFor(model => model.EsActivo)
+                        </div>
+                        @Html.ValidationMessageFor(model => model.EsActivo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-12 mt-2 align-content-center">
+                        <div class="input-group">
+                            <span class="input-group-text">Desde </span>
+                            @Html.TextBoxFor(
+                                model => model.FechaInicio,
+                                "{0:dd/MM/yyyy}",
+                                new
+                                     {
+                                         @class = "form-control form-control-sm",
+                                         data_bind = "jqDatepicker: FechaInicio, jqMask: { Mask: '00/00/0000' }",
+                                         maxlength = "10",
+                                         inputmode = "number"
+                                     })
+                            <span class="input-group-text">Hasta </span>
+                            @Html.TextBoxFor(
+                                model => model.FechaFin,
+                                "{0:dd/MM/yyyy}",
+                                new
+                                     {
+                                         @class = "form-control form-control-sm",
+                                         data_bind = "jqDatepicker: FechaFin, jqMask: { Mask: '00/00/0000' }",
+                                         maxlength = "10",
+                                         inputmode = "number"
+                                     })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-12">
+                        @Html.LabelFor(model => model.Descripcion)
+                        @Html.TextAreaFor(model => model.Descripcion, new
+                        {
+                            @class = "form-control",
+                            rows = "3",
+                            cols = "50",
+                            data_bind = "value: Descripcion"
+                        })
+                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</template>
+
+<template id="Precios-Template">
+    <div data-bind="jqValidateParseForm: true">
+        <fieldset data-bind="disableInputs: !$parent.DisableUserInput()">
+            <div class="form-horizontal">
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="col-12 m-0">
+                                    <h6 class="fw-bold">Precios de Venta</h6>
+                                    <hr class="m-0" />
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mt-2">
+                                    @Html.LabelFor(model => model.PrecioVenta)
+                                    @Html.EditorFor(model => model.PrecioVenta, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                           @class = "form-control",
+                                           inputmode = "numeric",
+                                           data_bind = "value: PrecioVenta, jqMask: { Mask: '####0.00', Config: { reverse: true } }"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.PrecioVenta, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mt-2">
+                                    @Html.LabelFor(model => model.PrecioMayor)
+                                    @Html.EditorFor(model => model.PrecioMayor, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            inputmode = "numeric",
+                                            data_bind = "value: PrecioMayor, jqMask: { Mask: '####0.00', Config: { reverse: true } }"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.PrecioMayor, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mt-2">
+                                    @Html.LabelFor(model => model.PrecioDescuento)
+                                    @Html.EditorFor(model => model.PrecioDescuento, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                           @class = "form-control",
+                                           inputmode = "numeric",
+                                           maxlength = "8",
+                                           data_bind = "value: PrecioDescuento, jqMask: { Mask: '####0.00', Config: { reverse: true } }"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.PrecioDescuento, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</template>
+
+<template id="Lista-Productos-Template">
+    <div data-bind="jqValidateParseForm: true">
+        <fieldset data-bind="disableInputs: !$parent.DisableUserInput()">
+            <div class="form-horizontal">
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="col-12 m-0 d-flex justify-content-between">
+                                    <h6 class="fw-bold">Productos</h6>
+                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                            data-bind="click: $root.AgregarProducto">
+                                        Agregar
+                                    </button>
+                                </div>
+                                <hr class="m-0" />
+                                <div class="col-12">
+                                    <table class="table table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th scope="row" class="text-center">
+                                                    #
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Producto")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Cantidad")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Acción")
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-group-divider" data-bind="foreach: $root.ProductoVenta().DetallesProductoVenta">
+                                            <tr data-bind="css: { 'table-danger': EsInvalido() }">
+                                                <td class="text-center align-middle fw-bold" data-bind="text: ($index() + 1)"></td>
+                                                <td class="align-middle w-100">
+                                                    <div class="w-100">
+                                                        <select class="form-select form-select-sm"
+                                                                data-bind="attr: {
+                                                                    id:   'ProductoId_' + $index(),
+                                                                    name: 'ProductoId_' + $index()
+                                                                 },
+                                                                select2Ajax: $root.ProductosConfig($data)">
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <div class="w-100">
+                                                        <input data-bind="value:Cantidad" oninput="this.value = this.value.replace(/[^0-9]/g, '')" type="text" inputmode="numeric" class="form-control form-control-sm" maxlength="6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-outline-danger" title="Eliminar" data-bind="click: () => { $root.DeleteProducto($data) }">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <!--ko if: ($root.ProductoVenta().DetallesProductoVenta().length <= 0) -->
+                                                    <div class="alert alert-warning animated flash mb-0 opacity-75" role="alert">
+                                                        <p class="mb-0 text-center">
+                                                            <span class="fas fa-exclamation-triangle"></span>
+                                                            <b>No hay productos agregados.</b><br />
+
+                                                            Haga clic en Agregar para ingresar productos a vender.
+                                                        </p>
+                                                    </div>
+                                                    <!--/ko -->
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <small class="form-text text-muted m-0">
+                                        <b>Nota:</b> Solo apareceran los productos con existencias o productos no inventariables (servicio/extras)
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</template>
