@@ -29,33 +29,36 @@ namespace WA_StoreControl.Services
             return query.AsNoTracking();
         }
 
-        public string ValidateBeforeCreate(SubCategoria SubCategoria)
+        public virtual string ValidateBeforeCreate(SubCategoria SubCategoria)
         {
             var subCategoria = PersonaHelper.BuscarCoincidencias(SubCategoria.Descripcion);
 
             if (db.SubCategorias.Any(x => x.Codigo.Trim().ToLower() == SubCategoria.Codigo.Trim().ToLower()))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (db.SubCategorias.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == subCategoria.Trim().ToLower()))
-                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
+            if (db.SubCategorias.AsNoTracking().AsEnumerable().Any(x => x.CategoriaId == SubCategoria.CategoriaId
+                                                                        && PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == subCategoria.Trim().ToLower()))
+                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una subcategoría con la misma descripción en la categoría seleccionada. Modifique y vuelva a intentar");
 
             return string.Empty;
         }
 
-        public string ValidateBeforeUpdate(SubCategoria SubCategoria)
+        public virtual string ValidateBeforeUpdate(SubCategoria SubCategoria)
         {
             var subCategoria = PersonaHelper.BuscarCoincidencias(SubCategoria.Descripcion);
 
             if (db.SubCategorias.Any(x => x.Codigo.Trim().ToLower() == SubCategoria.Codigo.Trim().ToLower() && x.Id != SubCategoria.Id))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (db.SubCategorias.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == subCategoria.Trim().ToLower() && x.Id != SubCategoria.Id))
-                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
+            if (db.SubCategorias.AsNoTracking().AsEnumerable().Any(x => x.CategoriaId == SubCategoria.CategoriaId
+                                                                        && PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == subCategoria.Trim().ToLower()
+                                                                        && x.Id != SubCategoria.Id))
+                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una subcategoría con la misma descripción en la categoría seleccionada. Modifique y vuelva a intentar");
 
             return string.Empty;
         }
 
-        public string ValidateBeforeDelete(int id)
+        public virtual string ValidateBeforeDelete(int id)
         {
             var objeto = db.SubCategorias.Find(id);
 

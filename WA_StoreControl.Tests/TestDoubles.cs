@@ -27,4 +27,37 @@ namespace WA_StoreControl.Tests
             return _validateBeforeDeleteResult;
         }
     }
+
+    public class FakeSubCategoriasService : SubCategoriasService
+    {
+        private readonly string _validateBeforeCreateResult;
+        private readonly string _validateBeforeUpdateResult;
+        private readonly string _validateBeforeDeleteResult;
+
+        public FakeSubCategoriasService(
+            string validateBeforeCreateResult = "",
+            string validateBeforeUpdateResult = "",
+            string validateBeforeDeleteResult = "")
+            : base(new ModelosDB.DBStore())
+        {
+            _validateBeforeCreateResult = validateBeforeCreateResult;
+            _validateBeforeUpdateResult = validateBeforeUpdateResult;
+            _validateBeforeDeleteResult = validateBeforeDeleteResult;
+        }
+
+        public override string ValidateBeforeCreate(SubCategoria SubCategoria)
+        {
+            return _validateBeforeCreateResult;
+        }
+
+        public override string ValidateBeforeUpdate(SubCategoria SubCategoria)
+        {
+            return _validateBeforeUpdateResult;
+        }
+
+        public override string ValidateBeforeDelete(int id)
+        {
+            return _validateBeforeDeleteResult;
+        }
+    }
 }

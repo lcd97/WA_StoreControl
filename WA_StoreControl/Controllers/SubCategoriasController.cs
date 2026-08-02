@@ -25,6 +25,11 @@ namespace WA_StoreControl.Controllers
             this.categoriaService = new CategoriasService(db);
         }
 
+        public SubCategoriasController(SubCategoriasService subCategoriaService)
+        {
+            this.subCategoriaService = subCategoriaService;
+        }
+
         // GET: SubCategorias
         public ActionResult Index()
         {
