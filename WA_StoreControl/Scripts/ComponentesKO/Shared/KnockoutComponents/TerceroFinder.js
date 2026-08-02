@@ -202,7 +202,7 @@ class TerceroFinderViewModel {
                     AppGlobal.Messages.ShowNotifyError(res.Message);
             };
 
-            var error = () => (jqXHR, statusText) => {
+            var error = (jqXHR, statusText) => {
                 if (statusText !== "abort")
                     AppGlobal.Messages.ShowNotifyError();
             };

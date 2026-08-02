@@ -87,7 +87,7 @@
                         AppGlobal.Messages.ShowNotifyError(response.Message);
                 }
 
-                var errorCallBack = () => (jqXHR, statusText) => {
+                var errorCallBack =(jqXHR, statusText) => {
                     if (statusText !== "abort") {
                         AppGlobal.Messages.ShowNotifyError();
                     }
@@ -122,12 +122,12 @@
                 }
             }
 
-            var errorCallBack = (response) => (jqXHR, statusText) => {
+            var errorCallBack = (jqXHR, statusText) => {
                 if (statusText !== "abort")
                     AppGlobal.Messages.ShowNotifyError();
             }
 
-            var beforeSendCallBack = () => (jqXHR) => {
+            var beforeSendCallBack = (jqXHR) => {
                 if (self.PeticionEnCurso())
                     self.PeticionEnCurso().abort();
 

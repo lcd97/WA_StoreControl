@@ -110,7 +110,7 @@
                     AppGlobal.Messages.ShowNotifyError(response.Message);
             }
 
-            var errorCallBack = () => (jqXHR, statusText) => {
+            var errorCallBack = (jqXHR, statusText) => {
                 if (statusText !== "abort") {
                     AppGlobal.Messages.ShowNotifyError();
                 }
