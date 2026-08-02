@@ -123,6 +123,24 @@ y estructura de entidades para soportar futuras operaciones de stock, ventas y a
 * Configurar conexión a SQL Server en `Web.config`
 * No incluir credenciales reales en el repositorio
 * Se recomienda usar archivos de configuración separados para entorno local
+* Se recomienda ejecutar las semillas creadas por medio de las migraciones por valores por defecto que se usan
+
+```
+Update-Database -Verbose
+```
+
+* Se recomienda ejecutar la secuencia para generar una entrada de productos en el módulo de inventario
+```
+ CREATE SEQUENCE [inv].[Seq_EntradasInventario]
+    AS INT
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    NO CYCLE
+    CACHE 50;
+GO
+```
 
 ---
 
