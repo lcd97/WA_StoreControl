@@ -187,12 +187,15 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\ProductosVentaController.cs" />
     <Compile Include="DTO\DetalleTelefonoDTO.cs" />
     <Compile Include="DTO\EntradaDTO.cs" />
     <Compile Include="DTO\IdentidadDTO.cs" />
     <Compile Include="DTO\MarcaDTO.cs" />
+    <Compile Include="DTO\ProductoVentaDTO.cs" />
     <Compile Include="Services\EntradasService.cs" />
     <Compile Include="Services\MarcasService.cs" />
+    <Compile Include="Services\ProductoVentaService.cs" />
     <Compile Include="Utilidades\PersonaHelper.cs" />
     <Compile Include="Controllers\SubCategoriasController.cs" />
     <Compile Include="Controllers\TiposIdentificacionController.cs" />
@@ -228,6 +231,7 @@
     <Compile Include="ViewModels\IndexMarcasVM.cs" />
     <Compile Include="ViewModels\IndexPersonasVM.cs" />
     <Compile Include="ViewModels\IndexProductosVM.cs" />
+    <Compile Include="ViewModels\IndexProductoVentaVM.cs" />
     <Compile Include="ViewModels\IndexSubCategoriasVM.cs" />
     <Compile Include="ViewModels\IndexTiposIdentificacionVM.cs" />
   </ItemGroup>
@@ -502,6 +506,9 @@
     <Content Include="Scripts\Movimientos\Entradas\IndexEntradaVM.js" />
     <Content Include="Scripts\Movimientos\Entradas\SearchCrearEntradaVM.js" />
     <Content Include="Scripts\Movimientos\Entradas\SearchEntradaVM.js" />
+    <Content Include="Scripts\Movimientos\ProductosVenta\ProductoVentaVM.js" />
+    <Content Include="Scripts\Movimientos\ProductosVenta\IndexProductoVentaVM.js" />
+    <Content Include="Scripts\Movimientos\ProductosVenta\SearchProductoVentaVM.js" />
     <Content Include="Scripts\Plantilla\bootstrap.bundle.min.js" />
     <Content Include="Scripts\Plantilla\custom.js" />
     <Content Include="Web.config" />
@@ -580,6 +587,10 @@
     <Content Include="Views\Entradas\_DatosEntradas.cshtml" />
     <Content Include="Views\Entradas\_TableIngresoProd.cshtml" />
     <Content Include="Views\Entradas\DetalleEntrada.cshtml" />
+    <Content Include="Views\ProductosVenta\Index.cshtml" />
+    <Content Include="Views\ProductosVenta\_FilterProductosVenta.cshtml" />
+    <Content Include="Views\ProductosVenta\_TableProductosVenta.cshtml" />
+    <Content Include="Views\ProductosVenta\_CRUDProductosVenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

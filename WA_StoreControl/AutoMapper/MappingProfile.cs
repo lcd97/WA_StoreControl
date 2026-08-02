@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ModelosDB.General;
 using ModelosDB.Inventario;
+using ModelosDB.Venta;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,6 @@ namespace WA_StoreControl.AutoMapper
 
             CreateMap<Entrada, EntradaDTO>()
                 .ForMember(d => d.FechaEntrada, d => d.MapFrom(s => s.FechaEntrada.ToString("dd/MM/yyyy")))
-                .ForMember(d => d.FechaEntrada, d => d.MapFrom(s => s.FechaEntrada.ToString("dd/MM/yyyy")))
                 .ForMember(d => d.NombreProveedor, d => d.MapFrom(s =>
                         string.Concat(s.Proveedor.NombreComercial.Trim(),
                                         s.Proveedor.Identidades.Count > 0
@@ -54,6 +54,13 @@ namespace WA_StoreControl.AutoMapper
                 .ForMember(d => d.DetallesEntrada, d => d.MapFrom(s => s.DetallesEntrada));
 
             CreateMap<DetalleEntrada, DetalleEntradaDTO>()
+                .ForMember(d => d.DescripcionProducto, o => o.MapFrom(s => s.Producto.Descripcion));
+
+            CreateMap<ProductoVenta, ProductoVentaDTO>()
+                .ForMember(d => d.FechaInicio, o => o.MapFrom(s => s.FechaInicio.ToString("dd/MM/yyy")))
+                .ForMember(d => d.FechaFin, o => o.MapFrom(s => s.FechaFin.ToString("dd/MM/yyyy")));
+
+            CreateMap<DetalleProductoVenta, DetalleProductoVentaDTO>()
                 .ForMember(d => d.DescripcionProducto, o => o.MapFrom(s => s.Producto.Descripcion));
         }
     }

@@ -353,6 +353,12 @@ ko.bindingHandlers.jqDatepicker = {
             showOtherMonths: true,
             selectOtherMonths: true,
             defaultDate: new Date(),
+            beforeShow: function () {
+                setTimeout(function () {
+                    var zIndex = parseInt($('.modal.show').css('z-index')) || 1055;
+                    $('#ui-datepicker-div').css('z-index', zIndex + 1);
+                }, 0);
+            },
             onSelect: function (dateText) {
                 if (ko.isObservable(observable)) {
                     // Actualizamos el observable con string formateado

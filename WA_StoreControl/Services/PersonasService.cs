@@ -181,7 +181,7 @@ namespace WA_StoreControl.Services
 
                 db.Entry(personaDB).CurrentValues.SetValues(Persona);
 
-                foreach (var identidadDB in Persona.Identidades.ToList())
+                foreach (var identidadDB in personaDB.Identidades.ToList())
                 {
                     if (!Persona.Identidades.Any(i => i.Id == identidadDB.Id))
                         db.Identidades.Remove(identidadDB);

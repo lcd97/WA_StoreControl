@@ -59,6 +59,32 @@
     <Compile Include="General\CompaniaTelefonica.cs" />
     <Compile Include="Interfaces\ICodeEntity.cs" />
     <Compile Include="Inventario\Categoria.cs" />
+    <Compile Include="Migrations\202607221801093_addProductoVenta.cs" />
+    <Compile Include="Migrations\202607221801093_addProductoVenta.Designer.cs">
+      <DependentUpon>202607221801093_addProductoVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202607221801580_add-productosvenas.cs" />
+    <Compile Include="Migrations\202607221801580_add-productosvenas.Designer.cs">
+      <DependentUpon>202607221801580_add-productosvenas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202607221810014_addProductosVentas.cs" />
+    <Compile Include="Migrations\202607221810014_addProductosVentas.Designer.cs">
+      <DependentUpon>202607221810014_addProductosVentas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202607221812199_modifyProducto.cs" />
+    <Compile Include="Migrations\202607221812199_modifyProducto.Designer.cs">
+      <DependentUpon>202607221812199_modifyProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202607222148429_modifyTableProductoVenta.cs" />
+    <Compile Include="Migrations\202607222148429_modifyTableProductoVenta.Designer.cs">
+      <DependentUpon>202607222148429_modifyTableProductoVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202607262203266_AddFechaProductosVenta.cs" />
+    <Compile Include="Migrations\202607262203266_AddFechaProductosVenta.Designer.cs">
+      <DependentUpon>202607262203266_AddFechaProductosVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Venta\DetalleProductoVenta.cs" />
+    <Compile Include="Venta\ProductoVenta.cs" />
     <Compile Include="Inventario\DetalleEntrada.cs" />
     <Compile Include="Inventario\Entrada.cs" />
     <Compile Include="Inventario\Marca.cs" />
@@ -111,9 +137,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Ventas\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
@@ -151,6 +175,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202605171556004_AgregandoEsInventariableProducto.resx">
       <DependentUpon>202605171556004_AgregandoEsInventariableProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202607221801093_addProductoVenta.resx">
+      <DependentUpon>202607221801093_addProductoVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202607221801580_add-productosvenas.resx">
+      <DependentUpon>202607221801580_add-productosvenas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202607221810014_addProductosVentas.resx">
+      <DependentUpon>202607221810014_addProductosVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202607221812199_modifyProducto.resx">
+      <DependentUpon>202607221812199_modifyProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202607222148429_modifyTableProductoVenta.resx">
+      <DependentUpon>202607222148429_modifyTableProductoVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202607262203266_AddFechaProductosVenta.resx">
+      <DependentUpon>202607262203266_AddFechaProductosVenta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

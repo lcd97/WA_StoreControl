@@ -88,5 +88,18 @@ namespace WA_StoreControl.Services
 
             return Mapper.Map<ICollection<ProductoDTO>>(productos).ToList();
         }
+
+        public List<ProductoDTO> BusquedaProductoEnStock(string producto = "")
+        {
+            var FormatProducto = PersonaHelper.BuscarCoincidencias(producto);
+
+            var productos = db.Productos.Where(x => (x.Descripcion.Trim().Contains(FormatProducto.Trim())
+                    || x.Marca.Descripcion.Trim().Contains(FormatProducto.Trim()))
+                    && x.EsActivo
+                    && (x.Stock > 0 || !x.EsInventariable)
+                    ).ToList();
+
+            return Mapper.Map<ICollection<ProductoDTO>>(productos).ToList();
+        }
     }
 }

@@ -82,7 +82,7 @@
             else if (self.Entrada().DetallesEntrada().length <= 0)
                 AppGlobal.validateMessage("error", "No ha agregado registros de productos.", "Reintentar");
             else if (!self.DetallesValidos()) {
-                AppGlobal.validateMessage("warning", "Existen registros de productos vacios, elimine o corrija antes de almacenar", "Reintentar");
+                AppGlobal.validateMessage("warning", "Existen registros de productos vacios, elimine o corrija antes de guardar", "Reintentar");
             } else if ($(formCRUD).valid()) {
                 SaveData(Entrada);
             }
