@@ -29,7 +29,7 @@ namespace WA_StoreControl.Services
             return query.AsNoTracking();
         }
 
-        public string ValidateBeforeCreate(Marca Marca)
+        public virtual string ValidateBeforeCreate(Marca Marca)
         {
             var marca = PersonaHelper.BuscarCoincidencias(Marca.Descripcion);
 
@@ -42,7 +42,7 @@ namespace WA_StoreControl.Services
             return string.Empty;
         }
 
-        public string ValidateBeforeUpdate(Marca Marca)
+        public virtual string ValidateBeforeUpdate(Marca Marca)
         {
             var marca = PersonaHelper.BuscarCoincidencias(Marca.Descripcion);
 
@@ -56,7 +56,7 @@ namespace WA_StoreControl.Services
 
         }
 
-        public string ValidateBeforeDelete(int id)
+        public virtual string ValidateBeforeDelete(int id)
         {
             var objeto = db.Marcas.Find(id);
 

@@ -60,4 +60,37 @@ namespace WA_StoreControl.Tests
             return _validateBeforeDeleteResult;
         }
     }
+
+    public class FakeMarcasService : MarcasService
+    {
+        private readonly string _validateBeforeCreateResult;
+        private readonly string _validateBeforeUpdateResult;
+        private readonly string _validateBeforeDeleteResult;
+
+        public FakeMarcasService(
+            string validateBeforeCreateResult = "",
+            string validateBeforeUpdateResult = "",
+            string validateBeforeDeleteResult = "")
+            : base(new ModelosDB.DBStore())
+        {
+            _validateBeforeCreateResult = validateBeforeCreateResult;
+            _validateBeforeUpdateResult = validateBeforeUpdateResult;
+            _validateBeforeDeleteResult = validateBeforeDeleteResult;
+        }
+
+        public override string ValidateBeforeCreate(Marca Marca)
+        {
+            return _validateBeforeCreateResult;
+        }
+
+        public override string ValidateBeforeUpdate(Marca Marca)
+        {
+            return _validateBeforeUpdateResult;
+        }
+
+        public override string ValidateBeforeDelete(int id)
+        {
+            return _validateBeforeDeleteResult;
+        }
+    }
 }
