@@ -10,7 +10,6 @@
 
         self.LoadingRegistros = ko.observable(true);
 
-        self.Action = ko.observable("");
         self.bodyTemplate = ko.observable({});
         self.SearchViewModel = ko.observable(new SearchProductoVentaVM({ ...data.SearchProductosVentaVM, RecordsPerPage: 10 } || {}));
 
@@ -132,12 +131,12 @@
                 }
             }
 
-            var errorCallBack = (response) => (jqXHR, statusText) => {
+            var errorCallBack = (jqXHR, statusText) => {
                 if (statusText !== "abort")
                     AppGlobal.Messages.ShowNotifyError();
             }
 
-            var beforeSendCallBack = () => (jqXHR) => {
+            var beforeSendCallBack = (jqXHR) => {
                 if (self.PeticionEnCurso())
                     self.PeticionEnCurso().abort();
 
@@ -181,7 +180,7 @@
                     AppGlobal.Messages.ShowNotifyError(response.Message);
             }
 
-            var errorCallBack = () => (jqXHR, statusText) => {
+            var errorCallBack = (jqXHR, statusText) => {
                 if (statusText !== "abort") {
                     AppGlobal.Messages.ShowNotifyError();
                 }
