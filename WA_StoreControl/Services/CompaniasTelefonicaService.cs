@@ -30,7 +30,7 @@ namespace WA_StoreControl.Services
             return query.AsNoTracking();
         }
 
-        public string ValidateBeforeCreate(CompaniaTelefonica CompaniaTelefonica)
+        public virtual string ValidateBeforeCreate(CompaniaTelefonica CompaniaTelefonica)
         {
             var companiaTelefonica = PersonaHelper.BuscarCoincidencias(CompaniaTelefonica.Descripcion);
 
@@ -40,7 +40,7 @@ namespace WA_StoreControl.Services
             return string.Empty;
         }
 
-        public string ValidateBeforeUpdate(CompaniaTelefonica CompaniaTelefonica)
+        public virtual string ValidateBeforeUpdate(CompaniaTelefonica CompaniaTelefonica)
         {
             var companiaTelefonica = PersonaHelper.BuscarCoincidencias(CompaniaTelefonica.Descripcion);
 
@@ -50,7 +50,7 @@ namespace WA_StoreControl.Services
             return string.Empty;
         }
 
-        public string ValidateBeforeDelete(int id)
+        public virtual string ValidateBeforeDelete(int id)
         {
             var objeto = db.CompaniasTelefonica.Find(id);
 

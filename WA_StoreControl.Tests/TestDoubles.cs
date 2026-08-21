@@ -127,4 +127,70 @@ namespace WA_StoreControl.Tests
             return _validateBeforeDeleteResult;
         }
     }
+
+    public class FakeCompaniasTelefonicaService : CompaniasTelefonicaService
+    {
+        private readonly string _validateBeforeCreateResult;
+        private readonly string _validateBeforeUpdateResult;
+        private readonly string _validateBeforeDeleteResult;
+
+        public FakeCompaniasTelefonicaService(
+            string validateBeforeCreateResult = "",
+            string validateBeforeUpdateResult = "",
+            string validateBeforeDeleteResult = "")
+            : base(new ModelosDB.DBStore())
+        {
+            _validateBeforeCreateResult = validateBeforeCreateResult;
+            _validateBeforeUpdateResult = validateBeforeUpdateResult;
+            _validateBeforeDeleteResult = validateBeforeDeleteResult;
+        }
+
+        public override string ValidateBeforeCreate(CompaniaTelefonica CompaniaTelefonica)
+        {
+            return _validateBeforeCreateResult;
+        }
+
+        public override string ValidateBeforeUpdate(CompaniaTelefonica CompaniaTelefonica)
+        {
+            return _validateBeforeUpdateResult;
+        }
+
+        public override string ValidateBeforeDelete(int id)
+        {
+            return _validateBeforeDeleteResult;
+        }
+    }
+
+    public class FakeProductosService : ProductosService
+    {
+        private readonly string _validateBeforeCreateResult;
+        private readonly string _validateBeforeUpdateResult;
+        private readonly string _validateBeforeDeleteResult;
+
+        public FakeProductosService(
+            string validateBeforeCreateResult = "",
+            string validateBeforeUpdateResult = "",
+            string validateBeforeDeleteResult = "")
+            : base(new ModelosDB.DBStore())
+        {
+            _validateBeforeCreateResult = validateBeforeCreateResult;
+            _validateBeforeUpdateResult = validateBeforeUpdateResult;
+            _validateBeforeDeleteResult = validateBeforeDeleteResult;
+        }
+
+        public override string ValidateBeforeCreate(Producto Producto)
+        {
+            return _validateBeforeCreateResult;
+        }
+
+        public override string ValidateBeforeUpdate(Producto Producto)
+        {
+            return _validateBeforeUpdateResult;
+        }
+
+        public override string ValidateBeforeDelete(int id)
+        {
+            return _validateBeforeDeleteResult;
+        }
+    }
 }

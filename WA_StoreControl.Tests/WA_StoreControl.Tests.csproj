@@ -72,7 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoriasControllerTests.cs" />
+    <Compile Include="CompaniasTelefonicaControllerTests.cs" />
     <Compile Include="MarcasControllerTests.cs" />
+    <Compile Include="ProductosControllerTests.cs" />
     <Compile Include="SubCategoriasControllerTests.cs" />
     <Compile Include="TiposIdentificacionControllerTests.cs" />
     <Compile Include="TestDoubles.cs" />
