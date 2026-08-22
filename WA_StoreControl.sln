@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22
+# Visual Studio Version 18
+VisualStudioVersion = 18.8.12023.21 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WA_StoreControl", "WA_StoreControl\WA_StoreControl.csproj", "{D26D744B-6CC2-407C-9A51-3927CE667F3E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelosDB", "ModelosDB\ModelosDB.csproj", "{763DD1F3-B6E7-4CD6-8078-B683ACD2D1D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WA_StoreControl.Tests", "WA_StoreControl.Tests\WA_StoreControl.Tests.csproj", "{F3692199-12D4-4CAA-ADF1-8336D2977D71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{763DD1F3-B6E7-4CD6-8078-B683ACD2D1D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{763DD1F3-B6E7-4CD6-8078-B683ACD2D1D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{763DD1F3-B6E7-4CD6-8078-B683ACD2D1D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3692199-12D4-4CAA-ADF1-8336D2977D71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3692199-12D4-4CAA-ADF1-8336D2977D71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3692199-12D4-4CAA-ADF1-8336D2977D71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3692199-12D4-4CAA-ADF1-8336D2977D71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

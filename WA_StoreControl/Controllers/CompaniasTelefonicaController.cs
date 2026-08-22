@@ -25,6 +25,11 @@ namespace WA_StoreControl.Controllers
             this.companiasTelefonicaService = new CompaniasTelefonicaService(db);
         }
 
+        public CompaniasTelefonicaController(CompaniasTelefonicaService companiasTelefonicaService)
+        {
+            this.companiasTelefonicaService = companiasTelefonicaService;
+        }
+
         // GET: CompaniasTelefonica
         public ActionResult Index()
         {

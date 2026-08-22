@@ -29,7 +29,7 @@ namespace WA_StoreControl.Services
             return query.AsNoTracking();
         }
 
-        public string ValidateBeforeCreate(Categoria Categoria)
+        public virtual string ValidateBeforeCreate(Categoria Categoria)
         {
             var categoria = PersonaHelper.BuscarCoincidencias(Categoria.Descripcion);
 
@@ -42,7 +42,7 @@ namespace WA_StoreControl.Services
             return string.Empty;
         }
 
-        public string ValidateBeforeUpdate(Categoria Categoria)
+        public virtual string ValidateBeforeUpdate(Categoria Categoria)
         {
             var categoria = PersonaHelper.BuscarCoincidencias(Categoria.Descripcion);
 
@@ -55,7 +55,7 @@ namespace WA_StoreControl.Services
             return string.Empty;
         }
 
-        public string ValidateBeforeDelete(int id)
+        public virtual string ValidateBeforeDelete(int id)
         {
             var objeto = db.Categorias.Find(id);
 

@@ -37,33 +37,49 @@ namespace WA_StoreControl.Services
             return query.AsNoTracking();
         }
 
-        public string ValidateBeforeCreate(Producto Producto)
+        public virtual string ValidateBeforeCreate(Producto Producto)
         {
             var producto = PersonaHelper.BuscarCoincidencias(Producto.Descripcion);
+
+            if (!Producto.EsInventariable && Producto.Stock != 0)
+                return string.Format($"{SystemMessage.ValidateOperationError} : Un producto no inventariable no debe tener stock. Modifique y vuelva a intentar");
 
             if (db.Productos.Any(x => x.Codigo.Trim().ToLower() == Producto.Codigo.Trim().ToLower()))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (db.Productos.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == producto.Trim().ToLower() && x.MarcaId == Producto.MarcaId))
-                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
+            if (db.Productos.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == producto.Trim().ToLower()
+                                                                    && x.MarcaId == Producto.MarcaId
+                                                                    && x.SubCategoriaId == Producto.SubCategoriaId))
+                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un producto con la misma descripción, marca y subcategoría. Modifique y vuelva a intentar");
 
             return string.Empty;
         }
 
-        public string ValidateBeforeUpdate(Producto Producto)
+        public virtual string ValidateBeforeUpdate(Producto Producto)
         {
             var producto = PersonaHelper.BuscarCoincidencias(Producto.Descripcion);
+
+            if (!Producto.EsInventariable && Producto.Stock != 0)
+                return string.Format($"{SystemMessage.ValidateOperationError} : Un producto no inventariable no debe tener stock. Modifique y vuelva a intentar");
+
+            var existente = db.Productos.Find(Producto.Id);
+
+            if (existente != null && existente.Stock != Producto.Stock)
+                return string.Format($"{SystemMessage.ValidateOperationError} : El stock no se puede modificar al editar un producto. Modifique y vuelva a intentar");
 
             if (db.Productos.Any(x => x.Codigo.Trim().ToLower() == Producto.Codigo.Trim().ToLower() && x.Id != Producto.Id))
                 return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un código igual. Modifique y vuelva a intentar");
 
-            if (db.Productos.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == producto.Trim().ToLower() && x.MarcaId == Producto.MarcaId && x.Id != Producto.Id))
-                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe una descripción igual. Modifique y vuelva a intentar");
+            if (db.Productos.AsNoTracking().AsEnumerable().Any(x => PersonaHelper.BuscarCoincidencias(x.Descripcion).Trim().ToLower() == producto.Trim().ToLower()
+                                                                    && x.MarcaId == Producto.MarcaId
+                                                                    && x.SubCategoriaId == Producto.SubCategoriaId
+                                                                    && x.Id != Producto.Id))
+                return string.Format($"{SystemMessage.ValidateOperationError} : Ya existe un producto con la misma descripción, marca y subcategoría. Modifique y vuelva a intentar");
 
             return string.Empty;
         }
 
-        public string ValidateBeforeDelete(int id)
+        public virtual string ValidateBeforeDelete(int id)
         {
             var objeto = db.Productos.Find(id);
 

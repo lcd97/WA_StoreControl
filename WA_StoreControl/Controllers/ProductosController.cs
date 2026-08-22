@@ -31,6 +31,11 @@ namespace WA_StoreControl.Controllers
             this.marcasService = new MarcasService(db);
         }
 
+        public ProductosController(ProductosService productosService)
+        {
+            this.productosService = productosService;
+        }
+
         // GET: Productos
         public ActionResult Index()
         {

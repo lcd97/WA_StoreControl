@@ -30,7 +30,7 @@ namespace WA_StoreControl.Services
             return query.AsNoTracking();
         }
 
-        public string ValidateBeforeCreate(TipoIdentificacion TipoIdentificacion)
+        public virtual string ValidateBeforeCreate(TipoIdentificacion TipoIdentificacion)
         {
             var tipoIdentificacion = PersonaHelper.BuscarCoincidencias(TipoIdentificacion.Descripcion);
 
@@ -40,7 +40,7 @@ namespace WA_StoreControl.Services
             return string.Empty;
         }
 
-        public string ValidateBeforeUpdate(TipoIdentificacion TipoIdentificacion)
+        public virtual string ValidateBeforeUpdate(TipoIdentificacion TipoIdentificacion)
         {
             var tipoIdentificacion = PersonaHelper.BuscarCoincidencias(TipoIdentificacion.Descripcion);
 
@@ -50,7 +50,7 @@ namespace WA_StoreControl.Services
             return string.Empty;
             }
 
-        public string ValidateBeforeDelete(int id)
+        public virtual string ValidateBeforeDelete(int id)
         {
             var objeto = db.TiposIdentificacion.Find(id);
 
