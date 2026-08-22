@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="CategoriasControllerTests.cs" />
     <Compile Include="CompaniasTelefonicaControllerTests.cs" />
+    <Compile Include="EntradasControllerTests.cs" />
     <Compile Include="MarcasControllerTests.cs" />
     <Compile Include="PersonasControllerTests.cs" />
     <Compile Include="ProductosControllerTests.cs" />
