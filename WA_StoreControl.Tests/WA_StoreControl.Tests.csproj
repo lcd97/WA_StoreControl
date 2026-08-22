@@ -74,6 +74,7 @@
     <Compile Include="CategoriasControllerTests.cs" />
     <Compile Include="CompaniasTelefonicaControllerTests.cs" />
     <Compile Include="MarcasControllerTests.cs" />
+    <Compile Include="PersonasControllerTests.cs" />
     <Compile Include="ProductosControllerTests.cs" />
     <Compile Include="SubCategoriasControllerTests.cs" />
     <Compile Include="TiposIdentificacionControllerTests.cs" />
