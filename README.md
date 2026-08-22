@@ -31,6 +31,7 @@ y patrones de arquitectura como MVC y MVVM.
   * jQuery
   * Bootstrap v5
 * **Base de datos:** Microsoft SQL Server
+* **Pruebas:** MSTest v2
 * **Control de versiones:** Git + GitHub
 
 ---
@@ -67,6 +68,11 @@ El sistema está estructurado en torno a entidades principales de inventario y d
 * Detalle de teléfonos
 * Identidades
 
+### Venta
+
+* Producto de venta
+* Detalle de producto venta
+
 ---
 
 ## Funcionalidades actuales
@@ -78,9 +84,10 @@ El sistema está estructurado en torno a entidades principales de inventario y d
 * Gestión de proveedores
 * Gestión de tipos de identificación
 * Gestión de compañías telefónicas
-* GEstión de teléfonos
-* Gestión de Identidades
-* Estructura base para entradas de inventario
+* Gestión de teléfonos
+* Gestión de identidades
+* Módulo de entradas de inventario: creación con numeración automática (`ENT` + punto de emisión + secuencial), clonado de entradas existentes y anulación con motivo
+* Base inicial del módulo de ventas con búsqueda de productos en stock
 ---
 
 ## Características técnicas
@@ -97,12 +104,34 @@ El sistema está estructurado en torno a entidades principales de inventario y d
 ## Estado del proyecto
 
 * Catálogos principales del módulo de inventario finalizados
-* Estructura base para movimientos de inventario
+* Módulo de entradas de inventario operativo (crear, clonar y anular movimientos con ajuste de stock)
+* Base inicial del módulo de ventas
 * Modelo de datos relacional implementado
 * Arquitectura MVC + MVVM integrada
 
 Actualmente se completó la primera fase del módulo de inventario, enfocada en la construcción de catálogos
 y estructura de entidades para soportar futuras operaciones de stock, ventas y arqueo.
+
+---
+
+## Reglas de negocio y validaciones
+
+### Personas
+
+* Las personas naturales requieren nombres, apellidos y fecha de nacimiento obligatorios.
+* Las personas jurídicas (comerciales) requieren nombre comercial obligatorio.
+* La fecha de nacimiento no puede ser posterior a la fecha actual.
+* No se permiten nombres duplicados: las coincidencias se detectan ignorando mayúsculas/minúsculas, acentos, comas y espacios extra.
+* Las identificaciones deben ser únicas: no puede asignarse a una persona una identificación que ya pertenece a otra.
+* El cliente por defecto (Id = 1) no puede editarse ni eliminarse.
+* No se puede eliminar una persona que esté siendo utilizada por otros registros.
+
+### Entradas de inventario
+
+* Toda entrada requiere un proveedor válido.
+* Los detalles de entrada requieren producto, cantidad y precio mayores que cero.
+* Al crear una entrada se genera automáticamente su numeración y se incrementa el stock de los productos inventariables.
+* Anular una entrada marca el registro como inactivo, registra el motivo de anulación y descuenta el stock de los productos inventariables.
 
 ---
 
@@ -113,14 +142,17 @@ y estructura de entidades para soportar futuras operaciones de stock, ventas y a
   git clone https://github.com/lcd97/WA_StoreControl.git
   ```
 2. Abrir el proyecto en Visual Studio
-3. Configurar la cadena de conexión en `Web.config`
-4. Ejecutar migraciones (si aplica)
-5. Ejecutar el proyecto (IIS Express)
+3. Restaurar los paquetes NuGet de la solución
+4. Configurar la cadena de conexión en `Web.config`
+5. Ejecutar migraciones (si aplica)
+6. Ejecutar el proyecto (IIS Express)
+7. Opcional: ejecutar las pruebas unitarias desde el Explorador de pruebas de Visual Studio (ver [Pruebas unitarias](#pruebas-unitarias))
 ---
 
 ## Configuración
 
 * Configurar conexión a SQL Server en `Web.config`
+* Definir el punto de emisión en `Web.config` mediante la clave `PuntoEmision`, utilizada para generar la numeración de las entradas de inventario
 * No incluir credenciales reales en el repositorio
 * Se recomienda usar archivos de configuración separados para entorno local
 * Se recomienda ejecutar las semillas creadas por medio de las migraciones por valores por defecto que se usan
@@ -155,16 +187,52 @@ GO
 
 ## Estructura del proyecto
 
+La solución está compuesta por tres proyectos:
+
 ```plaintext
-Controllers/
-DTO/
-Models/
-Views/
-Scripts/
-Services/
-Content/
-Scripts/
-ViewModels/
+WA_StoreControl/            Aplicación web ASP.NET MVC
+├── Controllers/            Controladores
+├── Services/               Lógica de negocio por entidad
+├── ViewModels/             ViewModels de las vistas
+├── DTO/                    Objetos de transferencia de datos
+├── Utilidades/             Helpers, resultados comunes y servicios base
+├── Views/
+├── Scripts/
+└── Content/
+
+ModelosDB/                  Proyecto de modelos y acceso a datos
+├── General/                Personas, identidades, teléfonos
+├── Inventario/             Categorías, productos, marcas, entradas
+├── Venta/                  Productos de venta
+├── Interfaces/
+└── Migrations/             Migraciones y semillas de Entity Framework
+
+WA_StoreControl.Tests/      Pruebas unitarias (MSTest)
+```
+
+---
+
+## Pruebas unitarias
+
+El proyecto `WA_StoreControl.Tests` contiene las pruebas unitarias de la solución, desarrolladas con **MSTest v2**.
+
+* Se prueban los controladores directamente junto con sus servicios; cuando es necesario aislar la lógica de validación, se utilizan servicios simulados definidos en `TestDoubles.cs`.
+* Las validaciones de modelo se verifican aplicando Data Annotations sobre el `ModelState`.
+* Los resultados se validan sobre el `JsonResult` devuelto por las acciones (`Success` y `Message`).
+
+Cobertura actual:
+
+* **Categorías:** ModelState, estructura del código, duplicados y eliminación de registros en uso.
+* **Subcategorías y Marcas:** ModelState, duplicados ignorando mayúsculas/minúsculas y acentos, registros predeterminados protegidos y eliminación de registros en uso.
+* **Productos:** ModelState, estructura del código, reglas de stock e inventariables, duplicados y eliminación de registros en uso.
+* **Tipos de identificación y Compañías telefónicas:** ModelState, descripción obligatoria, longitud, duplicados y eliminación de registros en uso.
+* **Personas:** validaciones para personas naturales y jurídicas (nombres, nombre comercial y fecha de nacimiento), longitudes máximas y normalización de nombres para coincidencias (ignora mayúsculas/minúsculas, acentos, comas y espacios extra).
+* **Entradas:** proveedor obligatorio, validez de los detalles de productos (producto, cantidad y precio) y preparación de la pantalla crear/clonar.
+
+Para ejecutarlas: abrir la solución en Visual Studio y usar el **Explorador de pruebas**, o por línea de comandos:
+
+```bash
+vstest.console.exe WA_StoreControl.Tests\bin\Debug\WA_StoreControl.Tests.dll
 ```
 
 ---
