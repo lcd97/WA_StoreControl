@@ -14,9 +14,9 @@
                     <th>
                         @Html.DisplayName("Producto")
                     </th>
-                    <th>
-                        @Html.DisplayName("Precio de Venta")
-                    </th>
+                    <th>@Html.DisplayName("Precio de Venta")</th>
+                    <th>@Html.DisplayName("Precio de Mayor")</th>
+                    <th>@Html.DisplayName("Precio de Descuento")</th>
                     <th>
                         @Html.DisplayName("Estado")
                     </th>
@@ -28,7 +28,9 @@
                     <td class="text-center align-middle fw-bold" data-bind="text: ((($parent.SearchViewModel().Page() - 1) * $parent.SearchViewModel().RecordsPerPage()) + $index() + 1)"></td>
 
                     <td class="align-middle" data-bind="text:Nombre"></td>
-                    <td class="align-middle" data-bind="text:PrecioVenta"></td>
+                    <td class="align-middle" data-bind="text:'C$ ' + PrecioVentaText()"></td>
+                    <td class="align-middle" data-bind="text:'C$ ' + PrecioMayorText()"></td>
+                    <td class="align-middle" data-bind="text:'C$ ' + PrecioDescuentoText()"></td>
                     <td class="align-middle">
                         <span data-bind="css: EsActivo() ? 'badge text-bg-success' : 'badge text-bg-warning',
                     text: EsActivo() ? 'Activo' : 'Inactivo'"></span>

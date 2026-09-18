@@ -4,8 +4,8 @@
         const self = this;
 
         self.Id = ko.observable(data.Id || 0);
-        self.Nombre = ko.observable(data.Nombre || "");
-        self.Descripcion = ko.observable(data.Descripcion || "");
+        self.Nombre = ko.observable(data.Nombre || "").extend({ onlyUpperCase: true });
+        self.Descripcion = ko.observable(data.Descripcion || "").extend({ onlyUpperCase: true });
         self.PrecioVenta = ko.observable(data.PrecioVenta || 0);
         self.PrecioMayor = ko.observable(data.PrecioMayor || 0);
         self.PrecioDescuento = ko.observable(data.PrecioDescuento || 0);
@@ -15,6 +15,18 @@
 
         self.DetallesProductoVenta = ko.observableArray(data.DetallesProductoVenta ?
             data.DetallesProductoVenta.map(x => new DetalleProductoVenta(x)) : []);
+
+        self.PrecioVentaText = ko.pureComputed(() => {
+            return formato.format(parseFloat(self.PrecioVenta()) ?? 0);
+        });
+
+        self.PrecioMayorText = ko.pureComputed(() => {
+            return formato.format(parseFloat(self.PrecioMayor()) ?? 0);
+        });
+
+        self.PrecioDescuentoText = ko.pureComputed(() => {
+            return formato.format(parseFloat(self.PrecioDescuento()) ?? 0);
+        });
     }
 }
 

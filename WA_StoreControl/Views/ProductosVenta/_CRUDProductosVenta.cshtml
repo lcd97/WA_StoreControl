@@ -65,7 +65,7 @@
                 <div class="row mb-2">
                     <div class="col-6">
                         @Html.LabelFor(model => model.Nombre)
-                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Nombre" } })
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control text-uppercase", data_bind = "value: Nombre" } })
                         @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
                     </div>
 
@@ -114,7 +114,7 @@
                         @Html.LabelFor(model => model.Descripcion)
                         @Html.TextAreaFor(model => model.Descripcion, new
                         {
-                            @class = "form-control",
+                            @class = "form-control text-uppercase",
                             rows = "3",
                             cols = "50",
                             data_bind = "value: Descripcion"
