@@ -14,6 +14,7 @@ namespace WA_StoreControl.DTO
         public double PrecioMayor { get; set; }
         public double PrecioDescuento { get; set; }
         public bool EsActivo { get; set; }
+        public bool EsDescuentoActivo { get; set; }
 
         public string FechaInicio { get; set; }
         public string FechaFin { get; set; }

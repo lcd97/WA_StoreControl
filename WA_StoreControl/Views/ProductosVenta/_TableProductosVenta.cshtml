@@ -17,9 +17,8 @@
                     <th>@Html.DisplayName("Precio de Venta")</th>
                     <th>@Html.DisplayName("Precio de Mayor")</th>
                     <th>@Html.DisplayName("Precio de Descuento")</th>
-                    <th>
-                        @Html.DisplayName("Estado")
-                    </th>
+                    <th>@Html.DisplayName("Descuento")</th>
+                    <th>@Html.DisplayName("Estado")</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -31,6 +30,10 @@
                     <td class="align-middle" data-bind="text:'C$ ' + PrecioVentaText()"></td>
                     <td class="align-middle" data-bind="text:'C$ ' + PrecioMayorText()"></td>
                     <td class="align-middle" data-bind="text:'C$ ' + PrecioDescuentoText()"></td>
+                    <td class="align-middle">
+                        <span data-bind="css: EsDescuentoActivo() ? 'badge text-bg-success' : 'badge text-bg-warning',
+                    text: EsDescuentoActivo() ? 'Con Descuento' : 'Sin Descuento'"></span>
+                    </td>
                     <td class="align-middle">
                         <span data-bind="css: EsActivo() ? 'badge text-bg-success' : 'badge text-bg-warning',
                     text: EsActivo() ? 'Activo' : 'Inactivo'"></span>

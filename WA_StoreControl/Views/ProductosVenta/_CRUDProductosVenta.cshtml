@@ -69,7 +69,15 @@
                         @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="col-6 d-flex justify-content-center align-items-center">
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                        <div class="form-check form-switch">
+                            @Html.CheckBoxFor(model => model.EsDescuentoActivo, new { @class = "form-check-input", data_bind = "checked: EsDescuentoActivo" })
+                            @Html.LabelFor(model => model.EsDescuentoActivo)
+                        </div>
+                        @Html.ValidationMessageFor(model => model.EsActivo, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-3 d-flex justify-content-center align-items-center">
                         <div class="form-check form-switch">
                             @Html.CheckBoxFor(model => model.EsActivo, new { @class = "form-check-input", data_bind = "checked: EsActivo" })
                             @Html.LabelFor(model => model.EsActivo)

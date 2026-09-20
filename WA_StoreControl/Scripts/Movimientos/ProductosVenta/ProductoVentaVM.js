@@ -12,6 +12,7 @@
         self.FechaInicio = ko.observable(data.FechaInicio || new Date().toLocaleDateString('es-ES'));
         self.FechaFin = ko.observable(data.FechaFin || new Date().toLocaleDateString('es-ES'));
         self.EsActivo = ko.observable(typeof (data.EsActivo) == "boolean" ? data.EsActivo : true);
+        self.EsDescuentoActivo = ko.observable(typeof (data.EsDescuentoActivo) == "boolean" ? data.EsDescuentoActivo : true);
 
         self.DetallesProductoVenta = ko.observableArray(data.DetallesProductoVenta ?
             data.DetallesProductoVenta.map(x => new DetalleProductoVenta(x)) : []);
