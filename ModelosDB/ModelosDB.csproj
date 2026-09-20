@@ -83,8 +83,15 @@
     <Compile Include="Migrations\202607262203266_AddFechaProductosVenta.Designer.cs">
       <DependentUpon>202607262203266_AddFechaProductosVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202609201514018_moduloVentas.cs" />
+    <Compile Include="Migrations\202609201514018_moduloVentas.Designer.cs">
+      <DependentUpon>202609201514018_moduloVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Venta\DetalleProductoVenta.cs" />
+    <Compile Include="Venta\DetalleVenta.cs" />
     <Compile Include="Venta\ProductoVenta.cs" />
+    <Compile Include="Venta\TipoPrecio.cs" />
+    <Compile Include="Venta\Venta.cs" />
     <Compile Include="Inventario\DetalleEntrada.cs" />
     <Compile Include="Inventario\Entrada.cs" />
     <Compile Include="Inventario\Marca.cs" />
@@ -193,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202607262203266_AddFechaProductosVenta.resx">
       <DependentUpon>202607262203266_AddFechaProductosVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202609201514018_moduloVentas.resx">
+      <DependentUpon>202609201514018_moduloVentas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

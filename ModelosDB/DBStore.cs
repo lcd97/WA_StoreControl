@@ -34,6 +34,8 @@ namespace ModelosDB
         //VENTAS
         public virtual DbSet<ProductoVenta> ProductosVenta { get; set; }
         public virtual DbSet<DetalleProductoVenta> DetallesProductoVenta { get; set; }
+        public virtual DbSet<ModelosDB.Venta.Venta> Ventas { get; set; }
+        public virtual DbSet<DetalleVenta> DetallesVenta { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

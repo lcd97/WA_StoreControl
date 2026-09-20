@@ -55,6 +55,9 @@ namespace ModelosDB.Venta
         [DataType(DataType.DateTime)]
         public DateTime FechaFin { get; set; }
 
+        [Display(Name = "Descuento activo")]
+        public bool EsDescuentoActivo { get; set; }
+
         public virtual ICollection<DetalleProductoVenta> DetallesProductoVenta { get; set; }
     }
 }
